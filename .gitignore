@@ -6,6 +6,7 @@
 .devserver.log
 .devserver.err.log
 .devserver.pid
+.openai/*.tar.gz
 /.pnp
 .pnp.*
 .yarn/*
