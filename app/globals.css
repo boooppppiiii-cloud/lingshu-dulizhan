@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #f7faf8;
+}
+
+body {
+  color: #07110c;
+  font-family: Manrope, Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+.stitch-screen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #f7faf8;
+}
