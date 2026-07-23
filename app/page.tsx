@@ -133,6 +133,17 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+        <div className="hero-mascot" data-reveal>
+          <img
+            src="/lingxiaoshu-wave.png"
+            alt="灵小枢，灵枢 AI 品牌助手"
+          />
+          <div className="mascot-dialog">
+            <span>LINGXIAOSHU</span>
+            <strong>你好，我是灵小枢</strong>
+            <p>陪你把内容变成客户。</p>
+          </div>
+        </div>
         <div className="scroll-cue" aria-hidden="true">
           <span />
           SCROLL TO EXPLORE

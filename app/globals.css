@@ -152,11 +152,12 @@ main {
 }
 
 .section-heading {
-  max-width: 760px;
+  max-width: 880px;
   margin-bottom: 58px;
 }
 
 .section-heading.align-center {
+  max-width: 1080px;
   margin-right: auto;
   margin-left: auto;
   text-align: center;
@@ -164,6 +165,12 @@ main {
 
 .section-heading.align-center .eyebrow {
   justify-content: center;
+}
+
+.section-heading.align-center h2,
+.section-heading.align-center p {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section-heading h2,
@@ -178,6 +185,7 @@ main {
   font-weight: 760;
   letter-spacing: -0.045em;
   line-height: 1.08;
+  text-wrap: balance;
 }
 
 .section-heading p,
@@ -190,6 +198,7 @@ main {
   color: var(--muted);
   font-size: 18px;
   line-height: 1.8;
+  text-wrap: pretty;
 }
 
 .button {
@@ -311,36 +320,12 @@ main {
   letter-spacing: -0.03em;
 }
 
-.brand-mark {
-  position: relative;
-  display: inline-flex;
-  width: 28px;
-  height: 28px;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 3px;
-  padding: 5px;
-  overflow: hidden;
-  border-radius: 9px;
-  background: var(--ink);
-}
-
-.brand-mark i {
-  width: 4px;
-  border-radius: 4px 4px 1px 1px;
-  background: var(--green);
-}
-
-.brand-mark i:nth-child(1) {
-  height: 8px;
-}
-
-.brand-mark i:nth-child(2) {
-  height: 17px;
-}
-
-.brand-mark i:nth-child(3) {
-  height: 12px;
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 10px rgba(34, 197, 94, 0.16));
 }
 
 .desktop-nav {
@@ -689,6 +674,7 @@ main {
   font-weight: 790;
   letter-spacing: -0.065em;
   line-height: 0.98;
+  text-wrap: balance;
 }
 
 .hero-copy h1 span {
@@ -706,6 +692,7 @@ main {
   color: #536158;
   font-size: 18px;
   line-height: 1.86;
+  text-wrap: pretty;
 }
 
 .hero-actions {
@@ -785,6 +772,70 @@ main {
   right: -22px;
   bottom: 17%;
   animation: status-float 6s ease-in-out 1s infinite;
+}
+
+.hero-mascot {
+  position: absolute;
+  z-index: 3;
+  right: max(24px, calc((100vw - var(--container)) / 2 - 18px));
+  bottom: 58px;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.hero-mascot img {
+  position: relative;
+  z-index: 1;
+  width: clamp(150px, 12vw, 210px);
+  height: auto;
+  filter: drop-shadow(0 24px 34px rgba(7, 17, 12, 0.16));
+  transform-origin: 50% 85%;
+  animation: mascot-wave-float 5.5s ease-in-out infinite;
+}
+
+.mascot-dialog {
+  display: grid;
+  min-width: 190px;
+  gap: 2px;
+  margin: 0 0 42px -14px;
+  padding: 13px 18px 14px 25px;
+  border: 1px solid rgba(34, 197, 94, 0.16);
+  border-radius: 6px 18px 18px 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 50px rgba(7, 17, 12, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.mascot-dialog span {
+  color: var(--green-dark);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.mascot-dialog strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.mascot-dialog p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+@keyframes mascot-wave-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
 }
 
 .dot-social {
@@ -2743,6 +2794,15 @@ main {
     max-width: 800px;
   }
 
+  .hero-mascot {
+    right: 22px;
+    bottom: 22px;
+  }
+
+  .hero-mascot img {
+    width: 160px;
+  }
+
   .story-sticky {
     position: relative;
     top: auto;
@@ -2834,7 +2894,9 @@ main {
   .handoff-section h2,
   .attribution-section h2,
   .booking-grid h2 {
-    font-size: 40px;
+    font-size: clamp(34px, 10.5vw, 40px);
+    letter-spacing: -0.04em;
+    line-height: 1.12;
   }
 
   .hero-actions {
@@ -2888,6 +2950,19 @@ main {
   }
 
   .hero-status {
+    display: none;
+  }
+
+  .hero-mascot {
+    right: 12px;
+    bottom: 16px;
+  }
+
+  .hero-mascot img {
+    width: 118px;
+  }
+
+  .mascot-dialog {
     display: none;
   }
 

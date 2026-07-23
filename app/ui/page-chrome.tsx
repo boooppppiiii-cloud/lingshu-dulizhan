@@ -20,11 +20,7 @@ const navLinks = [
 function Logo() {
   return (
     <Link className="brand" href="/" aria-label="灵枢 AI 首页">
-      <span className="brand-mark" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </span>
+      <img className="brand-logo" src="/brand-logo-v2.png" alt="" />
       <span>灵枢 AI</span>
     </Link>
   );

@@ -10,12 +10,31 @@ export const metadata: Metadata = {
   },
   description:
     "灵枢 AI 帮助外贸与跨境团队发现社媒机会、生成并多平台发布内容、追踪 WhatsApp 询盘来源，并通过可控的 AI 客服完成接待、筛选与跟进。",
+  icons: {
+    icon: "/brand-logo-v2.png",
+    shortcut: "/brand-logo-v2.png",
+    apple: "/brand-logo-v2.png",
+  },
   openGraph: {
     title: "灵枢 AI｜从一条内容，到一笔生意",
     description:
       "把社媒获客、询盘归因、AI 接待与销售跟进连成一条增长链路。",
     type: "website",
     locale: "zh_CN",
+    images: [
+      {
+        url: "/og.png",
+        width: 1734,
+        height: 907,
+        alt: "灵枢 AI：从一条内容，到一笔生意",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "灵枢 AI｜从一条内容，到一笔生意",
+    description: "连接社媒获客、询盘归因、AI 接待与销售跟进。",
+    images: ["/og.png"],
   },
 };
 
