@@ -8,6 +8,15 @@ import { InteractiveHeroField } from "./ui/interactive-hero-field";
 
 const loopSteps = ["趋势", "创作", "发布", "询盘", "接待", "跟进", "洞察"];
 
+const platforms = [
+  { id: "youtube", name: "YouTube" },
+  { id: "tiktok", name: "TikTok" },
+  { id: "instagram", name: "Instagram" },
+  { id: "facebook", name: "Facebook" },
+  { id: "whatsapp", name: "WhatsApp" },
+  { id: "shopify", name: "Shopify" },
+] as const;
+
 const socialScenes = [
   {
     index: "01",
@@ -86,17 +95,11 @@ export default function HomePage() {
         <div className="hero-grid-lines" aria-hidden="true" />
         <div className="container home-hero-grid">
           <div className="hero-copy" data-reveal>
-            <span className="eyebrow">出海企业的 AI 增长工作台</span>
             <h1>
               从一条内容，
               <br />
               <span>到一笔生意</span>
             </h1>
-            <p>
-              发现海外社媒机会，AI
-              生成并发布内容，精准追踪每一条询盘；再由懂你产品与规则的 AI
-              客服，完成接待、筛选和持续跟进。
-            </p>
             <div className="hero-actions">
               <Link
                 className="button button-primary"
@@ -108,14 +111,6 @@ export default function HomePage() {
               <a className="button button-ghost" href="#growth-loop">
                 观看 90 秒演示
               </a>
-            </div>
-            <div className="hero-trust">
-              <span>支持接入</span>
-              <strong>YouTube</strong>
-              <strong>TikTok</strong>
-              <strong>Instagram</strong>
-              <strong>Facebook</strong>
-              <strong>WhatsApp</strong>
             </div>
           </div>
           <div className="hero-visual" data-reveal>
@@ -145,11 +140,15 @@ export default function HomePage() {
         <div className="container platform-band-inner">
           <p>一套工作台，连接内容与客户</p>
           <div className="platform-marquee" aria-label="支持接入的平台">
-            {["YouTube", "TikTok", "Instagram", "Facebook", "WhatsApp", "Shopify"].map(
-              (platform) => (
-                <span key={platform}>{platform}</span>
-              ),
-            )}
+            {platforms.map((platform) => (
+              <span
+                className={`platform-logo platform-${platform.id}`}
+                aria-label={platform.name}
+                role="img"
+                title={platform.name}
+                key={platform.id}
+              />
+            ))}
           </div>
         </div>
       </section>

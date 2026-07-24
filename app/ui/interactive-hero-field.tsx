@@ -61,19 +61,9 @@ export function InteractiveHeroField() {
     const items = Array.from(
       field.querySelectorAll<HTMLElement>(".ai-hover-item"),
     );
-    const ripples = Array.from(
-      field.querySelectorAll<HTMLElement>(".hover-ripple-trail"),
-    );
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
     let rect = hero.getBoundingClientRect();
     let pointerX = rect.width * 0.5;
     let pointerY = rect.height * 0.46;
-    let rippleIndex = 0;
-    let lastRippleX = Number.NaN;
-    let lastRippleY = Number.NaN;
-    let lastRippleAt = 0;
 
     const paint = () => {
       const xRatio = pointerX / rect.width;
@@ -90,7 +80,7 @@ export function InteractiveHeroField() {
           (yRatio * 100 - item.y) * 0.92,
         );
         const proximity = Math.max(0, Math.min(1, 1 - distance / 42));
-        const opacity = Math.pow(proximity, 1.35) * 0.58;
+        const opacity = Math.pow(proximity, 1.45) * 0.46;
         const driftX = (xRatio - item.x / 100) * -14;
         const driftY = (yRatio - item.y / 100) * -10;
 
@@ -100,51 +90,6 @@ export function InteractiveHeroField() {
       });
 
       frameRef.current = null;
-    };
-
-    const emitRipple = () => {
-      if (reduceMotion || ripples.length === 0) return;
-
-      const now = performance.now();
-      const distance = Math.hypot(
-        pointerX - lastRippleX,
-        pointerY - lastRippleY,
-      );
-
-      if (
-        Number.isFinite(lastRippleX) &&
-        (now - lastRippleAt < 90 || distance < 34)
-      ) {
-        return;
-      }
-
-      const ripple = ripples[rippleIndex];
-      rippleIndex = (rippleIndex + 1) % ripples.length;
-      lastRippleX = pointerX;
-      lastRippleY = pointerY;
-      lastRippleAt = now;
-
-      ripple.getAnimations().forEach((animation) => animation.cancel());
-      ripple.style.left = `${pointerX}px`;
-      ripple.style.top = `${pointerY}px`;
-      ripple.animate(
-        [
-          {
-            opacity: 0.44,
-            transform:
-              "translate3d(-50%, -50%, 0) scale(0.16) rotate(-8deg)",
-          },
-          {
-            opacity: 0,
-            transform: "translate3d(-50%, -50%, 0) scale(1) rotate(10deg)",
-          },
-        ],
-        {
-          duration: 1050,
-          easing: "cubic-bezier(0.16, 0.72, 0.28, 1)",
-          fill: "forwards",
-        },
-      );
     };
 
     const updatePointer = (event: PointerEvent) => {
@@ -160,7 +105,6 @@ export function InteractiveHeroField() {
       if (frameRef.current === null) {
         frameRef.current = window.requestAnimationFrame(paint);
       }
-      emitRipple();
 
       if (event.pointerType === "touch") {
         if (touchTimerRef.current !== null) {
@@ -220,9 +164,7 @@ export function InteractiveHeroField() {
       aria-hidden="true"
     >
       <div className="hover-distortion" />
-      {Array.from({ length: 4 }, (_, index) => (
-        <i className="hover-ripple-trail" key={`ripple-${index}`} />
-      ))}
+      <div className="hover-dot-field" />
 
       {hoverItems.map((item) => {
         const itemStyle = {
