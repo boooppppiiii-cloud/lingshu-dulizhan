@@ -317,6 +317,9 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+          <Link className="text-link" href="/strategy">
+            查看 AI 智囊完整能力 <span>↗</span>
+          </Link>
         </div>
       </section>
 

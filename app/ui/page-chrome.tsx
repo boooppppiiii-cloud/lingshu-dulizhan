@@ -5,10 +5,24 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const productLinks = [
-  { href: "/social", title: "社媒增长", note: "洞察、创作、发布与归因" },
-  { href: "/ai-service", title: "智能客服", note: "接待、分级、交接与跟进" },
-  { href: "/crm", title: "客户管理", note: "即将上线", disabled: true },
-  { href: "/strategy", title: "AI 智囊", note: "即将上线", disabled: true },
+  {
+    index: "01",
+    href: "/social",
+    title: "社媒增长",
+    note: "洞察、创作、发布与归因",
+  },
+  {
+    index: "02",
+    href: "/ai-service",
+    title: "智能客服",
+    note: "接待、分级、交接与跟进",
+  },
+  {
+    index: "03",
+    href: "/strategy",
+    title: "AI 智囊",
+    note: "多模型协同与经营决策",
+  },
 ];
 
 const navLinks = [
@@ -31,11 +45,6 @@ function Header() {
   const [open, setOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
 
-  useEffect(() => {
-    setOpen(false);
-    setProductOpen(false);
-  }, [pathname]);
-
   return (
     <header className="site-header">
       <div className="nav-shell">
@@ -54,19 +63,22 @@ function Header() {
               产品 <span aria-hidden="true">⌄</span>
             </button>
             <div className={`product-menu ${productOpen ? "is-open" : ""}`}>
-              {productLinks.map((item) =>
-                item.disabled ? (
-                  <span className="product-link is-disabled" key={item.href}>
+              {productLinks.map((item) => (
+                <Link
+                  className={`product-link ${pathname === item.href ? "is-active" : ""}`}
+                  href={item.href}
+                  key={item.href}
+                >
+                  <span className="product-link-index">{item.index}</span>
+                  <span className="product-link-copy">
                     <strong>{item.title}</strong>
                     <small>{item.note}</small>
                   </span>
-                ) : (
-                  <Link className="product-link" href={item.href} key={item.href}>
-                    <strong>{item.title}</strong>
-                    <small>{item.note}</small>
-                  </Link>
-                ),
-              )}
+                  <span className="product-link-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
           {navLinks.map((item) => (
@@ -100,17 +112,11 @@ function Header() {
       </div>
       <div className={`mobile-panel ${open ? "is-open" : ""}`}>
         <p className="eyebrow">产品</p>
-        {productLinks.map((item) =>
-          item.disabled ? (
-            <span className="mobile-link is-disabled" key={item.href}>
-              {item.title} <small>{item.note}</small>
-            </span>
-          ) : (
-            <Link className="mobile-link" href={item.href} key={item.href}>
-              {item.title} <span>↗</span>
-            </Link>
-          ),
-        )}
+        {productLinks.map((item) => (
+          <Link className="mobile-link" href={item.href} key={item.href}>
+            {item.title} <span>↗</span>
+          </Link>
+        ))}
         <div className="mobile-divider" />
         {navLinks.map((item) => (
           <Link className="mobile-link" href={item.href} key={item.href}>
@@ -140,6 +146,7 @@ function Footer() {
           <strong>产品</strong>
           <Link href="/social">社媒增长</Link>
           <Link href="/ai-service">智能客服</Link>
+          <Link href="/strategy">AI 智囊</Link>
           <Link href="/integrations">平台集成</Link>
         </div>
         <div>
@@ -184,7 +191,7 @@ export function PageChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header />
+      <Header key={pathname} />
       <div className="page-transition" key={pathname}>
         {children}
       </div>
