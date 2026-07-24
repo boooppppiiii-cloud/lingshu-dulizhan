@@ -10,31 +10,37 @@ export const metadata: Metadata = {
 
 const models = [
   {
+    id: "openai",
     name: "OpenAI",
     role: "复杂推理与结构化生成",
     tag: "REASONING",
   },
   {
+    id: "gemini",
     name: "Gemini",
     role: "多模态理解与长上下文",
     tag: "MULTIMODAL",
   },
   {
+    id: "claude",
     name: "Claude",
     role: "长文档与细腻表达",
     tag: "LONG CONTEXT",
   },
   {
+    id: "deepseek",
     name: "DeepSeek",
     role: "深度推理与高效执行",
     tag: "DEEP THINKING",
   },
   {
+    id: "qwen",
     name: "Qwen",
     role: "中文商业与任务执行",
     tag: "BUSINESS CN",
   },
   {
+    id: "llama",
     name: "Llama",
     role: "灵活部署与定制能力",
     tag: "CUSTOM",
@@ -77,8 +83,9 @@ export default function StrategyPage() {
           <div className="strategy-hero-copy" data-reveal>
             <span className="eyebrow">AI BUSINESS COPILOT</span>
             <h1>
-              不只是一个模型，
-              <span>更是一支懂生意的 AI 智囊团</span>
+              <span className="strategy-title-line">不只是一个模型</span>
+              <span className="strategy-title-accent">更是一支懂客户、</span>
+              <span className="strategy-title-accent">懂生意的 AI 智囊团</span>
             </h1>
             <p>
               灵枢按任务调度多个主流大模型，再把客户上下文、企业知识和经营目标放进同一次判断里。
@@ -114,9 +121,16 @@ export default function StrategyPage() {
             </div>
             <div className="model-rail" aria-label="已接入的大模型">
               {models.map((model) => (
-                <div className="model-node" key={model.name}>
-                  <i>{model.name.slice(0, 1)}</i>
-                  <span>
+                <div
+                  className={`model-node model-node-${model.id}`}
+                  key={model.name}
+                >
+                  <span
+                    className={`model-logo model-logo-${model.id}`}
+                    aria-label={`${model.name} Logo`}
+                    role="img"
+                  />
+                  <span className="model-node-copy">
                     <strong>{model.name}</strong>
                     <small>{model.tag}</small>
                   </span>
@@ -146,6 +160,11 @@ export default function StrategyPage() {
               <article className="model-card" data-reveal key={model.name}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <small>{model.tag}</small>
+                <div
+                  className={`model-logo model-card-logo model-logo-${model.id}`}
+                  aria-label={`${model.name} Logo`}
+                  role="img"
+                />
                 <h3>{model.name}</h3>
                 <p>{model.role}</p>
                 <i>已接入</i>

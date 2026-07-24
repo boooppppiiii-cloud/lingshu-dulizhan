@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const productLinks = [
   {
@@ -44,6 +44,27 @@ function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
+  const productMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const closeOnOutsidePress = (event: PointerEvent) => {
+      if (!productMenuRef.current?.contains(event.target as Node)) {
+        setProductOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setProductOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePress);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
 
   return (
     <header className="site-header">
@@ -52,22 +73,31 @@ function Header() {
         <nav className="desktop-nav" aria-label="主导航">
           <div
             className="nav-dropdown"
-            onMouseEnter={() => setProductOpen(true)}
-            onMouseLeave={() => setProductOpen(false)}
+            ref={productMenuRef}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                setProductOpen(false);
+              }
+            }}
           >
             <button
               type="button"
               aria-expanded={productOpen}
+              aria-controls="product-menu"
               onClick={() => setProductOpen((value) => !value)}
             >
               产品 <span aria-hidden="true">⌄</span>
             </button>
-            <div className={`product-menu ${productOpen ? "is-open" : ""}`}>
+            <div
+              className={`product-menu ${productOpen ? "is-open" : ""}`}
+              id="product-menu"
+            >
               {productLinks.map((item) => (
                 <Link
                   className={`product-link ${pathname === item.href ? "is-active" : ""}`}
                   href={item.href}
                   key={item.href}
+                  onClick={() => setProductOpen(false)}
                 >
                   <span className="product-link-index">{item.index}</span>
                   <span className="product-link-copy">
