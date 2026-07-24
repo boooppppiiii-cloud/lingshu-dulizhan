@@ -806,60 +806,96 @@ main {
   pointer-events: none;
 }
 
-.hover-light-soft,
-.hover-raster {
+.hover-distortion {
   position: absolute;
   top: 0;
   left: 0;
-  width: 500px;
-  height: 500px;
+  width: 460px;
+  height: 460px;
   border: 0;
-  border-radius: 50%;
   opacity: 0;
   pointer-events: none;
   transform: translate3d(var(--pointer-x), var(--pointer-y), 0)
     translate3d(-50%, -50%, 0);
-  transition: opacity 130ms ease-out;
+  transition: opacity 150ms ease-out;
   will-change: opacity, transform;
 }
 
-.hover-light-soft {
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(134, 247, 179, 0.24) 24%,
-    rgba(34, 197, 94, 0.095) 44%,
-    rgba(34, 197, 94, 0.025) 61%,
-    transparent 74%
+.hover-distortion {
+  background-image:
+    linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.075) 1px, transparent 1px),
+    linear-gradient(
+      118deg,
+      transparent 18%,
+      rgba(34, 197, 94, 0.055) 42%,
+      rgba(6, 182, 212, 0.035) 58%,
+      transparent 78%
+    );
+  background-position:
+    7px -5px,
+    7px -5px,
+    0 0;
+  background-size:
+    33px 33px,
+    33px 33px,
+    100% 100%;
+  mix-blend-mode: multiply;
+  mask-image: radial-gradient(
+    ellipse 52% 47% at 48% 51%,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.72) 36%,
+    rgba(0, 0, 0, 0.28) 60%,
+    transparent 82%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 52% 47% at 48% 51%,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.72) 36%,
+    rgba(0, 0, 0, 0.28) 60%,
+    transparent 82%
   );
 }
 
-.interactive-hero-field.is-active .hover-light-soft {
-  opacity: 1;
+.interactive-hero-field.is-active .hover-distortion {
+  opacity: 0.46;
 }
 
-.hover-raster {
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.09) 0 1px,
-    rgba(7, 17, 12, 0.025) 1px 32px
+.hover-ripple-trail {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 24deg,
+    transparent 0 12%,
+    rgba(34, 197, 94, 0.34) 18%,
+    transparent 29% 45%,
+    rgba(6, 182, 212, 0.14) 52%,
+    rgba(34, 197, 94, 0.24) 59%,
+    transparent 70% 84%,
+    rgba(34, 197, 94, 0.18) 89%,
+    transparent 97%
   );
   mask-image: radial-gradient(
     circle,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.54) 38%,
-    transparent 72%
+    transparent 52%,
+    #000 56%,
+    rgba(0, 0, 0, 0.68) 60%,
+    transparent 65%
   );
   -webkit-mask-image: radial-gradient(
     circle,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.54) 38%,
-    transparent 72%
+    transparent 52%,
+    #000 56%,
+    rgba(0, 0, 0, 0.68) 60%,
+    transparent 65%
   );
-}
-
-.interactive-hero-field.is-active .hover-raster {
-  opacity: 0.32;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.18);
+  pointer-events: none;
+  will-change: opacity, transform;
 }
 
 .ai-hover-item {
@@ -881,26 +917,11 @@ main {
   width: clamp(82px, 7vw, 112px);
   aspect-ratio: 1;
   flex: 0 0 auto;
-  background-image: url("/lingxiaoshu-emotions.png");
-  background-position-y: center;
+  opacity: 0.74;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 400% auto;
-}
-
-.face-0 {
-  background-position-x: 0%;
-}
-
-.face-1 {
-  background-position-x: 33.333%;
-}
-
-.face-2 {
-  background-position-x: 66.667%;
-}
-
-.face-3 {
-  background-position-x: 100%;
+  background-size: contain;
+  user-select: none;
 }
 
 .ai-hover-bubble {
@@ -908,7 +929,7 @@ main {
   align-items: center;
   gap: 7px;
   min-height: 34px;
-  margin-left: -18px;
+  margin-left: 6px;
   padding: 8px 12px;
   border: 0;
   border-radius: 5px 14px 14px;
@@ -938,7 +959,7 @@ main {
 }
 
 .side-right .ai-hover-bubble {
-  margin-right: -18px;
+  margin-right: 6px;
   margin-left: 0;
   border-radius: 14px 5px 14px 14px;
 }
