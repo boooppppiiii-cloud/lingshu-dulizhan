@@ -775,105 +775,91 @@ main {
 }
 
 .interactive-hero-field {
-  --pointer-x: 50%;
-  --pointer-y: 46%;
-  --field-active: 0;
+  --pointer-x: 50vw;
+  --pointer-y: 46vh;
   position: absolute;
-  z-index: 3;
+  z-index: 1;
   inset: 0;
+  contain: strict;
   overflow: hidden;
   pointer-events: none;
-  isolation: isolate;
 }
 
 .home-hero .hero-copy {
   position: relative;
   z-index: 4;
+  isolation: isolate;
 }
 
-.hover-light {
+.home-hero .hero-copy::before {
   position: absolute;
-  top: var(--pointer-y);
-  left: var(--pointer-x);
-  border-radius: 50%;
-  opacity: calc(var(--field-active) * 1);
+  z-index: -1;
+  inset: -64px -88px -74px -64px;
+  background: radial-gradient(
+    ellipse at 45% 50%,
+    rgba(247, 252, 249, 0.98) 0%,
+    rgba(247, 252, 249, 0.94) 54%,
+    rgba(247, 252, 249, 0.72) 72%,
+    rgba(247, 252, 249, 0) 100%
+  );
+  content: "";
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: opacity 260ms ease;
+}
+
+.hover-light-soft,
+.hover-raster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  border: 0;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(var(--pointer-x), var(--pointer-y), 0)
+    translate3d(-50%, -50%, 0);
+  transition: opacity 130ms ease-out;
+  will-change: opacity, transform;
 }
 
 .hover-light-soft {
-  width: 160px;
-  height: 160px;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.86) 0%,
-    rgba(134, 247, 179, 0.48) 35%,
-    rgba(34, 197, 94, 0.12) 66%,
-    transparent 78%
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(134, 247, 179, 0.24) 24%,
+    rgba(34, 197, 94, 0.095) 44%,
+    rgba(34, 197, 94, 0.025) 61%,
+    transparent 74%
   );
-  filter: blur(72px);
 }
 
-.hover-light-core {
-  width: 360px;
-  height: 360px;
-  border: 1px solid rgba(34, 197, 94, 0.18);
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.2),
-    rgba(34, 197, 94, 0.055) 42%,
-    transparent 70%
-  );
-  box-shadow: inset 0 0 80px rgba(255, 255, 255, 0.3);
+.interactive-hero-field.is-active .hover-light-soft {
+  opacity: 1;
 }
 
 .hover-raster {
-  position: absolute;
-  inset: 0;
   background: repeating-linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.07) 0 1px,
-    rgba(7, 17, 12, 0.03) 1px 36px
+    rgba(255, 255, 255, 0.09) 0 1px,
+    rgba(7, 17, 12, 0.025) 1px 32px
   );
-  opacity: calc(var(--field-active) * 0.62);
   mask-image: radial-gradient(
-    circle 330px at var(--pointer-x) var(--pointer-y),
-    #000 0%,
-    rgba(0, 0, 0, 0.8) 45%,
-    transparent 78%
+    circle,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.54) 38%,
+    transparent 72%
   );
-  transition: opacity 300ms ease;
   -webkit-mask-image: radial-gradient(
-    circle 330px at var(--pointer-x) var(--pointer-y),
-    #000 0%,
-    rgba(0, 0, 0, 0.8) 45%,
-    transparent 78%
+    circle,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.54) 38%,
+    transparent 72%
   );
 }
 
-.hover-orbit {
-  position: absolute;
-  top: var(--pointer-y);
-  left: var(--pointer-x);
-  border: 1px solid rgba(34, 197, 94, 0.23);
-  border-radius: 50%;
-  opacity: calc(var(--field-active) * 0.5);
-  transform: translate(-50%, -50%);
-  transition: opacity 320ms ease;
-}
-
-.hover-orbit-a {
-  width: 260px;
-  height: 260px;
-  animation: hover-orbit-spin 12s linear infinite;
-}
-
-.hover-orbit-b {
-  width: 440px;
-  height: 220px;
-  border-style: dashed;
-  transform: translate(-50%, -50%) rotate(-17deg);
+.interactive-hero-field.is-active .hover-raster {
+  opacity: 0.32;
 }
 
 .ai-hover-item {
@@ -882,11 +868,11 @@ main {
   display: flex;
   align-items: center;
   width: max-content;
-  transition:
-    opacity 260ms ease-out,
-    transform 420ms var(--ease),
-    filter 360ms ease;
-  will-change: opacity, transform, filter;
+  contain: layout paint style;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.86);
+  transition: opacity 120ms ease-out;
+  will-change: opacity, transform;
 }
 
 .ling-emotion {
@@ -924,15 +910,14 @@ main {
   min-height: 34px;
   margin-left: -18px;
   padding: 8px 12px;
-  border: 1px solid rgba(34, 197, 94, 0.16);
+  border: 0;
   border-radius: 5px 14px 14px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 14px 34px rgba(7, 17, 12, 0.09);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 28px rgba(7, 17, 12, 0.075);
   color: var(--ink);
   font-size: 11px;
   font-weight: 750;
   white-space: nowrap;
-  backdrop-filter: blur(16px);
 }
 
 .ai-hover-bubble i {
@@ -956,12 +941,6 @@ main {
   margin-right: -18px;
   margin-left: 0;
   border-radius: 14px 5px 14px 14px;
-}
-
-@keyframes hover-orbit-spin {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
 }
 
 .dot-social {
@@ -2921,8 +2900,8 @@ main {
     max-width: 800px;
   }
 
-  .ling-emotion {
-    width: 88px;
+  .ai-hover-item {
+    display: none;
   }
 
   .story-sticky {
@@ -3077,24 +3056,6 @@ main {
 
   .interactive-hero-field {
     opacity: 0.94;
-  }
-
-  .ai-hover-item {
-    display: none;
-  }
-
-  .ling-emotion {
-    width: 74px;
-  }
-
-  .ai-hover-bubble {
-    min-height: 30px;
-    padding: 6px 9px;
-    font-size: 9px;
-  }
-
-  .hover-orbit-b {
-    display: none;
   }
 
   .scroll-cue {
@@ -3256,9 +3217,5 @@ main {
   [data-reveal] {
     opacity: 1;
     transform: none;
-  }
-
-  .hover-orbit {
-    display: none;
   }
 }

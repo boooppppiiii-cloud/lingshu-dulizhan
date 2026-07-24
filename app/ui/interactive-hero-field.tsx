@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef } from "react";
 
 const hoverItems = [
   {
@@ -47,21 +47,10 @@ const hoverItems = [
   },
 ] as const;
 
-type PointerState = {
-  x: number;
-  y: number;
-  active: boolean;
-};
-
 export function InteractiveHeroField() {
   const fieldRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
   const touchTimerRef = useRef<number | null>(null);
-  const [pointer, setPointer] = useState<PointerState>({
-    x: 0.5,
-    y: 0.46,
-    active: false,
-  });
 
   useEffect(() => {
     const field = fieldRef.current;
@@ -69,48 +58,96 @@ export function InteractiveHeroField() {
 
     if (!hero) return;
 
-    const updatePointer = (event: PointerEvent) => {
-      const rect = hero.getBoundingClientRect();
-      const next = {
-        x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
-        y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height)),
-        active: true,
-      };
+    const items = Array.from(
+      field.querySelectorAll<HTMLElement>(".ai-hover-item"),
+    );
+    let rect = hero.getBoundingClientRect();
+    let pointerX = rect.width * 0.5;
+    let pointerY = rect.height * 0.46;
 
-      if (frameRef.current !== null) {
-        window.cancelAnimationFrame(frameRef.current);
-      }
+    const paint = () => {
+      const xRatio = pointerX / rect.width;
+      const yRatio = pointerY / rect.height;
 
-      frameRef.current = window.requestAnimationFrame(() => {
-        setPointer(next);
+      field.style.setProperty("--pointer-x", `${pointerX}px`);
+      field.style.setProperty("--pointer-y", `${pointerY}px`);
+      field.classList.add("is-active");
+
+      items.forEach((element, index) => {
+        const item = hoverItems[index];
+        const distance = Math.hypot(
+          xRatio * 100 - item.x,
+          (yRatio * 100 - item.y) * 0.92,
+        );
+        const proximity = Math.max(0, Math.min(1, 1 - distance / 42));
+        const opacity = Math.pow(proximity, 1.25) * 0.94;
+        const driftX = (xRatio - item.x / 100) * -14;
+        const driftY = (yRatio - item.y / 100) * -10;
+
+        element.style.opacity = opacity.toFixed(3);
+        element.style.transform =
+          `translate3d(-50%, -50%, 0) translate3d(${driftX.toFixed(1)}px, ${driftY.toFixed(1)}px, 0) scale(${(0.86 + proximity * 0.14).toFixed(3)})`;
       });
+
+      frameRef.current = null;
+    };
+
+    const updatePointer = (event: PointerEvent) => {
+      pointerX = Math.min(
+        rect.width,
+        Math.max(0, event.clientX - rect.left),
+      );
+      pointerY = Math.min(
+        rect.height,
+        Math.max(0, event.clientY - rect.top),
+      );
+
+      if (frameRef.current === null) {
+        frameRef.current = window.requestAnimationFrame(paint);
+      }
 
       if (event.pointerType === "touch") {
         if (touchTimerRef.current !== null) {
           window.clearTimeout(touchTimerRef.current);
         }
-        touchTimerRef.current = window.setTimeout(() => {
-          setPointer((current) => ({ ...current, active: false }));
-        }, 1600);
+        touchTimerRef.current = window.setTimeout(hideField, 1200);
       }
     };
 
+    const refreshRect = () => {
+      rect = hero.getBoundingClientRect();
+    };
+
+    const showPointer = (event: PointerEvent) => {
+      refreshRect();
+      updatePointer(event);
+    };
+
+    function hideField() {
+      field.classList.remove("is-active");
+      items.forEach((element) => {
+        element.style.opacity = "0";
+      });
+    }
+
     const hidePointer = (event: PointerEvent) => {
       if (event.pointerType !== "touch") {
-        setPointer((current) => ({ ...current, active: false }));
+        hideField();
       }
     };
 
     hero.addEventListener("pointermove", updatePointer, { passive: true });
-    hero.addEventListener("pointerenter", updatePointer, { passive: true });
-    hero.addEventListener("pointerdown", updatePointer, { passive: true });
+    hero.addEventListener("pointerenter", showPointer, { passive: true });
+    hero.addEventListener("pointerdown", showPointer, { passive: true });
     hero.addEventListener("pointerleave", hidePointer, { passive: true });
+    window.addEventListener("resize", refreshRect, { passive: true });
 
     return () => {
       hero.removeEventListener("pointermove", updatePointer);
-      hero.removeEventListener("pointerenter", updatePointer);
-      hero.removeEventListener("pointerdown", updatePointer);
+      hero.removeEventListener("pointerenter", showPointer);
+      hero.removeEventListener("pointerdown", showPointer);
       hero.removeEventListener("pointerleave", hidePointer);
+      window.removeEventListener("resize", refreshRect);
       if (frameRef.current !== null) {
         window.cancelAnimationFrame(frameRef.current);
       }
@@ -120,43 +157,19 @@ export function InteractiveHeroField() {
     };
   }, []);
 
-  const fieldStyle = {
-    "--pointer-x": `${pointer.x * 100}%`,
-    "--pointer-y": `${pointer.y * 100}%`,
-    "--field-active": pointer.active ? 1 : 0,
-  } as CSSProperties;
-
   return (
     <div
-      className={`interactive-hero-field ${pointer.active ? "is-active" : ""}`}
+      className="interactive-hero-field"
       ref={fieldRef}
-      style={fieldStyle}
       aria-hidden="true"
     >
-      <div className="hover-light hover-light-soft" />
-      <div className="hover-light hover-light-core" />
+      <div className="hover-light-soft" />
       <div className="hover-raster" />
-      <div className="hover-orbit hover-orbit-a" />
-      <div className="hover-orbit hover-orbit-b" />
 
-      {hoverItems.map((item, index) => {
-        const distance = Math.hypot(
-          pointer.x * 100 - item.x,
-          (pointer.y * 100 - item.y) * 0.92,
-        );
-        const proximity = pointer.active
-          ? Math.max(0.045, Math.min(1, 1 - distance / 42))
-          : 0;
-        const driftX = (pointer.x - item.x / 100) * -24;
-        const driftY = (pointer.y - item.y / 100) * -18;
-
+      {hoverItems.map((item) => {
         const itemStyle = {
           left: `${item.x}%`,
           top: `${item.y}%`,
-          opacity: proximity,
-          filter: `blur(${(1 - proximity) * 5}px) drop-shadow(0 22px 34px rgba(7, 17, 12, ${0.04 + proximity * 0.12}))`,
-          transform: `translate(-50%, -50%) translate3d(${driftX}px, ${driftY}px, 0) scale(${0.76 + proximity * 0.24})`,
-          transitionDelay: `${index * 18}ms`,
         } as CSSProperties;
 
         return (
