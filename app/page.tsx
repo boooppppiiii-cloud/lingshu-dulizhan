@@ -95,9 +95,6 @@ export default function HomePage() {
               >
                 预约产品演示 <span>↗</span>
               </Link>
-              <a className="button button-ghost" href="#growth-loop">
-                观看 90 秒演示
-              </a>
             </div>
           </div>
           <div className="hero-visual hero-visual-constellation">
