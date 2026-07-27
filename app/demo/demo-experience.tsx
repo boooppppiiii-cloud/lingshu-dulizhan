@@ -2,65 +2,8 @@
 
 import { FormEvent, useState } from "react";
 
-const demoSteps = [
-  {
-    title: "选择一个产品",
-    description: "从固定演示产品中选择“便携式储能电源”。",
-    action: "选择产品",
-    result: "产品资料已载入",
-  },
-  {
-    title: "生成一条社媒内容",
-    description: "AI 根据产品卖点与目标市场生成短视频脚本和平台文案。",
-    action: "生成内容",
-    result: "脚本、封面与平台文案已生成",
-  },
-  {
-    title: "选择发布平台",
-    description: "为 TikTok、Instagram 与 YouTube 生成差异化标题和画幅。",
-    action: "确认发布",
-    result: "3 个平台已进入发布队列",
-  },
-  {
-    title: "模拟收到 WhatsApp 询盘",
-    description: "客户从 TikTok 视频里的追踪入口发起产品咨询。",
-    action: "接收询盘",
-    result: "新询盘 · 来源已识别",
-  },
-  {
-    title: "查看 AI 如何判断",
-    description: "AI 识别语言、采购数量、MOQ 问题与报价风险。",
-    action: "分析对话",
-    result: "意向 92 · 报价需人工确认",
-  },
-  {
-    title: "转交销售",
-    description: "销售接手后获得来源、摘要、客户标签和建议动作。",
-    action: "完成交接",
-    result: "完整上下文已转交销售",
-  },
-];
-
 export function DemoExperience() {
-  const [step, setStep] = useState(0);
-  const [completed, setCompleted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  const current = demoSteps[step];
-
-  const next = () => {
-    if (step === demoSteps.length - 1) {
-      setCompleted(true);
-      document.querySelector("#booking")?.scrollIntoView({ behavior: "smooth" });
-      window.dispatchEvent(
-        new CustomEvent("lingshu:analytics", {
-          detail: { event: "handoff_demo_complete", page: "/demo", section: "sandbox" },
-        }),
-      );
-      return;
-    }
-    setStep((value) => value + 1);
-  };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -74,80 +17,7 @@ export function DemoExperience() {
 
   return (
     <main className="demo-page">
-      <section className="demo-hero">
-        <div className="container demo-hero-grid">
-          <div data-reveal>
-            <span className="eyebrow">LIVE PRODUCT WALKTHROUGH</span>
-            <h1>亲手走完一次“内容到客户”</h1>
-            <p>
-              用固定演示数据体验内容生成、发布、询盘归因、AI 判断和人工接管。无需登录，不连接真实平台。
-            </p>
-          </div>
-          <div className="demo-summary" data-reveal>
-            <strong>45 秒</strong>
-            <span>6 个步骤</span>
-            <span>无需登录</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="sandbox">
-        <div className="container sandbox-shell">
-          <div className="sandbox-progress">
-            {demoSteps.map((item, index) => (
-              <button
-                className={index === step ? "is-active" : index < step ? "is-done" : ""}
-                type="button"
-                key={item.title}
-                onClick={() => setStep(index)}
-                aria-label={`第 ${index + 1} 步：${item.title}`}
-              >
-                <span>{index + 1}</span>
-                <small>{item.title}</small>
-              </button>
-            ))}
-          </div>
-          <div className="sandbox-content">
-            <div className="sandbox-copy">
-              <span className="eyebrow">STEP {String(step + 1).padStart(2, "0")}</span>
-              <h2>{current.title}</h2>
-              <p>{current.description}</p>
-              <div className="sandbox-result">
-                <i />
-                {current.result}
-              </div>
-              <div className="sandbox-actions">
-                <button
-                  className="button button-ghost"
-                  type="button"
-                  disabled={step === 0}
-                  onClick={() => setStep((value) => Math.max(0, value - 1))}
-                >
-                  上一步
-                </button>
-                <button className="button button-primary" type="button" onClick={next}>
-                  {step === demoSteps.length - 1 ? "完成演示" : current.action} <span>↗</span>
-                </button>
-              </div>
-            </div>
-            <div className="sandbox-visual" aria-live="polite">
-              <div className="slot-grid" />
-              <span>DEMO VISUAL · STEP {step + 1}</span>
-              <strong>{current.title}</strong>
-              <p>此区域预留给对应步骤的产品动图或 WebM。</p>
-              <div className="sandbox-pulse" />
-            </div>
-          </div>
-          {completed ? (
-            <div className="sandbox-complete" role="status">
-              <strong>演示完成</strong>
-              <span>从内容到客户的完整上下文已经连通。</span>
-            </div>
-          ) : null}
-        </div>
-      </section>
-
-      <section className="section booking-section" id="booking">
+      <section className="section booking-section booking-section-primary" id="booking">
         <div className="container booking-grid">
           <div data-reveal>
             <span className="eyebrow">BOOK A DEMO</span>

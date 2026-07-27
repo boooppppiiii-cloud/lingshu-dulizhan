@@ -745,7 +745,6 @@ main {
 .hero-copy h1,
 .page-hero-copy h1,
 .simple-hero h1,
-.demo-hero h1,
 .legal-shell h1 {
   margin: 21px 0 24px;
   color: var(--ink);
@@ -764,8 +763,7 @@ main {
 
 .hero-copy > p,
 .page-hero-copy > p,
-.simple-hero p,
-.demo-hero p {
+.simple-hero p {
   max-width: 620px;
   margin: 0;
   color: #536158;
@@ -2500,241 +2498,16 @@ main {
   background: #eef5f0;
 }
 
-.demo-hero {
-  padding: calc(var(--header) + 120px) 0 100px;
-  background:
-    radial-gradient(circle at 76% 25%, rgba(34, 197, 94, 0.16), transparent 32%),
-    #f9fcfa;
-}
-
-.demo-hero-grid {
-  display: grid;
-  align-items: end;
-  gap: 80px;
-  grid-template-columns: 1fr auto;
-}
-
-.demo-hero h1 {
-  max-width: 800px;
-  font-size: clamp(50px, 6vw, 82px);
-}
-
-.demo-summary {
-  display: grid;
-  min-width: 250px;
-  gap: 6px;
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: #fff;
-}
-
-.demo-summary strong {
-  color: var(--green-dark);
-  font-size: 36px;
-}
-
-.demo-summary span {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.sandbox-shell {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  background: #fff;
-  box-shadow: 0 30px 80px rgba(7, 17, 12, 0.1);
-}
-
-.sandbox-progress {
-  display: grid;
-  border-bottom: 1px solid var(--line);
-  grid-template-columns: repeat(6, 1fr);
-}
-
-.sandbox-progress button {
-  display: flex;
-  min-height: 100px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px;
-  border: 0;
-  border-right: 1px solid var(--line);
-  background: #f6f8f6;
-  cursor: pointer;
-  color: #8a958e;
-}
-
-.sandbox-progress button:last-child {
-  border-right: 0;
-}
-
-.sandbox-progress button.is-active {
-  background: var(--ink);
-  color: #fff;
-}
-
-.sandbox-progress button.is-done {
-  background: var(--green-soft);
-  color: var(--green-dark);
-}
-
-.sandbox-progress button span {
-  display: grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  font-size: 10px;
-  font-weight: 850;
-}
-
-.sandbox-progress button small {
-  font-size: 9px;
-  font-weight: 750;
-}
-
-.sandbox-content {
-  display: grid;
-  min-height: 520px;
-  grid-template-columns: 0.8fr 1.2fr;
-}
-
-.sandbox-copy {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 60px;
-}
-
-.sandbox-copy h2 {
-  margin: 18px 0 15px;
-  color: var(--ink);
-  font-size: 36px;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-}
-
-.sandbox-copy > p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 15px;
-}
-
-.sandbox-result {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 30px;
-  padding: 12px 14px;
-  border: 1px solid rgba(34, 197, 94, 0.18);
-  border-radius: 11px;
-  background: var(--green-soft);
-  color: var(--green-dark);
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.sandbox-result i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.12);
-}
-
-.sandbox-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 34px;
-}
-
-.sandbox-visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 40px;
-  overflow: hidden;
-  background: var(--ink);
-  color: #fff;
-  text-align: center;
-}
-
-.sandbox-visual .slot-grid {
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-}
-
-.sandbox-visual > span,
-.sandbox-visual > strong,
-.sandbox-visual > p {
-  position: relative;
-  z-index: 1;
-}
-
-.sandbox-visual > span {
-  color: #8ff5b2;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-}
-
-.sandbox-visual > strong {
-  margin: 16px 0 10px;
-  font-size: 32px;
-  letter-spacing: -0.03em;
-}
-
-.sandbox-visual > p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
-}
-
-.sandbox-pulse {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  border-radius: 50%;
-  animation: sandbox-pulse 3s ease-out infinite;
-}
-
-@keyframes sandbox-pulse {
-  from {
-    opacity: 0.8;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 0;
-    transform: scale(2.2);
-  }
-}
-
-.sandbox-complete {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 18px 28px;
-  border-top: 1px solid rgba(34, 197, 94, 0.2);
-  background: var(--green-soft);
-  color: var(--green-dark);
-  font-size: 12px;
-}
-
 .booking-section {
   background: #fff;
+}
+
+.booking-section-primary {
+  min-height: 100svh;
+  padding-top: calc(var(--header) + 92px);
+  background:
+    radial-gradient(circle at 84% 12%, rgba(34, 197, 94, 0.14), transparent 32%),
+    linear-gradient(180deg, #f7fbf8 0%, #ffffff 58%);
 }
 
 .booking-grid {
@@ -3838,14 +3611,6 @@ main {
     margin-inline: auto;
   }
 
-  .demo-hero-grid {
-    align-items: start;
-    grid-template-columns: 1fr;
-  }
-
-  .demo-summary {
-    min-width: 0;
-  }
 }
 
 @media (max-width: 767px) {
@@ -3992,7 +3757,6 @@ main {
   .hero-copy h1,
   .page-hero-copy h1,
   .simple-hero h1,
-  .demo-hero h1,
   .legal-shell h1 {
     font-size: clamp(43px, 13vw, 62px);
     letter-spacing: -0.055em;
@@ -4001,7 +3765,6 @@ main {
   .hero-copy > p,
   .page-hero-copy > p,
   .simple-hero p,
-  .demo-hero p,
   .section-heading p {
     font-size: 16px;
   }
@@ -4149,38 +3912,6 @@ main {
 
   .capability-tags {
     min-height: 0;
-  }
-
-  .demo-hero {
-    padding-top: calc(var(--header) + 80px);
-  }
-
-  .sandbox-progress {
-    display: flex;
-    overflow-x: auto;
-  }
-
-  .sandbox-progress button {
-    min-width: 116px;
-    border-bottom: 0;
-  }
-
-  .sandbox-content {
-    min-height: 0;
-    grid-template-columns: 1fr;
-  }
-
-  .sandbox-copy {
-    padding: 38px 24px;
-  }
-
-  .sandbox-visual {
-    min-height: 360px;
-  }
-
-  .sandbox-complete {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .booking-form {
