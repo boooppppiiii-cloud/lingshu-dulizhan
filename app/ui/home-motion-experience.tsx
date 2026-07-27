@@ -37,7 +37,7 @@ const heroBrandPositions = [
   { brand: modelBrands[0], x: 16, y: 72, rotate: 5, delay: 0.9 },
   { brand: modelBrands[1], x: 56, y: 86, rotate: -8, delay: 1.1 },
   { brand: modelBrands[2], x: 82, y: 75, rotate: 7, delay: 1.3 },
-  { brand: modelBrands[3], x: 43, y: 50, rotate: -3, delay: 1.5 },
+  { brand: modelBrands[3], x: 14, y: 47, rotate: -3, delay: 1.5 },
 ] as const;
 
 const storyScenes = [
@@ -101,11 +101,8 @@ export function HeroBrandConstellation() {
     <div className="hero-logo-system" aria-label="灵枢连接的社媒平台与主流 AI 模型">
       <div className="hero-logo-ring hero-logo-ring-a" aria-hidden="true" />
       <div className="hero-logo-ring hero-logo-ring-b" aria-hidden="true" />
-      <div className="hero-brand-core">
-        <Image src="/brand-logo-v2.png" alt="" width={52} height={52} priority />
-        <span>灵枢 AI</span>
-        <strong>内容 · 客户 · 生意</strong>
-        <i>LIVE</i>
+      <div className="hero-brand-core" aria-label="灵小枢 AI 助手">
+        <div className="hero-mascot-image" aria-hidden="true" />
       </div>
       {heroBrandPositions.map(({ brand, x, y, rotate, delay }) => (
         <div
@@ -199,15 +196,6 @@ export function GrowthScrollStory() {
     };
   }, []);
 
-  const jumpToScene = (index: number) => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const available = section.offsetHeight - window.innerHeight;
-    const sectionTop = window.scrollY + section.getBoundingClientRect().top;
-    const target = sectionTop + available * (index / storyScenes.length + 0.03);
-    window.scrollTo({ top: target, behavior: "smooth" });
-  };
-
   return (
     <section className="scroll-story" ref={sectionRef} aria-label="灵枢增长链路">
       <div className="scroll-story-stage">
@@ -227,7 +215,7 @@ export function GrowthScrollStory() {
                   {scene.index} / {scene.eyebrow}
                 </span>
                 <h2>
-                  {scene.title}
+                  <span>{scene.title}</span>
                   <strong>{scene.accent}</strong>
                 </h2>
                 <p>{scene.text}</p>
@@ -272,23 +260,6 @@ export function GrowthScrollStory() {
           </div>
         </div>
 
-        <div className="story-progress" aria-label="增长链路进度">
-          <div className="story-progress-line" aria-hidden="true">
-            <span />
-          </div>
-          {storyScenes.map((scene, index) => (
-            <button
-              className={index === activeScene ? "is-active" : index < activeScene ? "is-done" : ""}
-              type="button"
-              onClick={() => jumpToScene(index)}
-              aria-label={`查看第 ${index + 1} 幕：${scene.accent}`}
-              key={scene.index}
-            >
-              <i />
-              <span>{scene.accent}</span>
-            </button>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -334,15 +305,6 @@ export function ProductFlowShowcase() {
             <i />
             <span>内容排期</span>
           </div>
-        </div>
-        <div className="product-flow-caption" aria-hidden="true">
-          <span>01 洞察</span>
-          <i />
-          <span>02 创作</span>
-          <i />
-          <span>03 发布</span>
-          <i />
-          <span>04 经营</span>
         </div>
       </div>
     </section>

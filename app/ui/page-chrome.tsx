@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -35,7 +34,8 @@ const navLinks = [
 function Logo() {
   return (
     <Link className="brand" href="/" aria-label="灵枢 AI 首页">
-      <Image className="brand-logo" src="/brand-logo-v2.png" alt="" width={42} height={42} priority />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="brand-logo" src="/brand-logo-v2.png" alt="" width="42" height="42" />
       <span>灵枢 AI</span>
     </Link>
   );
