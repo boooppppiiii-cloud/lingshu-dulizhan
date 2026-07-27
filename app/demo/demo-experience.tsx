@@ -2,70 +2,24 @@
 
 import { FormEvent, useState } from "react";
 
-type SubmissionStatus = "idle" | "submitting" | "success" | "error";
+const bookingEndpoint = "https://formsubmit.co/1463432441@qq.com";
+const bookingReturnUrl = "https://official.lingshu.site/demo?submitted=1";
 
-const bookingEndpoint = "https://formsubmit.co/ajax/1463432441@qq.com";
+export function DemoExperience({ initialSubmitted = false }: { initialSubmitted?: boolean }) {
+  const [submitted, setSubmitted] = useState(initialSubmitted);
+  const [submitting, setSubmitting] = useState(false);
+  const [replyTo, setReplyTo] = useState("");
 
-export function DemoExperience() {
-  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const beginSubmission = (event: FormEvent<HTMLFormElement>) => {
+    setSubmitting(true);
+    window.dispatchEvent(
+      new CustomEvent("lingshu:analytics", {
+        detail: { event: "demo_form_submit", page: "/demo", section: "booking" },
+      }),
+    );
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const fields = new FormData(form);
-
-    if (fields.get("_honey")) {
-      setStatus("success");
-      return;
-    }
-
-    setStatus("submitting");
-
-    const company = String(fields.get("company") ?? "未填写公司");
-    const payload = {
-      _subject: `灵枢 AI 官网新预约｜${company}`,
-      _template: "table",
-      _captcha: "false",
-      _replyto: String(fields.get("email") ?? ""),
-      姓名: String(fields.get("name") ?? ""),
-      公司或品牌: company,
-      联系邮箱: String(fields.get("email") ?? ""),
-      手机或WhatsApp: String(fields.get("contact") ?? ""),
-      当前主要平台: fields.getAll("platform").map(String).join("、") || "未选择",
-      最想解决的问题: String(fields.get("challenge") ?? ""),
-      提交页面: window.location.href,
-      提交时间: new Date().toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" }),
-    };
-
-    try {
-      const response = await fetch(bookingEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const result = (await response.json().catch(() => null)) as
-        | { success?: boolean | string }
-        | null;
-      const accepted =
-        response.ok &&
-        (result?.success === true || result?.success === "true" || result?.success === undefined);
-
-      if (!accepted) {
-        throw new Error("Booking delivery was not accepted");
-      }
-
-      form.reset();
-      setStatus("success");
-      window.dispatchEvent(
-        new CustomEvent("lingshu:analytics", {
-          detail: { event: "demo_form_submit", page: "/demo", section: "booking" },
-        }),
-      );
-    } catch {
-      setStatus("error");
+    if (!event.currentTarget.checkValidity()) {
+      setSubmitting(false);
     }
   };
 
@@ -85,17 +39,31 @@ export function DemoExperience() {
               <span>03 · 共同确认 AI 权限边界</span>
             </div>
           </div>
-          {status === "success" ? (
+          {submitted ? (
             <div className="success-panel" data-reveal role="status">
               <span>✓</span>
               <h3>预约信息已发送</h3>
               <p>我们会在 1 个工作日内与你确认演示时间与业务背景。</p>
-              <button className="button button-ghost" type="button" onClick={() => setStatus("idle")}>
+              <button className="button button-ghost" type="button" onClick={() => setSubmitted(false)}>
                 再提交一条
               </button>
             </div>
           ) : (
-            <form className="booking-form" data-reveal onSubmit={submit} aria-busy={status === "submitting"}>
+            <form
+              className="booking-form"
+              data-reveal
+              action={bookingEndpoint}
+              method="POST"
+              acceptCharset="UTF-8"
+              onSubmit={beginSubmission}
+              aria-busy={submitting}
+            >
+              <input type="hidden" name="_subject" value="灵枢 AI 官网新预约" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value={bookingReturnUrl} />
+              <input type="hidden" name="_url" value="https://official.lingshu.site/demo" />
+              <input type="hidden" name="_replyto" value={replyTo} />
               <input
                 className="form-honey"
                 name="_honey"
@@ -106,26 +74,34 @@ export function DemoExperience() {
               />
               <label>
                 姓名
-                <input name="name" required placeholder="如何称呼你" autoComplete="name" />
+                <input name="姓名" required placeholder="如何称呼你" autoComplete="name" />
               </label>
               <label>
                 公司
-                <input name="company" required placeholder="公司或品牌名称" autoComplete="organization" />
+                <input name="公司或品牌" required placeholder="公司或品牌名称" autoComplete="organization" />
               </label>
               <label>
                 联系邮箱
-                <input name="email" type="email" required placeholder="name@company.com" autoComplete="email" />
+                <input
+                  name="联系邮箱"
+                  type="email"
+                  required
+                  placeholder="name@company.com"
+                  autoComplete="email"
+                  value={replyTo}
+                  onChange={(event) => setReplyTo(event.target.value)}
+                />
               </label>
               <label>
                 手机 / WhatsApp
-                <input name="contact" required placeholder="+86 / +1 ..." autoComplete="tel" />
+                <input name="手机或 WhatsApp" required placeholder="+86 / +1 ..." autoComplete="tel" />
               </label>
               <fieldset>
                 <legend>当前主要平台</legend>
                 <div className="choice-grid">
                   {["TikTok", "Instagram", "YouTube", "Facebook", "WhatsApp"].map((item) => (
                     <label key={item}>
-                      <input type="checkbox" name="platform" value={item} />
+                      <input type="checkbox" name="当前主要平台" value={item} />
                       <span>{item}</span>
                     </label>
                   ))}
@@ -133,7 +109,7 @@ export function DemoExperience() {
               </fieldset>
               <label>
                 最想解决的问题
-                <select name="challenge" required defaultValue="">
+                <select name="最想解决的问题" required defaultValue="">
                   <option value="" disabled>
                     请选择
                   </option>
@@ -143,17 +119,8 @@ export function DemoExperience() {
                   <option>客户跟进</option>
                 </select>
               </label>
-              {status === "error" ? (
-                <p className="form-error" role="alert">
-                  发送失败，请检查网络后重试；你填写的内容仍保留在表单中。
-                </p>
-              ) : null}
-              <button
-                className="button button-primary form-submit"
-                type="submit"
-                disabled={status === "submitting"}
-              >
-                {status === "submitting" ? "正在发送…" : "提交预约"} <span>↗</span>
+              <button className="button button-primary form-submit" type="submit" disabled={submitting}>
+                {submitting ? "正在安全发送…" : "提交预约"} <span>↗</span>
               </button>
               <p className="form-note">提交即表示你同意我们根据隐私政策处理这些信息。</p>
             </form>
