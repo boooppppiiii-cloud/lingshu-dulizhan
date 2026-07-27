@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   CtaBand,
-  MotionSlot,
   SectionHeading,
 } from "./ui/site-components";
 import {
@@ -10,6 +9,10 @@ import {
   IntegratedBrandRail,
   ProductFlowShowcase,
 } from "./ui/home-motion-experience";
+import {
+  ContentConversationFlow,
+  HumanHandoffFlow,
+} from "./ui/content-conversation-flow";
 import { InteractiveHeroField } from "./ui/interactive-hero-field";
 
 const serviceLevels = [
@@ -124,12 +127,7 @@ export default function HomePage() {
             description="当客户点击内容里的 WhatsApp 入口，灵枢会把来源、意图与完整上下文带进客户工作台。"
           />
           <div data-reveal>
-            <MotionSlot
-              title="Content-to-Conversation Morph"
-              note="标志性动效：社媒内容卡 CTA 形变为 WhatsApp 消息气泡，再展开成带来源信息的客户详情。"
-              tone="dark"
-              ratio="wide"
-            />
+            <ContentConversationFlow />
           </div>
           <div className="process-numbers" data-reveal>
             {[
@@ -165,12 +163,7 @@ export default function HomePage() {
               ))}
             </div>
             <div data-reveal>
-              <MotionSlot
-                title="Human Handoff 人工接管"
-                note="建议展示：AI 命中企业知识 → 检测报价风险 → 草稿停发 → 销售接管并看到来源、摘要与建议动作。"
-                tone="service"
-                ratio="portrait"
-              />
+              <HumanHandoffFlow />
             </div>
           </div>
           <Link className="text-link" href="/ai-service">
