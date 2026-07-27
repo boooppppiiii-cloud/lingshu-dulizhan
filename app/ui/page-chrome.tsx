@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -34,7 +35,7 @@ const navLinks = [
 function Logo() {
   return (
     <Link className="brand" href="/" aria-label="灵枢 AI 首页">
-      <img className="brand-logo" src="/brand-logo-v2.png" alt="" />
+      <Image className="brand-logo" src="/brand-logo-v2.png" alt="" width={42} height={42} priority />
       <span>灵枢 AI</span>
     </Link>
   );

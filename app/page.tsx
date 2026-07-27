@@ -4,45 +4,13 @@ import {
   MotionSlot,
   SectionHeading,
 } from "./ui/site-components";
+import {
+  GrowthScrollStory,
+  HeroBrandConstellation,
+  IntegratedBrandRail,
+  ProductFlowShowcase,
+} from "./ui/home-motion-experience";
 import { InteractiveHeroField } from "./ui/interactive-hero-field";
-
-const loopSteps = ["趋势", "创作", "发布", "询盘", "接待", "跟进", "洞察"];
-
-const platforms = [
-  { id: "youtube", name: "YouTube" },
-  { id: "tiktok", name: "TikTok" },
-  { id: "instagram", name: "Instagram" },
-  { id: "facebook", name: "Facebook" },
-  { id: "whatsapp", name: "WhatsApp" },
-  { id: "shopify", name: "Shopify" },
-] as const;
-
-const socialScenes = [
-  {
-    index: "01",
-    title: "发现机会",
-    text: "从趋势和竞品中识别值得跟进的主题，把“为什么会火”拆成可执行的创作任务。",
-    meta: "趋势视频 · 竞品监测 · 爆款拆解",
-  },
-  {
-    index: "02",
-    title: "生成内容",
-    text: "以产品资料为起点，生成脚本、分镜、配音、封面、图文与不同平台的发布文案。",
-    meta: "短视频 · B2B 图文 · 多语言",
-  },
-  {
-    index: "03",
-    title: "多平台发布",
-    text: "一次配置，多平台、多账号差异化发布；在发布前完成适配检查与排期。",
-    meta: "YouTube · TikTok · Instagram · Facebook",
-  },
-  {
-    index: "04",
-    title: "内容级归因",
-    text: "为每条内容附加独立 WhatsApp 入口，让客户来源精确回到内容、账号和平台。",
-    meta: "追踪码 · 客户来源 · 询盘上下文",
-  },
-];
 
 const serviceLevels = [
   {
@@ -94,12 +62,28 @@ export default function HomePage() {
         <div className="ambient ambient-b" />
         <div className="hero-grid-lines" aria-hidden="true" />
         <div className="container home-hero-grid">
-          <div className="hero-copy" data-reveal>
-            <h1>
-              从一条内容，
-              <br />
-              <span>到一笔生意</span>
+          <div className="hero-copy hero-copy-kinetic">
+            <span className="hero-kicker">
+              <i /> AI GROWTH OPERATING SYSTEM
+            </span>
+            <h1 className="kinetic-title" aria-label="从一条内容，到一笔生意">
+              <span className="kinetic-line kinetic-line-one">
+                <b>从</b>
+                <b className="kinetic-outline">一条</b>
+                <b>内容</b>
+              </span>
+              <span className="kinetic-line kinetic-line-two">
+                <b>到</b>
+                <b className="kinetic-accent">一笔生意</b>
+              </span>
             </h1>
+            <div className="hero-motion-caption" aria-hidden="true">
+              <span>发现机会</span>
+              <i>→</i>
+              <span>生成内容</span>
+              <i>→</i>
+              <span>接住客户</span>
+            </div>
             <div className="hero-actions">
               <Link
                 className="button button-primary"
@@ -113,21 +97,8 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-          <div className="hero-visual" data-reveal>
-            <MotionSlot
-              title="首屏产品闭环动图"
-              note="建议内容：左侧社媒卡 → 中央工作台 → 右侧客户对话；用数据流串联“发布成功、新询盘、AI 已接待、人工接管”。"
-              tone="neutral"
-              ratio="landscape"
-            />
-            <div className="hero-status hero-status-a">
-              <i className="dot-social" />
-              内容已发布
-            </div>
-            <div className="hero-status hero-status-b">
-              <i className="dot-service" />
-              高意向询盘
-            </div>
+          <div className="hero-visual hero-visual-constellation">
+            <HeroBrandConstellation />
           </div>
         </div>
         <div className="scroll-cue" aria-hidden="true">
@@ -136,100 +107,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="platform-band">
-        <div className="container platform-band-inner">
-          <p>一套工作台，连接内容与客户</p>
-          <div className="platform-marquee" aria-label="支持接入的平台">
-            {platforms.map((platform) => (
-              <span
-                className={`platform-logo platform-${platform.id}`}
-                aria-label={platform.name}
-                role="img"
-                title={platform.name}
-                key={platform.id}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <IntegratedBrandRail />
 
-      <section className="section value-section" id="growth-loop">
-        <div className="container">
-          <SectionHeading
-            eyebrow="THE GROWTH LOOP"
-            title="流量不是终点。能被接住的流量，才是增长。"
-            description="灵枢把分散在运营、平台与销售之间的动作，收进一条可追踪、可控制、可复盘的增长链路。"
-          />
-          <div className="growth-loop" data-reveal>
-            <div className="loop-track">
-              {loopSteps.map((step, index) => (
-                <div className="loop-node" key={step}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{step}</strong>
-                </div>
-              ))}
-            </div>
-            <div className="loop-pulse" aria-hidden="true" />
-          </div>
-          <div className="contrast-grid">
-            <article className="contrast-card is-muted" data-reveal>
-              <span className="eyebrow">BEFORE</span>
-              <h3>传统出海获客</h3>
-              <ul>
-                <li>灵感、内容、发布各自分散</li>
-                <li>客户消息散落在多个窗口</li>
-                <li>不知道询盘来自哪条内容</li>
-                <li>AI 与销售各自为战</li>
-              </ul>
-            </article>
-            <article className="contrast-card is-active" data-reveal>
-              <span className="eyebrow">WITH LINGSHU</span>
-              <h3>可闭环的增长链路</h3>
-              <ul>
-                <li>趋势直接转为创作任务</li>
-                <li>多平台统一发布并附追踪入口</li>
-                <li>AI 识别来源、意图和优先级</li>
-                <li>销售带着完整上下文接手</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
+      <div id="growth-loop">
+        <GrowthScrollStory />
+      </div>
 
-      <section className="section social-section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="SOCIAL GROWTH"
-            title="从“今天发什么”，到“内容正在带来谁”"
-            description="不只生成内容，更把洞察、生产、发布和客户归因连成一个可持续的内容系统。"
-          />
-          <div className="story-grid">
-            <div className="story-steps">
-              {socialScenes.map((scene) => (
-                <article className="story-step" data-reveal key={scene.index}>
-                  <span>{scene.index}</span>
-                  <div>
-                    <h3>{scene.title}</h3>
-                    <p>{scene.text}</p>
-                    <small>{scene.meta}</small>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="story-sticky" data-reveal>
-              <MotionSlot
-                title="社媒四场景滚动动图"
-                note="建议随页面滚动依次展示：趋势洞察、内容生成、多平台发布、WhatsApp 内容级归因。"
-                tone="social"
-                ratio="portrait"
-              />
-            </div>
-          </div>
-          <Link className="text-link" href="/social">
-            查看社媒增长完整能力 <span>↗</span>
-          </Link>
-        </div>
-      </section>
+      <ProductFlowShowcase />
 
       <section className="bridge-section">
         <div className="bridge-glow" aria-hidden="true" />

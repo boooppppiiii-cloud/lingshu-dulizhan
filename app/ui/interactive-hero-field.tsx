@@ -56,7 +56,7 @@ export function InteractiveHeroField() {
     const field = fieldRef.current;
     const hero = field?.closest<HTMLElement>(".home-hero");
 
-    if (!hero) return;
+    if (!field || !hero) return;
 
     const items = Array.from(
       field.querySelectorAll<HTMLElement>(".ai-hover-item"),
