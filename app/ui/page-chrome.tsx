@@ -2,34 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-
-const productLinks = [
-  {
-    index: "01",
-    href: "/social",
-    title: "社媒增长",
-    note: "洞察、创作、发布与归因",
-  },
-  {
-    index: "02",
-    href: "/ai-service",
-    title: "智能客服",
-    note: "接待、分级、交接与跟进",
-  },
-  {
-    index: "03",
-    href: "/strategy",
-    title: "AI 智囊",
-    note: "多模型协同与经营决策",
-  },
-];
-
-const navLinks = [
-  { href: "/integrations", label: "集成" },
-  { href: "/#scenarios", label: "解决方案" },
-  { href: "/#resources", label: "资源" },
-];
+import { useEffect } from "react";
 
 function Logo() {
   return (
@@ -42,121 +15,15 @@ function Logo() {
 }
 
 function Header() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [productOpen, setProductOpen] = useState(false);
-  const productMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const closeOnOutsidePress = (event: PointerEvent) => {
-      if (!productMenuRef.current?.contains(event.target as Node)) {
-        setProductOpen(false);
-      }
-    };
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setProductOpen(false);
-      }
-    };
-
-    document.addEventListener("pointerdown", closeOnOutsidePress);
-    document.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.removeEventListener("pointerdown", closeOnOutsidePress);
-      document.removeEventListener("keydown", closeOnEscape);
-    };
-  }, []);
-
   return (
     <header className="site-header">
       <div className="nav-shell">
         <Logo />
-        <nav className="desktop-nav" aria-label="主导航">
-          <div
-            className="nav-dropdown"
-            ref={productMenuRef}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                setProductOpen(false);
-              }
-            }}
-          >
-            <button
-              type="button"
-              aria-expanded={productOpen}
-              aria-controls="product-menu"
-              onClick={() => setProductOpen((value) => !value)}
-            >
-              产品 <span aria-hidden="true">⌄</span>
-            </button>
-            <div
-              className={`product-menu ${productOpen ? "is-open" : ""}`}
-              id="product-menu"
-            >
-              {productLinks.map((item) => (
-                <Link
-                  className={`product-link ${pathname === item.href ? "is-active" : ""}`}
-                  href={item.href}
-                  key={item.href}
-                  onClick={() => setProductOpen(false)}
-                >
-                  <span className="product-link-index">{item.index}</span>
-                  <span className="product-link-copy">
-                    <strong>{item.title}</strong>
-                    <small>{item.note}</small>
-                  </span>
-                  <span className="product-link-arrow" aria-hidden="true">
-                    ↗
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-          {navLinks.map((item) => (
-            <Link
-              className={pathname === item.href ? "is-active" : ""}
-              href={item.href}
-              key={item.href}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
         <div className="nav-actions">
-          <a className="login-link" href="#login">
-            登录
-          </a>
           <Link className="button button-primary button-compact" href="/demo">
             预约演示
           </Link>
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-label={open ? "关闭导航" : "打开导航"}
-            aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
-          >
-            <span />
-            <span />
-          </button>
         </div>
-      </div>
-      <div className={`mobile-panel ${open ? "is-open" : ""}`}>
-        <p className="eyebrow">产品</p>
-        {productLinks.map((item) => (
-          <Link className="mobile-link" href={item.href} key={item.href}>
-            {item.title} <span>↗</span>
-          </Link>
-        ))}
-        <div className="mobile-divider" />
-        {navLinks.map((item) => (
-          <Link className="mobile-link" href={item.href} key={item.href}>
-            {item.label} <span>↗</span>
-          </Link>
-        ))}
-        <Link className="button button-primary mobile-cta" href="/demo">
-          预约产品演示
-        </Link>
       </div>
     </header>
   );
@@ -174,17 +41,8 @@ function Footer() {
           </span>
         </div>
         <div>
-          <strong>产品</strong>
-          <Link href="/social">社媒增长</Link>
-          <Link href="/ai-service">智能客服</Link>
-          <Link href="/strategy">AI 智囊</Link>
-          <Link href="/integrations">平台集成</Link>
-        </div>
-        <div>
           <strong>开始使用</strong>
-          <Link href="/demo">预约演示</Link>
-          <Link href="/#scenarios">解决方案</Link>
-          <Link href="/#faq">常见问题</Link>
+          <Link href="/demo">预约产品演示</Link>
         </div>
         <div>
           <strong>法律</strong>
@@ -222,7 +80,7 @@ export function PageChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header key={pathname} />
+      <Header />
       <div className="page-transition" key={pathname}>
         {children}
       </div>

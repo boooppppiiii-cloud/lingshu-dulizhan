@@ -163,9 +163,6 @@ export default function HomePage() {
               <HumanHandoffFlow />
             </div>
           </div>
-          <Link className="text-link" href="/ai-service">
-            查看智能客服完整能力 <span>↗</span>
-          </Link>
         </div>
       </section>
 
@@ -191,9 +188,6 @@ export default function HomePage() {
               </article>
             ))}
           </div>
-          <Link className="text-link" href="/strategy">
-            查看 AI 智囊完整能力 <span>↗</span>
-          </Link>
         </div>
       </section>
 
