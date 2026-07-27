@@ -18,11 +18,11 @@ const hoverItems = [
     side: "left",
   },
   {
-    x: 17,
-    y: 72,
+    x: 43,
+    y: 84,
     face: 2,
     message: "这条询盘要优先",
-    side: "left",
+    side: "right",
   },
   {
     x: 74,

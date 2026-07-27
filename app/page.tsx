@@ -385,39 +385,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section demo-preview-section">
-        <div className="container demo-preview-grid">
-          <div>
-            <SectionHeading
-              eyebrow="INTERACTIVE DEMO"
-              title="亲手走完一次“内容到客户”"
-              description="无需登录，用固定演示数据体验生成内容、选择平台、收到询盘、AI 判断和人工接管。"
-            />
-            <ol className="mini-steps">
-              {["选择产品", "生成内容", "选择平台", "收到询盘", "AI 识别", "转交销售"].map(
-                (step, index) => (
-                  <li key={step}>
-                    <span>{index + 1}</span>
-                    {step}
-                  </li>
-                ),
-              )}
-            </ol>
-            <Link className="button button-primary" href="/demo#sandbox">
-              开始 45 秒演示 <span>↗</span>
-            </Link>
-          </div>
-          <div data-reveal>
-            <MotionSlot
-              title="交互沙盒展示位"
-              note="后续可放 30–45 秒产品演示视频；当前页面保留完整的六步交互入口。"
-              tone="neutral"
-              ratio="landscape"
-            />
-          </div>
-        </div>
-      </section>
-
       <section className="section faq-section" id="faq">
         <div className="container faq-grid">
           <SectionHeading
