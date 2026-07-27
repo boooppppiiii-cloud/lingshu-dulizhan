@@ -7,11 +7,14 @@ export const metadata: Metadata = {
     "预约灵枢 AI 产品演示，了解社媒增长、智能客服与 AI 智囊如何适配你的出海业务。",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function DemoPage({
   searchParams,
 }: {
   searchParams: Promise<{ submitted?: string | string[] }>;
 }) {
   const query = await searchParams;
-  return <DemoExperience initialSubmitted={query.submitted === "1"} />;
+  return <DemoExperience submitted={query.submitted === "1"} />;
 }

@@ -1,28 +1,7 @@
-"use client";
-
-import { FormEvent, useState } from "react";
-
 const bookingEndpoint = "https://formsubmit.co/1463432441@qq.com";
 const bookingReturnUrl = "https://official.lingshu.site/demo?submitted=1";
 
-export function DemoExperience({ initialSubmitted = false }: { initialSubmitted?: boolean }) {
-  const [submitted, setSubmitted] = useState(initialSubmitted);
-  const [submitting, setSubmitting] = useState(false);
-  const [replyTo, setReplyTo] = useState("");
-
-  const beginSubmission = (event: FormEvent<HTMLFormElement>) => {
-    setSubmitting(true);
-    window.dispatchEvent(
-      new CustomEvent("lingshu:analytics", {
-        detail: { event: "demo_form_submit", page: "/demo", section: "booking" },
-      }),
-    );
-
-    if (!event.currentTarget.checkValidity()) {
-      setSubmitting(false);
-    }
-  };
-
+export function DemoExperience({ submitted = false }: { submitted?: boolean }) {
   return (
     <main className="demo-page">
       <section className="section booking-section booking-section-primary" id="booking">
@@ -44,9 +23,9 @@ export function DemoExperience({ initialSubmitted = false }: { initialSubmitted?
               <span>✓</span>
               <h3>预约信息已发送</h3>
               <p>我们会在 1 个工作日内与你确认演示时间与业务背景。</p>
-              <button className="button button-ghost" type="button" onClick={() => setSubmitted(false)}>
+              <a className="button button-ghost" href="/demo">
                 再提交一条
-              </button>
+              </a>
             </div>
           ) : (
             <form
@@ -55,15 +34,12 @@ export function DemoExperience({ initialSubmitted = false }: { initialSubmitted?
               action={bookingEndpoint}
               method="POST"
               acceptCharset="UTF-8"
-              onSubmit={beginSubmission}
-              aria-busy={submitting}
             >
               <input type="hidden" name="_subject" value="灵枢 AI 官网新预约" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_next" value={bookingReturnUrl} />
               <input type="hidden" name="_url" value="https://official.lingshu.site/demo" />
-              <input type="hidden" name="_replyto" value={replyTo} />
               <input
                 className="form-honey"
                 name="_honey"
@@ -83,13 +59,11 @@ export function DemoExperience({ initialSubmitted = false }: { initialSubmitted?
               <label>
                 联系邮箱
                 <input
-                  name="联系邮箱"
+                  name="_replyto"
                   type="email"
                   required
                   placeholder="name@company.com"
                   autoComplete="email"
-                  value={replyTo}
-                  onChange={(event) => setReplyTo(event.target.value)}
                 />
               </label>
               <label>
@@ -119,8 +93,8 @@ export function DemoExperience({ initialSubmitted = false }: { initialSubmitted?
                   <option>客户跟进</option>
                 </select>
               </label>
-              <button className="button button-primary form-submit" type="submit" disabled={submitting}>
-                {submitting ? "正在安全发送…" : "提交预约"} <span>↗</span>
+              <button className="button button-primary form-submit" type="submit">
+                提交预约 <span>↗</span>
               </button>
               <p className="form-note">提交即表示你同意我们根据隐私政策处理这些信息。</p>
             </form>
