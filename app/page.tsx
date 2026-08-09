@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CtaBand } from "./ui/site-components";
 import { ProductEvidence } from "./ui/product-evidence";
+import { ProductTour } from "./ui/product-tour";
 import { StructuredData, faqSchema, productSchema, websiteSchema } from "./ui/structured-data";
 
 const faq = [
@@ -64,6 +65,7 @@ export default function HomePage() {
             <p>我们不再用抽象卡片代替产品。下面的界面、成片和流程均来自正式 lingshu-AI 项目。</p>
           </div>
           <ProductEvidence />
+          <div className="home-guided-tour"><ProductTour /></div>
         </div>
       </section>
 

@@ -12,6 +12,20 @@ const routes = [
   "/demo",
   "/privacy",
   "/terms",
+  "/product",
+  "/product/content-studio",
+  "/product/social-publishing",
+  "/product/whatsapp-ai",
+  "/product/lead-management",
+  "/solutions/beauty",
+  "/solutions/healthcare",
+  "/solutions/building-materials",
+  "/platforms/tiktok",
+  "/platforms/facebook",
+  "/platforms/instagram",
+  "/platforms/youtube",
+  "/platforms/whatsapp",
+  "/resources",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

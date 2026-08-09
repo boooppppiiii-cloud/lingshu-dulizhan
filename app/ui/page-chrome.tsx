@@ -14,10 +14,10 @@ function Logo() {
   );
 }
 
-const navItems = [
-  ["/social", "内容与发布", "从产品资料到多平台排期"],
-  ["/ai-service", "WhatsApp AI", "询盘接待、分级与转人工"],
-  ["/strategy", "客户与跟进", "客户证据、建议动作与销售接管"],
+const megaGroups = [
+  { title: "产品", items: [["/product", "产品总览"], ["/product/content-studio", "AI 内容工作台"], ["/product/social-publishing", "多平台发布"], ["/product/whatsapp-ai", "WhatsApp AI"], ["/product/lead-management", "客户与跟进"]] },
+  { title: "行业方案", items: [["/solutions/beauty", "美妆个护"], ["/solutions/healthcare", "医药健康"], ["/solutions/building-materials", "建材"]] },
+  { title: "平台", items: [["/platforms/tiktok", "TikTok"], ["/platforms/facebook", "Facebook"], ["/platforms/instagram", "Instagram"], ["/platforms/youtube", "YouTube"], ["/platforms/whatsapp", "WhatsApp"]] },
 ] as const;
 
 function Header({ pathname }: { pathname: string }) {
@@ -42,14 +42,13 @@ function Header({ pathname }: { pathname: string }) {
               产品 <span>⌄</span>
             </button>
             <div className="nav-product-panel">
-              <div><small>一条连续链路</small><strong>从内容被看见，<br />到客户被接住。</strong></div>
-              <div>
-                {navItems.map(([href, label, text], index) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} onClick={() => { setOpen(false); setProductOpen(false); }}><span>0{index + 1}</span><div><strong>{label}</strong><small>{text}</small></div><i>↗</i></Link>)}
-              </div>
+              <div><small>一条连续链路</small><strong>从内容被看见，<br />到客户被接住。</strong><Link href="/product">进入产品 Tour →</Link></div>
+              <div className="nav-mega-groups">{megaGroups.map(group=><section key={group.title}><strong>{group.title}</strong>{group.items.map(([href,label])=><Link key={href} href={href} onClick={()=>{setOpen(false);setProductOpen(false)}}>{label}<i>↗</i></Link>)}</section>)}</div>
             </div>
           </div>
-          <Link href="/service" aria-current={pathname === "/service" ? "page" : undefined} onClick={() => setOpen(false)}>行业方案</Link>
-          <Link href="/integrations" aria-current={pathname === "/integrations" ? "page" : undefined} onClick={() => setOpen(false)}>平台集成</Link>
+          <Link href="/service" aria-current={pathname === "/service" ? "page" : undefined} onClick={() => setOpen(false)}>解决方案</Link>
+          <Link href="/integrations" aria-current={pathname === "/integrations" ? "page" : undefined} onClick={() => setOpen(false)}>集成</Link>
+          <Link href="/resources" aria-current={pathname === "/resources" ? "page" : undefined} onClick={() => setOpen(false)}>资源</Link>
           <Link href="/#faq" onClick={() => setOpen(false)}>常见问题</Link>
         </nav>
         <div className="nav-actions">
