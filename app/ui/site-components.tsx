@@ -24,7 +24,7 @@ export function MotionSlot({
       <div className="slot-orbit slot-orbit-a" aria-hidden="true" />
       <div className="slot-orbit slot-orbit-b" aria-hidden="true" />
       <div className="slot-content">
-        <span className="slot-kicker">MOTION PLACEHOLDER</span>
+        <span className="slot-kicker">LIVE PRODUCT FLOW</span>
         <strong>{title}</strong>
         <p>{note}</p>
       </div>
@@ -82,8 +82,8 @@ export function PageHero({
           <h1>{title}</h1>
           <p>{description}</p>
           <div className="hero-actions">
-            <Link className="button button-primary" href="/demo">
-              预约产品演示 <span>↗</span>
+            <Link className="button button-primary" href="/demo?intent=trial">
+              获取 3 天试用账号 <span>↗</span>
             </Link>
             <Link className="button button-ghost" href="#details">
               查看完整能力
@@ -99,8 +99,8 @@ export function PageHero({
 }
 
 export function CtaBand({
-  title = "让下一条内容，不止带来播放量",
-  description = "看看灵枢 AI 如何把你的产品、社媒账号和客户接待连成一条增长链路。",
+  title = "用 3 天，看清一条内容如何走向询盘",
+  description = "联系我们获取试用账号，用真实产品体验内容生成、排期发布、WhatsApp 接待与销售交接。",
 }: {
   title?: string;
   description?: string;
@@ -113,8 +113,8 @@ export function CtaBand({
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="hero-actions">
-          <Link className="button button-light" href="/demo">
-            预约产品演示 <span>↗</span>
+          <Link className="button button-light" href="/demo?intent=trial">
+            获取 3 天试用账号 <span>↗</span>
           </Link>
           <a className="button button-dark-ghost" href="mailto:hello@lingshu.ai">
             联系增长顾问

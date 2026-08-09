@@ -1,19 +1,20 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
+const productionTitle = "灵枢 AI｜外贸厂家的 AI 海外社媒获客系统";
 const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
+  /<meta(?=[^>]*\bname=["']codex-preview["'])[^>]*>/i;
 
-async function render() {
+async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
+  workerUrl.searchParams.set(
+    "test",
+    `${process.pid}-${Date.now()}-${encodeURIComponent(path)}`,
+  );
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`http://localhost${path}`, {
       headers: { accept: "text/html" },
     }),
     {
@@ -28,64 +29,57 @@ async function render() {
   );
 }
 
-test("server-renders the starter loading skeleton", async () => {
+test("server-renders the production homepage metadata and positioning", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
+  assert.match(html, new RegExp(`<title>${productionTitle}</title>`));
+  assert.match(html, /外贸厂家的 AI 海外社媒获客系统/);
+  assert.match(html, /把产品资料变成多语言海外内容/);
+  assert.match(html, /https:\/\/official\.lingshu\.site/);
+  assert.doesNotMatch(html, developmentPreviewMeta);
+  assert.doesNotMatch(html, /Your site is taking shape|Building your site/);
 });
 
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
+const routeExpectations = [
+  ["/social", "把工厂产品资料，变成持续获客的海外社媒内容"],
+  ["/ai-service", "让每一条 WhatsApp 询盘，都能及时得到专业接待"],
+  ["/strategy", "从询盘来源到销售跟进，不再依赖业务员自己记"],
+  ["/service", "先理解行业，再把内容、询盘和销售连起来"],
+  ["/integrations", "连接客户所在的平台，也连接你的销售流程"],
+  ["/demo", "想用你的产品试一次？"],
+  ["/privacy", "隐私政策"],
+  ["/terms", "服务条款"],
+];
+
+for (const [path, expectedContent] of routeExpectations) {
+  test(`server-renders ${path}`, async () => {
+    const response = await render(path);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+    const html = await response.text();
+    assert.match(html, new RegExp(expectedContent));
+    assert.doesNotMatch(html, developmentPreviewMeta);
+  });
+}
+
+test("publishes the production sitemap and robots directives", async () => {
+  const [sitemapResponse, robotsResponse] = await Promise.all([
+    render("/sitemap.xml"),
+    render("/robots.txt"),
   ]);
+  assert.equal(sitemapResponse.status, 200);
+  assert.equal(robotsResponse.status, 200);
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
-
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
-
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
-
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+  const sitemap = await sitemapResponse.text();
+  const robots = await robotsResponse.text();
+  for (const [path] of routeExpectations) {
+    assert.match(sitemap, new RegExp(`https://official\\.lingshu\\.site${path}`));
+  }
+  assert.match(sitemap, /https:\/\/official\.lingshu\.site<\/loc>/);
+  assert.match(robots, /Sitemap: https:\/\/official\.lingshu\.site\/sitemap\.xml/);
+  assert.match(robots, /Host: https:\/\/official\.lingshu\.site/);
 });

@@ -1,21 +1,39 @@
 const bookingEndpoint = "https://formsubmit.co/1463432441@qq.com";
 const bookingReturnUrl = "https://official.lingshu.site/demo?submitted=1";
 
-export function DemoExperience({ submitted = false }: { submitted?: boolean }) {
+export function DemoExperience({
+  submitted = false,
+  intent = "demo",
+}: {
+  submitted?: boolean;
+  intent?: "trial" | "demo";
+}) {
+  const isTrial = intent === "trial";
+
   return (
     <main className="demo-page">
       <section className="section booking-section booking-section-primary" id="booking">
         <div className="container booking-grid">
           <div data-reveal>
-            <span className="eyebrow">BOOK A DEMO</span>
-            <h2>想用你的产品试一次？</h2>
+            <span className="eyebrow">TRY LINGSHU AI</span>
+            <h1>{isTrial ? "先用 3 天，再决定是否合适" : "想用你的产品试一次？"}</h1>
             <p>
-              告诉我们当前的社媒平台、客户接待方式和最想解决的问题。我们会围绕你的真实业务准备演示。
+              {isTrial
+                ? "提交业务信息后，我们会联系你开通 3 天试用账号，并协助完成基础配置。"
+                : "告诉我们当前的社媒平台、客户接待方式和最想解决的问题。我们会围绕你的真实业务准备演示。"}
             </p>
+            <div className="demo-intent-actions" aria-label="选择申请方式">
+              <a className={`button ${isTrial ? "button-primary" : "button-ghost"}`} href="/demo?intent=trial">
+                获取 3 天试用账号
+              </a>
+              <a className={`button ${isTrial ? "button-ghost" : "button-primary"}`} href="/demo?intent=demo">
+                预约产品演示
+              </a>
+            </div>
             <div className="booking-points">
-              <span>01 · 根据你的产品准备演示</span>
-              <span>02 · 明确平台接入条件</span>
-              <span>03 · 共同确认 AI 权限边界</span>
+              <span>01 · 3 天试用，根据你的产品辅助配置</span>
+              <span>02 · 提交后由顾问联系开通</span>
+              <span>03 · 当前暂不公开价格，我们会根据需求说明方案</span>
             </div>
           </div>
           {submitted ? (
@@ -40,6 +58,7 @@ export function DemoExperience({ submitted = false }: { submitted?: boolean }) {
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_next" value={bookingReturnUrl} />
               <input type="hidden" name="_url" value="https://official.lingshu.site/demo" />
+              <input type="hidden" name="申请意向" value={isTrial ? "3 天试用账号" : "预约产品演示"} />
               <input
                 className="form-honey"
                 name="_honey"
@@ -70,6 +89,24 @@ export function DemoExperience({ submitted = false }: { submitted?: boolean }) {
                 手机 / WhatsApp
                 <input name="手机或 WhatsApp" required placeholder="+86 / +1 ..." autoComplete="tel" />
               </label>
+              <label>
+                产品类别
+                <select name="产品类别" required defaultValue="">
+                  <option value="" disabled>请选择</option>
+                  <option>美妆个护</option>
+                  <option>医药健康</option>
+                  <option>建材</option>
+                  <option>其他</option>
+                </select>
+              </label>
+              <label>
+                目标市场
+                <input name="目标市场" required placeholder="例如：美国、中东、东南亚" />
+              </label>
+              <label className="form-wide">
+                官网或产品链接
+                <input name="官网或产品链接" type="url" placeholder="https://" inputMode="url" />
+              </label>
               <fieldset>
                 <legend>当前主要平台</legend>
                 <div className="choice-grid">
@@ -94,9 +131,9 @@ export function DemoExperience({ submitted = false }: { submitted?: boolean }) {
                 </select>
               </label>
               <button className="button button-primary form-submit" type="submit">
-                提交预约 <span>↗</span>
+                {isTrial ? "申请 3 天试用" : "提交预约"} <span>↗</span>
               </button>
-              <p className="form-note">提交即表示你同意我们根据隐私政策处理这些信息。</p>
+              <p className="form-note">提交即表示你同意我们根据<a href="/privacy">隐私政策</a>处理这些信息。</p>
             </form>
           )}
         </div>

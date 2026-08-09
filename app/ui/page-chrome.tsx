@@ -19,9 +19,16 @@ function Header() {
     <header className="site-header">
       <div className="nav-shell">
         <Logo />
+        <nav className="nav-links" aria-label="主要导航">
+          <Link href="/social">社媒内容</Link>
+          <Link href="/ai-service">WhatsApp AI</Link>
+          <Link href="/strategy">询盘管理</Link>
+          <Link href="/service">行业方案</Link>
+          <Link href="/integrations">平台集成</Link>
+        </nav>
         <div className="nav-actions">
-          <Link className="button button-primary button-compact" href="/demo">
-            预约演示
+          <Link className="button button-primary button-compact" href="/demo?intent=trial">
+            获取 3 天试用
           </Link>
         </div>
       </div>
@@ -35,14 +42,22 @@ function Footer() {
       <div className="footer-grid">
         <div>
           <Logo />
-          <p>面向出海企业的社媒获客与智能客服一体化工作台。</p>
+          <p>面向外贸厂家的海外社媒获客、WhatsApp AI 接待与销售跟进工作台。</p>
           <span className="footer-status">
             <i /> 产品持续迭代中
           </span>
         </div>
         <div>
+          <strong>产品</strong>
+          <Link href="/social">社媒内容与发布</Link>
+          <Link href="/ai-service">WhatsApp AI 接待</Link>
+          <Link href="/strategy">询盘与销售跟进</Link>
+        </div>
+        <div>
           <strong>开始使用</strong>
-          <Link href="/demo">预约产品演示</Link>
+          <Link href="/demo?intent=trial">获取 3 天试用账号</Link>
+          <Link href="/integrations">平台集成</Link>
+          <Link href="/service">行业方案</Link>
         </div>
         <div>
           <strong>法律</strong>

@@ -35,6 +35,11 @@ const serviceLevels = [
 
 const faq = [
   {
+    question: "支持哪些海外社媒平台？",
+    answer:
+      "当前产品已实现 TikTok、Facebook、Instagram Reels 与 YouTube 的账号连接和视频发布。具体开通仍取决于客户平台账号、应用审核与授权权限；LinkedIn 直接发布暂未开放。",
+  },
+  {
     question: "灵枢 AI 适合哪些企业？",
     answer:
       "适合有海外获客需求的外贸工厂、跨境品牌、多账号营销团队，以及依赖 WhatsApp 接待询盘的销售团队。",
@@ -69,33 +74,38 @@ export default function HomePage() {
             <span className="hero-kicker">
               <i /> AI GROWTH OPERATING SYSTEM
             </span>
-            <h1 className="kinetic-title" aria-label="从一条内容，到一笔生意">
+            <h1 className="kinetic-title" aria-label="外贸厂家的 AI 海外社媒获客系统">
               <span className="kinetic-line kinetic-line-one">
-                <b>从</b>
-                <b className="kinetic-outline">一条</b>
-                <b>内容</b>
+                <b>外贸厂家</b>
+                <b className="kinetic-outline">AI 海外</b>
               </span>
               <span className="kinetic-line kinetic-line-two">
-                <b>到</b>
-                <b className="kinetic-accent">一笔生意</b>
+                <b className="kinetic-accent">社媒获客系统</b>
               </span>
             </h1>
+            <p className="hero-positioning-copy">
+              把产品资料变成多语言海外内容，持续发布到客户所在的平台；再由 AI 接住 WhatsApp 询盘、判断采购意向并交给销售跟进。
+            </p>
             <div className="hero-motion-caption" aria-hidden="true">
-              <span>发现机会</span>
+              <span>理解产品</span>
               <i>→</i>
-              <span>生成内容</span>
+              <span>多平台发布</span>
               <i>→</i>
-              <span>接住客户</span>
+              <span>接待询盘</span>
             </div>
             <div className="hero-actions">
               <Link
                 className="button button-primary"
-                href="/demo?source=hero"
+                href="/demo?source=hero&intent=trial"
                 data-event="hero_cta_click"
               >
-                预约产品演示 <span>↗</span>
+                获取 3 天试用账号 <span>↗</span>
+              </Link>
+              <Link className="button button-ghost" href="/demo?source=hero&intent=demo">
+                预约产品演示
               </Link>
             </div>
+            <small className="hero-trial-note">联系我们开通 · 无需先接入账号 · 由顾问协助体验</small>
           </div>
           <div className="hero-visual hero-visual-constellation">
             <HeroBrandConstellation />
@@ -221,32 +231,33 @@ export default function HomePage() {
         <div className="container">
           <SectionHeading
             eyebrow="BUILT FOR GLOBAL GROWTH"
-            title="为真实的出海增长团队而设计"
+            title="先从三个外贸行业，把获客链路做深"
+            description="以下均为模拟演示场景，用于展示产品流程与行业适配方式，不代表真实客户结果。"
             align="center"
           />
           <div className="scenario-grid">
             {[
               {
-                title: "外贸工厂",
-                tag: "B2B EXPORT",
-                text: "把工厂、产品和认证素材变成专业内容；让 AI 接住 MOQ、样品和交期问题，复杂报价及时交给业务员。",
+                title: "美妆个护",
+                tag: "BEAUTY & PERSONAL CARE",
+                text: "围绕成分、肤感、私标包装和快速打样生成内容；询盘中确认市场、渠道、MOQ、包装、标签语言和认证需求。",
               },
               {
-                title: "跨境品牌",
-                tag: "GLOBAL BRAND",
-                text: "高频生成社媒内容并统一排期；接住评论、私信与 WhatsApp 线索，再用客户问题反哺内容。",
+                title: "医药健康",
+                tag: "PHARMA & HEALTHCARE",
+                text: "围绕产品教育、生产与质量流程建立专业内容；医疗功效、认证和法规问题固定进入人工核实。",
               },
               {
-                title: "海外营销团队",
-                tag: "MARKETING TEAM",
-                text: "管理多个平台与账号，统一内容队列、审批与复盘，让运营数据与销售线索不再断裂。",
+                title: "建材",
+                tag: "BUILDING MATERIALS",
+                text: "用工程场景、性能对比、安装过程与供应能力获得询盘；确认规格、标准、数量、包装、港口和交期。",
               },
             ].map((item) => (
               <article className="scenario-card" data-reveal key={item.title}>
                 <span>{item.tag}</span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
-                <Link href="/demo">查看适用方案 ↗</Link>
+                <Link href="/service">查看行业演示 ↗</Link>
               </article>
             ))}
           </div>
