@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "产品平台｜内容、发布、Wha
 export default function ProductPage() {
   const data = {
     eyebrow: "THE LINGSHU PLATFORM",
-    title: "一套工作台，贯通内容被看见到客户被接住",
+    title: "从内容到询盘，一套工作台",
     definition: "灵枢 AI 是面向外贸厂家的海外社媒获客工作台。它连接企业知识、内容生产、多平台发布、WhatsApp AI 接待、询盘分级与销售接管，让每条内容都能继续走向真实客户对话。",
     audience: "需要持续经营海外社媒，并通过 WhatsApp 承接询盘的外贸厂家和跨境团队",
     outcomes: [["内容生产", "把产品资料转成适合不同市场和平台的脚本、分镜与成片。"], ["多平台发布", "统一管理账号、内容计划、排期和发布状态。"], ["询盘与销售", "记录客户来源，由 AI 首轮接待并在关键节点交给销售。"]] as Array<[string, string]>,

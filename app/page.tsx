@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className="container editorial-hero-inner">
           <div className="editorial-hero-copy">
             <span className="editorial-kicker"><i /> FOR EXPORT MANUFACTURERS</span>
-            <h1>让海外客户<br /><em>看见你的产品，</em><br />也被及时接住。</h1>
+            <h1>让产品被看见，<br /><em>让询盘被接住。</em></h1>
             <p>灵枢 AI 把外贸厂家的产品资料变成海外社媒内容，持续发布到客户所在的平台；再把评论、私信和 WhatsApp 询盘交给 AI 首轮接待与销售跟进。</p>
             <div className="editorial-actions">
               <Link href="/demo?intent=trial" className="editorial-button is-primary">获取 3 天试用 <span>↗</span></Link>
@@ -58,7 +58,7 @@ export default function HomePage() {
         <div className="container">
           <div className="editorial-heading">
             <span>THE PRODUCT, NOT A PROMISE</span>
-            <h2>先看产品怎么工作，<br />再决定它是否适合你。</h2>
+            <h2>先看产品，<br />再做决定。</h2>
             <p>我们不再用抽象卡片代替产品。下面的界面、成片和流程均来自正式 lingshu-AI 项目。</p>
           </div>
           <ProductEvidence />
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="container">
           <div className="editorial-heading is-light">
             <span>ONE CONTINUOUS GROWTH LOOP</span>
-            <h2>不是五个孤立工具，<br />是一条不断档的增长链路。</h2>
+            <h2>一条链路，<br />跑通海外获客。</h2>
           </div>
           <div className="loop-list">
             {loop.map(([index, title, text, href]) => (
@@ -86,7 +86,7 @@ export default function HomePage() {
         <div className="container control-story-grid">
           <div className="editorial-heading">
             <span>HUMAN IN CONTROL</span>
-            <h2>AI 可以快，<br />但不能越过你的业务边界。</h2>
+            <h2>AI 有边界，<br />销售有把控。</h2>
           </div>
           <div className="control-levels">
             <article><span>01</span><div><h3>只提醒</h3><p>判断优先级与风险，不写、不发。</p></div></article>
@@ -100,7 +100,7 @@ export default function HomePage() {
         <div className="container">
           <div className="editorial-heading">
             <span>BUILT AROUND REAL EXPORT QUESTIONS</span>
-            <h2>行业不同，客户真正想确认的事也不同。</h2>
+            <h2>行业不同，<br />询盘也不同。</h2>
           </div>
           <div className="industry-editorial-grid">
             {[
@@ -115,7 +115,7 @@ export default function HomePage() {
 
       <section className="editorial-section editorial-faq" id="faq">
         <div className="container editorial-faq-grid">
-          <div className="editorial-heading"><span>FAQ</span><h2>先把关键问题说清楚。</h2></div>
+          <div className="editorial-heading"><span>FAQ</span><h2>常见问题</h2></div>
           <div>{faq.map((item) => <details key={item.question}><summary>{item.question}<span>＋</span></summary><p>{item.answer}</p></details>)}</div>
         </div>
       </section>
