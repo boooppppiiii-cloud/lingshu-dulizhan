@@ -7157,12 +7157,13 @@ html { scroll-behavior: smooth; }
 .loop-section { background: var(--editorial-ink); color: #f2f1e9; }
 .editorial-heading.is-light > span { color: var(--editorial-lime); }
 .loop-list { border-top: 1px solid rgba(255,255,255,.18); }
-.loop-list article { display: grid; grid-template-columns: 160px 1fr 1.25fr 40px; gap: 32px; align-items: center; min-height: 120px; border-bottom: 1px solid rgba(255,255,255,.14); transition: .25s ease; }
-.loop-list article:hover { padding-left: 18px; background: rgba(255,255,255,.035); }
-.loop-list article > span { color: var(--editorial-lime); font-size: 11px; }
+.loop-list .loop-link { display: grid; grid-template-columns: 160px 1fr 1.25fr 40px; gap: 32px; align-items: center; min-height: 120px; border-bottom: 1px solid rgba(255,255,255,.14); color:inherit; transition: .25s ease; }
+.loop-list .loop-link:hover,.loop-list .loop-link:focus-visible { padding-left: 18px; background: rgba(255,255,255,.035); outline:none; }
+.loop-list .loop-link > span { color: var(--editorial-lime); font-size: 11px; }
 .loop-list h3 { font-size: 24px; font-weight: 500; }
 .loop-list p { color: #9fb0a7; line-height: 1.7; font-size: 14px; }
-.loop-list article > i { color: var(--editorial-lime); font-style: normal; }
+.loop-list .loop-link > i { color: var(--editorial-lime); font-style: normal; transition:transform .2s ease; }
+.loop-list .loop-link:hover > i { transform:translate(4px,-4px); }
 .control-story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
 .control-story-grid .editorial-heading { display: block; margin: 0; position: sticky; top: 140px; align-self: start; }
 .control-story-grid .editorial-heading h2 { margin-top: 24px; }
@@ -7346,8 +7347,8 @@ html { scroll-behavior: smooth; }
   .product-evidence-nav button { padding: 18px 14px; white-space: nowrap; }
   .product-evidence-nav button span { margin-right: 10px; }
   .product-evidence-stage { padding-top: 34px; gap: 30px; }
-  .loop-list article { grid-template-columns: 42px 1fr 20px; gap: 14px; padding: 24px 0; }
-  .loop-list article p { grid-column: 2 / 4; margin: 0; }
+  .loop-list .loop-link { grid-template-columns: 42px 1fr 20px; gap: 14px; padding: 24px 0; }
+  .loop-list .loop-link p { grid-column: 2 / 4; margin: 0; }
   .control-story-grid, .editorial-faq-grid { grid-template-columns: 1fr; }
   .control-story-grid .editorial-heading { position: static; }
   .industry-editorial-grid { grid-template-columns: 1fr; }

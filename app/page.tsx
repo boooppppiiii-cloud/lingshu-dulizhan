@@ -12,11 +12,11 @@ const faq = [
 ];
 
 const loop = [
-  ["01", "理解你的产品", "把产品资料、卖点、市场与企业规则沉淀为 AI 可调用的业务上下文。"],
-  ["02", "持续生产内容", "从素材、脚本、分镜到配音与成片，不再从空白页面开始。"],
-  ["03", "发布到海外社媒", "多账号统一排期，把每条内容变成可追踪的客户入口。"],
-  ["04", "接住 WhatsApp 询盘", "AI 识别语言、产品与采购信号，补齐销售真正需要的信息。"],
-  ["05", "把机会交给销售", "高价值或高风险对话带着摘要、证据和建议动作转交人工。"],
+  ["01", "理解你的产品", "把产品资料、卖点、市场与企业规则沉淀为 AI 可调用的业务上下文。", "/product"],
+  ["02", "持续生产内容", "从素材、脚本、分镜到配音与成片，不再从空白页面开始。", "/product/content-studio"],
+  ["03", "发布到海外社媒", "多账号统一排期，把每条内容变成可追踪的客户入口。", "/product/social-publishing"],
+  ["04", "接住 WhatsApp 询盘", "AI 识别语言、产品与采购信号，补齐销售真正需要的信息。", "/product/whatsapp-ai"],
+  ["05", "把机会交给销售", "高价值或高风险对话带着摘要、证据和建议动作转交人工。", "/product/lead-management"],
 ];
 
 export default function HomePage() {
@@ -73,10 +73,10 @@ export default function HomePage() {
             <h2>不是五个孤立工具，<br />是一条不断档的增长链路。</h2>
           </div>
           <div className="loop-list">
-            {loop.map(([index, title, text]) => (
-              <article key={index}>
+            {loop.map(([index, title, text, href]) => (
+              <Link className="loop-link" href={href} key={index} aria-label={`${title}：查看对应功能`}>
                 <span>{index}</span><h3>{title}</h3><p>{text}</p><i>↗</i>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

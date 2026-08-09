@@ -82,8 +82,9 @@ function StoryboardPanel() {
 }
 
 function MaterialPanel() {
+  const [selected, setSelected] = useState(["产品实拍", "工厂产线", "质检过程"]);
   return <div className="material-grid">
-    {["产品实拍", "工厂产线", "质检过程", "包装打样", "证书资料"].map((item, index) => <button type="button" className={index < 3 ? "is-selected" : ""} key={item}><span>{index < 3 ? "已选择" : "可选择"}</span><strong>{item}</strong></button>)}
+    {["产品实拍", "工厂产线", "质检过程", "包装打样", "证书资料"].map((item) => {const active=selected.includes(item);return <button type="button" aria-pressed={active} onClick={()=>setSelected(items=>active?items.filter(x=>x!==item):[...items,item])} className={active ? "is-selected" : ""} key={item}><span>{active ? "已选择" : "可选择"}</span><strong>{item}</strong></button>})}
   </div>;
 }
 
@@ -92,7 +93,8 @@ function MusicPanel() {
 }
 
 function CoverPanel() {
-  return <div className="cover-grid">{["Built for repeat orders", "From sample to scale", "See the factory proof"].map((title, index) => <button type="button" className={index === 1 ? "is-selected" : ""} key={title}><span>OEM FACTORY</span><strong>{title}</strong></button>)}</div>;
+  const [selected,setSelected]=useState("From sample to scale");
+  return <div className="cover-grid">{["Built for repeat orders", "From sample to scale", "See the factory proof"].map((title) => <button type="button" aria-pressed={selected===title} onClick={()=>setSelected(title)} className={selected === title ? "is-selected" : ""} key={title}><span>OEM FACTORY</span><strong>{title}</strong></button>)}</div>;
 }
 
 function PreviewPanel({ approved, onApprove }: { approved: boolean; onApprove: () => void }) {
@@ -136,6 +138,7 @@ export function WhatsappHandoffDemo() {
 
 export function CustomerTimelineDemo() {
   const [active, setActive] = useState("timeline");
+  const [drafted,setDrafted]=useState(false);
   const tabs = [["timeline","客户时间线"],["evidence","AI 判断依据"],["next","下一步动作"]];
   return <div className="product-demo customer-demo" aria-label="客户跟进模拟演示">
     <DemoHeader label="客户详情 / Alex Morgan" status="高意向 92 · Mock 分值" />
@@ -143,7 +146,7 @@ export function CustomerTimelineDemo() {
     <div className="customer-tab-panel">
       {active === "timeline" && <ol><li><span>10:36</span><strong>来自 Instagram 内容</strong><p>OEM packaging guide · 来源已记录</p></li><li><span>10:42</span><strong>客户提出定制与首批采购</strong><p>300 件 · Logo 定制</p></li><li><span>10:44</span><strong>AI 暂停报价并转人工</strong><p>折扣与正式价格需销售确认</p></li></ol>}
       {active === "evidence" && <div className="evidence-grid"><article><span>需求 Need</span><strong>Logo 定制</strong><small>客户原话</small></article><article><span>数量 Quantity</span><strong>300 件</strong><small>客户原话</small></article><article><span>时间 Timeline</span><strong>尚未确认</strong><small>不由 AI 推测</small></article><article><span>预算 Budget</span><strong>尚未确认</strong><small>不由 AI 推测</small></article></div>}
-      {active === "next" && <div className="next-action"><span>建议由销售执行</span><strong>确认目标市场、包装形式和 MOQ 后提供正式报价</strong><button type="button">生成跟进草稿</button><small>演示按钮，不会发送消息</small></div>}
+      {active === "next" && <div className="next-action"><span>建议由销售执行</span><strong>{drafted?"跟进草稿：请确认目标市场、包装形式和预计数量，我们核对 MOQ 后提供正式报价。":"确认目标市场、包装形式和 MOQ 后提供正式报价"}</strong><button type="button" onClick={()=>setDrafted(true)} disabled={drafted}>{drafted?"草稿已生成":"生成跟进草稿"}</button><small>{drafted?"草稿已进入待确认状态，不会自动发送。":"点击生成草稿；仍不会发送消息。"}</small></div>}
     </div>
     <p className="demo-disclaimer">Mock 客户、分值与时间线，不代表真实客户或销售结果。</p>
   </div>;
