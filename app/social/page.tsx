@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { CapabilityList, CtaBand, MotionSlot, PageHero, SectionHeading } from "../ui/site-components";
+import { ProductStudioDemo, PublishingCalendarDemo } from "../ui/product-demos";
+import { StructuredData, breadcrumbSchema, faqSchema } from "../ui/structured-data";
 
 export const metadata: Metadata = {
   title: "外贸社媒内容生成与多平台发布",
   description: "灵枢读取外贸企业的产品、市场与素材，生成适合 TikTok、Facebook、Instagram Reels 和 YouTube 的多语言内容，并完成审核、排期与发布。",
+  alternates: { canonical: "/social" },
 };
 
 const capabilities = [
@@ -22,6 +25,7 @@ const faq = [
 
 export default function SocialPage() {
   return <main>
+    <StructuredData data={[breadcrumbSchema([{name:"首页",path:"/"},{name:"社媒内容与发布",path:"/social"}]), faqSchema(faq.map(([question,answer])=>({question,answer})))]} />
     <PageHero eyebrow="AI SOCIAL CONTENT" title="把工厂产品资料，变成持续获客的海外社媒内容" description="灵枢根据产品、目标市场和采购角色规划主题，生成多语言短视频与发布文案，再经过审核进入排期和多平台发布。" visualTitle="产品资料 → 分镜 → 成片 → 发布" visualNote="展示内容策略、素材匹配、多语版本与发布队列的真实工作流" tone="social" />
     <section className="section detail-intro" id="details"><div className="container split-section">
       <SectionHeading eyebrow="FROM PRODUCT TO CONTENT" title="不是替你多写几段文案，而是建立一套内容生产流程" description="外贸内容必须同时理解产品事实、目标客户、平台表达和销售下一步。灵枢把这些信息放在同一企业上下文中。" />
@@ -37,6 +41,7 @@ export default function SocialPage() {
           ["04", "多语版本", "围绕同一产品生成不同语言的口播、字幕与发布文案，并保留人工审核。"],
         ].map(([index,title,text]) => <article className="creation-card" data-reveal key={title}><span>{index}</span><h3>{title}</h3><p>{text}</p></article>)}
       </div>
+      <div className="demo-section-stack" data-reveal><ProductStudioDemo /><PublishingCalendarDemo /></div>
     </div></section>
     <section className="attribution-section"><div className="container attribution-grid">
       <div><span className="eyebrow eyebrow-light">CONTENT → INQUIRY</span><h2>发布不是终点，客户来源要跟着进入 WhatsApp</h2><p>发布时可为内容附加带追踪参数的 WhatsApp 入口。客户发起对话后，平台和具体内容来源进入客户上下文，帮助销售理解客户为什么而来。</p><div className="attribution-path"><span>已发布内容</span><span>追踪入口</span><span>WhatsApp 对话</span><span>客户工作台</span></div></div>

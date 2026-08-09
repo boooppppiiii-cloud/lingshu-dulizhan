@@ -14,6 +14,7 @@ import {
   HumanHandoffFlow,
 } from "./ui/content-conversation-flow";
 import { InteractiveHeroField } from "./ui/interactive-hero-field";
+import { StructuredData, faqSchema, productSchema, websiteSchema } from "./ui/structured-data";
 
 const serviceLevels = [
   {
@@ -64,6 +65,7 @@ const faq = [
 export default function HomePage() {
   return (
     <main>
+      <StructuredData data={[websiteSchema, productSchema(), faqSchema(faq)]} />
       <section className="home-hero">
         <InteractiveHeroField />
         <div className="ambient ambient-a" />
@@ -105,7 +107,7 @@ export default function HomePage() {
                 预约产品演示
               </Link>
             </div>
-            <small className="hero-trial-note">联系我们开通 · 无需先接入账号 · 由顾问协助体验</small>
+            <small className="hero-trial-note">联系我们开通 · 无需先接入账号 · 套餐价格暂不公开 · 由顾问协助体验</small>
           </div>
           <div className="hero-visual hero-visual-constellation">
             <HeroBrandConstellation />
@@ -118,6 +120,20 @@ export default function HomePage() {
       </section>
 
       <IntegratedBrandRail />
+
+      <section className="section pain-section" id="problems">
+        <div className="container">
+          <SectionHeading eyebrow="WHY GROWTH STALLS" title="工厂有产品、有资料，也有业务员，却很难持续做好海外社媒" description="问题往往不在某一个工具，而在内容、询盘和销售之间没有形成连续的业务上下文。" />
+          <div className="pain-grid">
+            {[
+              ["01","不知道海外客户愿意看什么","目录、参数和样本很多，却很难转成适合不同市场和平台的内容。"],
+              ["02","内容生产难以持续","拍摄、剪辑、翻译和发布依赖多人协作，每个平台又需要不同表达。"],
+              ["03","内容与询盘彼此分离","有播放、有评论，但销售不知道客户从哪条内容来、关注什么产品。"],
+              ["04","首响和跟进依赖个人","时差、语言与信息不完整，让高价值客户容易在第一轮沟通中流失。"],
+            ].map(([index,title,text])=><article key={index} data-reveal><span>{index}</span><h3>{title}</h3><p>{text}</p></article>)}
+          </div>
+        </div>
+      </section>
 
       <div id="growth-loop">
         <GrowthScrollStory />
@@ -261,6 +277,20 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section mock-results-section" id="cases">
+        <div className="container">
+          <SectionHeading eyebrow="PRODUCT SCENARIOS" title="先用模拟场景证明流程，再用真实数据证明结果" description="现阶段不把 Mock 包装成客户成功故事。以下卡片只展示产品如何处理不同行业的内容和询盘。" align="center" />
+          <div className="mock-result-grid">
+            {[
+              ["美妆个护","私标护肤品 · 东南亚","内容侧生成成分教育、包装定制与打样流程；客户侧补齐渠道、MOQ、标签语言和样品需求。"],
+              ["医药健康","健康产品 · 中东","内容侧严格基于已审核资料；认证、法规与医疗功效问题自动进入人工核实。"],
+              ["建材","饰面材料 · 东南亚","工程案例关联 WhatsApp 来源；AI 补齐规格、标准、数量、目的港和期望时间。"],
+            ].map(([industry,scenario,text])=><article key={industry} data-reveal><span>MOCK SCENARIO</span><h3>{industry}</h3><strong>{scenario}</strong><p>{text}</p><small>模拟企业、客户与过程 · 非真实客户案例或经营结果</small></article>)}
+          </div>
+          <p className="case-roadmap">获得客户书面授权并统一统计口径后，才会公开真实内容产量、有效询盘、首响时间、报价、样品和可归因销售机会。</p>
         </div>
       </section>
 

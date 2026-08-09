@@ -40,7 +40,7 @@ export function DemoExperience({
             <div className="success-panel" data-reveal role="status">
               <span>✓</span>
               <h3>预约信息已发送</h3>
-              <p>我们会在 1 个工作日内与你确认演示时间与业务背景。</p>
+              <p>灵枢团队会根据你提交的联系方式，尽快确认试用或演示安排。</p>
               <a className="button button-ghost" href="/demo">
                 再提交一条
               </a>
@@ -59,6 +59,7 @@ export function DemoExperience({
               <input type="hidden" name="_next" value={bookingReturnUrl} />
               <input type="hidden" name="_url" value="https://official.lingshu.site/demo" />
               <input type="hidden" name="申请意向" value={isTrial ? "3 天试用账号" : "预约产品演示"} />
+              <input type="hidden" name="页面来源" value={isTrial ? "官网试用入口" : "官网演示入口"} />
               <input
                 className="form-honey"
                 name="_honey"
@@ -130,10 +131,14 @@ export function DemoExperience({
                   <option>客户跟进</option>
                 </select>
               </label>
+              <label className="form-consent form-wide">
+                <input name="隐私同意" type="checkbox" required value="已同意" />
+                <span>我已阅读并同意<a href="/privacy" target="_blank" rel="noreferrer">《隐私政策》</a>，并同意灵枢团队就本次试用或演示申请与我联系。</span>
+              </label>
               <button className="button button-primary form-submit" type="submit">
                 {isTrial ? "申请 3 天试用" : "提交预约"} <span>↗</span>
               </button>
-              <p className="form-note">提交即表示你同意我们根据<a href="/privacy">隐私政策</a>处理这些信息。</p>
+              <p className="form-note">请勿提交密码、支付信息或不必要的敏感信息。套餐价格暂不公开。</p>
             </form>
           )}
         </div>

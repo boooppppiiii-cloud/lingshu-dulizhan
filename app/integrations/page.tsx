@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { CtaBand, PageHero, SectionHeading } from "../ui/site-components";
+import { StructuredData, breadcrumbSchema } from "../ui/structured-data";
 
-export const metadata: Metadata = { title: "社媒与 WhatsApp 平台集成", description: "查看灵枢当前支持的 TikTok、Facebook、Instagram、YouTube、WhatsApp 与 Shopify 等连接能力、开通条件和功能边界。" };
+export const metadata: Metadata = { title: "社媒与 WhatsApp 平台集成", description: "查看灵枢当前支持的 TikTok、Facebook、Instagram、YouTube、WhatsApp 与 Shopify 等连接能力、开通条件和功能边界。", alternates: { canonical: "/integrations" } };
 
 const groups = [
   { title:"内容发布", tag:"PUBLISH", items:[
@@ -22,9 +23,11 @@ const groups = [
 ];
 
 export default function IntegrationsPage(){return <main>
+  <StructuredData data={breadcrumbSchema([{name:"首页",path:"/"},{name:"平台集成",path:"/integrations"}])} />
   <PageHero eyebrow="INTEGRATIONS" title="连接客户所在的平台，也连接你的销售流程" description="我们不把一排 Logo 当成能力。每个集成都明确说明能读取什么、能执行什么、需要什么权限，以及当前是否已经开放。" visualTitle="账号 → 内容 → 对话 → 客户数据" visualNote="租户级授权、token 状态、同步时间与发布结果进入统一工作台" />
   <section className="section integrations-detail" id="details"><div className="container"><SectionHeading eyebrow="CURRENT CAPABILITIES" title="当前平台能力与开通边界" description="平台 API、应用审核、账号类型与地区资格可能影响最终可用能力。试用开通时由顾问协助核对。" />
     <div className="integration-groups">{groups.map(group=><section className="integration-group" data-reveal key={group.title}><header><span>{group.tag}</span><h2>{group.title}</h2></header><div>{group.items.map(([name,text,status])=><article key={name}><div><h3>{name}</h3><p>{text}</p></div><strong>{status}</strong></article>)}</div></section>)}</div>
+    <p className="integration-disclaimer">平台名称仅用于说明技术兼容和业务场景，不代表平台对灵枢 AI 的官方合作、认可或背书。实际能力以账号类型、地区、平台审核和授权结果为准。</p>
   </div></section>
   <CtaBand title="先确认你的账号条件，再开通真实链路" description="联系我们获取 3 天试用账号，由顾问协助检查平台账号、授权权限和 WhatsApp 接入方式。" />
   </main>}

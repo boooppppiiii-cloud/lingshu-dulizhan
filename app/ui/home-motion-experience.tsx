@@ -282,7 +282,7 @@ export function ProductFlowShowcase() {
         <div className="product-flow-aura" aria-hidden="true" />
         <div className="product-flow-frame">
           <Image
-            src="/lingshu-product-flow-v1.png"
+            src="/lingshu-product-flow-v2.webp"
             alt="灵枢 AI 从爆款分析、经营总览到 AI 素材生成和内容排期的产品链路"
             width={1672}
             height={941}

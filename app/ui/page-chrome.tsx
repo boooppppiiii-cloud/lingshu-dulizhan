@@ -2,29 +2,43 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Logo() {
   return (
     <Link className="brand" href="/" aria-label="灵枢 AI 首页">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="brand-logo" src="/brand-logo-v2.png" alt="" width="42" height="42" />
+      <img className="brand-logo" src="/brand-logo-v3.webp" alt="" width="42" height="42" />
       <span>灵枢 AI</span>
     </Link>
   );
 }
 
-function Header() {
+const navItems = [
+  ["/social", "社媒内容"],
+  ["/ai-service", "WhatsApp AI"],
+  ["/strategy", "询盘管理"],
+  ["/service", "行业方案"],
+  ["/integrations", "平台集成"],
+] as const;
+
+function Header({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
   return (
     <header className="site-header">
       <div className="nav-shell">
         <Logo />
-        <nav className="nav-links" aria-label="主要导航">
-          <Link href="/social">社媒内容</Link>
-          <Link href="/ai-service">WhatsApp AI</Link>
-          <Link href="/strategy">询盘管理</Link>
-          <Link href="/service">行业方案</Link>
-          <Link href="/integrations">平台集成</Link>
+        <button className="nav-menu-toggle" type="button" aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen((value) => !value)}>
+          <span>{open ? "关闭" : "菜单"}</span><i aria-hidden="true" />
+        </button>
+        <nav id="main-navigation" className={`nav-links ${open ? "is-open" : ""}`} aria-label="主要导航">
+          {navItems.map(([href, label]) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
         </nav>
         <div className="nav-actions">
           <Link className="button button-primary button-compact" href="/demo?intent=trial">
@@ -95,8 +109,9 @@ export function PageChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header />
-      <div className="page-transition" key={pathname}>
+      <a className="skip-link" href="#main-content">跳至主要内容</a>
+      <Header pathname={pathname} />
+      <div id="main-content" className="page-transition" key={pathname} tabIndex={-1}>
         {children}
       </div>
       <Footer />

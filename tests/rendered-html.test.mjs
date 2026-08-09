@@ -39,6 +39,10 @@ test("server-renders the production homepage metadata and positioning", async ()
   assert.match(html, /外贸厂家的 AI 海外社媒获客系统/);
   assert.match(html, /把产品资料变成多语言海外内容/);
   assert.match(html, /https:\/\/official\.lingshu\.site/);
+  assert.match(html, /SoftwareApplication/);
+  assert.match(html, /FAQPage/);
+  assert.match(html, /获取 3 天试用账号/);
+  assert.match(html, /套餐价格暂不公开|暂不公开价格/);
   assert.doesNotMatch(html, developmentPreviewMeta);
   assert.doesNotMatch(html, /Your site is taking shape|Building your site/);
 });
@@ -65,6 +69,44 @@ for (const [path, expectedContent] of routeExpectations) {
     assert.doesNotMatch(html, developmentPreviewMeta);
   });
 }
+
+test("publishes product-derived interactive demos with explicit mock labels", async () => {
+  const [social, service, strategy] = await Promise.all([
+    render("/social").then((response) => response.text()),
+    render("/service").then((response) => response.text()),
+    render("/strategy").then((response) => response.text()),
+  ]);
+  assert.match(social, /素材库智能生成/);
+  assert.match(social, /分镜与声音/);
+  assert.match(social, /模拟演示 · 不会真实发布/);
+  assert.match(service, /美妆个护/);
+  assert.match(service, /医药健康/);
+  assert.match(service, /建材/);
+  assert.match(service, /Mock 企业、客户与流程 · 非真实客户结果/);
+  assert.match(strategy, /AI 判断依据/);
+  assert.match(strategy, /Mock 客户、分值与时间线/);
+});
+
+test("requires explicit privacy consent on the trial form", async () => {
+  const response = await render("/demo?intent=trial");
+  const html = await response.text();
+  assert.match(html, /先用 3 天，再决定是否合适/);
+  assert.match(html, /<input(?=[^>]*name="隐私同意")(?=[^>]*required)[^>]*>/);
+  assert.match(html, /套餐价格暂不公开/);
+  assert.match(html, /请勿提交密码、支付信息或不必要的敏感信息/);
+});
+
+test("legal pages disclose AI, mock, pricing and platform boundaries", async () => {
+  const [privacy, terms] = await Promise.all([
+    render("/privacy").then((response) => response.text()),
+    render("/terms").then((response) => response.text()),
+  ]);
+  assert.match(privacy, /我们不会仅因你提交预约表单，就将联系方式出售给第三方/);
+  assert.match(privacy, /请勿通过公开表单提交密码/);
+  assert.match(terms, /网站暂不公开套餐价格/);
+  assert.match(terms, /模拟案例与示例数据/);
+  assert.match(terms, /不代表其与灵枢存在官方合作/);
+});
 
 test("publishes the production sitemap and robots directives", async () => {
   const [sitemapResponse, robotsResponse] = await Promise.all([

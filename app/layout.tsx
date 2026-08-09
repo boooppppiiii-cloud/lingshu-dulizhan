@@ -10,9 +10,10 @@ export const metadata: Metadata = {
   },
   description:
     "灵枢 AI 帮助外贸厂家把产品资料变成多语言海外社媒内容，发布到 TikTok、Facebook、Instagram 和 YouTube，并通过 WhatsApp AI 接待、筛选和跟进询盘。",
+  alternates: { canonical: "/" },
   icons: {
-    icon: "/brand-logo-v2.png",
-    shortcut: "/brand-logo-v2.png",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
     apple: "/brand-logo-v2.png",
   },
   openGraph: {
@@ -24,9 +25,9 @@ export const metadata: Metadata = {
     locale: "zh_CN",
     images: [
       {
-        url: "/og.png",
-        width: 1734,
-        height: 907,
+        url: "/og-v2.png",
+        width: 1200,
+        height: 630,
         alt: "灵枢 AI：外贸厂家的 AI 海外社媒获客系统",
       },
     ],
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "灵枢 AI｜外贸厂家的 AI 海外社媒获客系统",
     description: "连接多语言内容、多平台发布、WhatsApp 询盘接待与销售跟进。",
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
 };
 
