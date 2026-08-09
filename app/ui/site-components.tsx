@@ -18,20 +18,17 @@ export function MotionSlot({
   return (
     <div
       className={`motion-slot motion-${tone} ratio-${ratio} ${compact ? "is-compact" : ""}`}
-      aria-label={`${title}，预留动图展示区域`}
+      aria-label={`${title}，产品演示`}
     >
-      <div className="slot-grid" aria-hidden="true" />
-      <div className="slot-orbit slot-orbit-a" aria-hidden="true" />
-      <div className="slot-orbit slot-orbit-b" aria-hidden="true" />
+      <video className="slot-product-video" src="/product/publish-preview.mp4" autoPlay muted loop playsInline controls aria-label={`${title}产品演示视频`} />
       <div className="slot-content">
-        <span className="slot-kicker">LIVE PRODUCT FLOW</span>
+        <span className="slot-kicker"><i /> PRODUCT FLOW</span>
         <strong>{title}</strong>
         <p>{note}</p>
       </div>
       <div className="slot-meta">
-        <span>{ratio === "wide" ? "21:9" : ratio === "portrait" ? "4:5" : "16:10"}</span>
-        <span>WebM / MP4</span>
-        <span>4–8 秒循环</span>
+        <span>真实产品素材</span>
+        <span>演示数据为 Mock</span>
       </div>
     </div>
   );

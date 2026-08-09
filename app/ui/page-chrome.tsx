@@ -15,15 +15,14 @@ function Logo() {
 }
 
 const navItems = [
-  ["/social", "社媒内容"],
-  ["/ai-service", "WhatsApp AI"],
-  ["/strategy", "询盘管理"],
-  ["/service", "行业方案"],
-  ["/integrations", "平台集成"],
+  ["/social", "内容与发布", "从产品资料到多平台排期"],
+  ["/ai-service", "WhatsApp AI", "询盘接待、分级与转人工"],
+  ["/strategy", "客户与跟进", "客户证据、建议动作与销售接管"],
 ] as const;
 
 function Header({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
+  const [productOpen, setProductOpen] = useState(false);
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
@@ -38,9 +37,23 @@ function Header({ pathname }: { pathname: string }) {
           <span>{open ? "关闭" : "菜单"}</span><i aria-hidden="true" />
         </button>
         <nav id="main-navigation" className={`nav-links ${open ? "is-open" : ""}`} aria-label="主要导航">
-          {navItems.map(([href, label]) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
+          <div className={`nav-product-menu ${productOpen ? "is-open" : ""}`} onMouseLeave={() => setProductOpen(false)}>
+            <button type="button" aria-expanded={productOpen} onClick={() => setProductOpen((value) => !value)} onMouseEnter={() => setProductOpen(true)}>
+              产品 <span>⌄</span>
+            </button>
+            <div className="nav-product-panel">
+              <div><small>一条连续链路</small><strong>从内容被看见，<br />到客户被接住。</strong></div>
+              <div>
+                {navItems.map(([href, label, text], index) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} onClick={() => { setOpen(false); setProductOpen(false); }}><span>0{index + 1}</span><div><strong>{label}</strong><small>{text}</small></div><i>↗</i></Link>)}
+              </div>
+            </div>
+          </div>
+          <Link href="/service" aria-current={pathname === "/service" ? "page" : undefined} onClick={() => setOpen(false)}>行业方案</Link>
+          <Link href="/integrations" aria-current={pathname === "/integrations" ? "page" : undefined} onClick={() => setOpen(false)}>平台集成</Link>
+          <Link href="/#faq" onClick={() => setOpen(false)}>常见问题</Link>
         </nav>
         <div className="nav-actions">
+          <Link className="nav-demo-link" href="/#product">看产品</Link>
           <Link className="button button-primary button-compact" href="/demo?intent=trial">
             获取 3 天试用
           </Link>
@@ -87,6 +100,26 @@ function Footer() {
   );
 }
 
+const productJourney = [
+  { href: "/social", index: "01", label: "内容与发布" },
+  { href: "/ai-service", index: "02", label: "WhatsApp AI" },
+  { href: "/strategy", index: "03", label: "客户与跟进" },
+] as const;
+
+function NextChapter({ pathname }: { pathname: string }) {
+  const current = productJourney.findIndex((item) => item.href === pathname);
+  if (current < 0) return null;
+  const next = productJourney[current + 1] ?? { href: "/demo?intent=trial", index: "04", label: "获取试用账号" };
+  return (
+    <aside className="next-chapter" aria-label="继续了解产品">
+      <div className="container">
+        <span>NEXT / {next.index}</span>
+        <Link href={next.href}><small>继续下一步</small><strong>{next.label}</strong><i>→</i></Link>
+      </div>
+    </aside>
+  );
+}
+
 export function PageChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
@@ -114,6 +147,7 @@ export function PageChrome({ children }: { children: React.ReactNode }) {
       <div id="main-content" className="page-transition" key={pathname} tabIndex={-1}>
         {children}
       </div>
+      <NextChapter pathname={pathname} />
       <Footer />
     </>
   );
