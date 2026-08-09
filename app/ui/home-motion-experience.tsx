@@ -287,6 +287,7 @@ export function ProductFlowShowcase() {
             width={1672}
             height={941}
             sizes="(max-width: 767px) 92vw, (max-width: 1200px) 88vw, 1160px"
+            unoptimized
           />
           <div className="product-flow-scan" aria-hidden="true" />
           <div className="product-flow-hotspot hotspot-analysis">
