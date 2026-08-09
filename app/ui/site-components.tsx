@@ -20,7 +20,7 @@ export function MotionSlot({
       className={`motion-slot motion-${tone} ratio-${ratio} ${compact ? "is-compact" : ""}`}
       aria-label={`${title}，产品演示`}
     >
-      <video className="slot-product-video" src="/product/publish-preview.mp4" autoPlay muted loop playsInline controls aria-label={`${title}产品演示视频`} />
+      <div className="slot-product-video slot-system-interface" aria-label={`${title}系统功能演示`}><div><span>灵枢 AI 工作台</span><small>FUNCTION DEMO</small></div><section><i/><i/><i/></section><article><strong>{title}</strong><p>{note}</p></article></div>
       <div className="slot-content">
         <span className="slot-kicker"><i /> PRODUCT FLOW</span>
         <strong>{title}</strong>

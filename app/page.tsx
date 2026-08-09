@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CtaBand } from "./ui/site-components";
-import { ProductEvidence } from "./ui/product-evidence";
+import { HeroSystemDemo, ProductEvidence } from "./ui/product-evidence";
 import { ProductTour } from "./ui/product-tour";
 import { StructuredData, faqSchema, productSchema, websiteSchema } from "./ui/structured-data";
 
@@ -41,11 +41,8 @@ export default function HomePage() {
             </div>
           </div>
           <div className="editorial-hero-product">
-            <div className="hero-video-frame">
-              <video src="/product/publish-preview.mp4" autoPlay muted loop playsInline controls aria-label="灵枢 AI 真实产品演示成片" />
-              <div className="hero-video-top"><span><i /> PRODUCT OUTPUT</span><strong>素材 → 成片 → 发布</strong></div>
-            </div>
-            <p><strong>不是概念动画。</strong> 这是灵枢 AI 产品流程中的真实演示结果。</p>
+            <div className="hero-video-frame"><HeroSystemDemo /></div>
+            <p><strong>只展示系统。</strong> 功能演示依据灵枢正式产品逻辑制作，不包含客户资料。</p>
           </div>
         </div>
       </section>

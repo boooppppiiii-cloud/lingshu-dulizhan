@@ -30,9 +30,7 @@ export function ProductTour() {
             <div className="tour-window-bar"><span>{step.label}</span><small>DEMO WORKSPACE</small></div>
             <div className={`tour-scene scene-${step.id}`}>
               <div className="tour-scene-copy"><span>STEP 0{active + 1}</span><h3>{step.title}</h3><p>{step.copy}</p></div>
-              <div className="tour-scene-proof">
-                {step.id === "create" || step.id === "publish" ? <video src="/product/publish-preview.mp4" autoPlay muted loop playsInline /> : <div className="tour-data-card"><small>当前状态</small><strong>{step.metric}</strong><div><i /><i /><i /></div></div>}
-              </div>
+              <div className="tour-scene-proof"><div className="tour-data-card"><small>系统状态</small><strong>{step.metric}</strong><div><i /><i /><i /></div><ul><li>任务上下文已关联</li><li>操作记录可追溯</li><li>客户资料未载入演示</li></ul></div></div>
             </div>
           </div>
         </div>
