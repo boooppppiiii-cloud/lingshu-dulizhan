@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
 
 const views = [
   { id: "create", label: "内容工作台", eyebrow: "正式功能演示", title: "从产品知识到脚本、分镜与成片任务", text: "演示正式产品中的生成模式、素材、声音、配乐、封面与预览步骤，不包含任何客户资料。" },
@@ -9,11 +10,11 @@ const views = [
 ] as const;
 
 function CreateDemo() {
-  return <div className="system-demo system-create-demo"><div className="system-demo-sidebar"><b>AI 创作工作台</b>{["选模式","分镜与声音","选素材","配乐","封面","成片预览"].map((x,i)=><span className={i===1?"active":""} key={x}><i>0{i+1}</i>{x}</span>)}</div><div className="system-demo-content"><div className="system-demo-bar"><strong>分镜与声音</strong><small>项目：海外产品介绍</small></div><div className="storyboard-grid">{["开场：产品使用场景","细节：结构与材质","证明：生产与质检","结尾：联系获取资料"].map((x,i)=><article key={x}><span>SHOT 0{i+1}</span><div className="shot-placeholder"/><strong>{x}</strong><small>{i%2?"英文旁白 · 4 秒":"环境音 · 3 秒"}</small></article>)}</div></div></div>;
+  return <div className="system-demo system-create-demo animated-create"><div className="system-demo-sidebar"><b>AI 创作工作台</b>{["选模式","分镜与声音","选素材","配乐","封面","成片预览"].map((x,i)=><span className={i===1?"active":""} key={x}><i>0{i+1}</i>{x}</span>)}</div><div className="system-demo-content"><div className="system-demo-bar"><strong>分镜与声音</strong><small>生成任务进行中</small></div><div className="generation-line"><i/><span>产品知识 → 内容结构 → 分镜</span></div><div className="storyboard-grid">{["开场：产品使用场景","细节：结构与材质","证明：生产与质检","结尾：联系获取资料"].map((x,i)=><article style={{"--delay":`${i * .45}s`} as CSSProperties} key={x}><span>SHOT 0{i+1}</span><div className="shot-placeholder"/><strong>{x}</strong><small>{i%2?"英文旁白 · 4 秒":"环境音 · 3 秒"}</small></article>)}</div></div></div>;
 }
 
 function PublishDemo() {
-  return <div className="system-demo"><div className="system-demo-content full"><div className="system-demo-bar"><strong>内容发布日历</strong><small>本周 · 4 个平台</small></div><div className="publish-board"><div className="publish-days">{["MON","TUE","WED","THU","FRI"].map(x=><span key={x}>{x}</span>)}</div><div className="publish-cards"><article><span>TikTok · 10:30</span><strong>产品使用演示</strong><small>等待审核</small></article><article><span>Instagram · 16:00</span><strong>结构细节拆解</strong><small>已排期</small></article><article><span>YouTube · 18:30</span><strong>工厂质量流程</strong><small>已发布</small></article></div></div></div></div>;
+  return <div className="system-demo animated-publish"><div className="system-demo-content full"><div className="system-demo-bar"><strong>内容发布日历</strong><small>自动排期演示 · 4 个平台</small></div><div className="publish-board"><div className="publish-days">{["MON","TUE","WED","THU","FRI"].map(x=><span key={x}>{x}</span>)}</div><div className="publish-cards"><article><span>TikTok · 10:30</span><strong>产品使用演示</strong><small>等待审核</small></article><article><span>Instagram · 16:00</span><strong>结构细节拆解</strong><small>排期成功</small></article><article><span>YouTube · 18:30</span><strong>工厂质量流程</strong><small>发布完成</small></article><div className="calendar-cursor">↗</div></div></div></div></div>;
 }
 
 function InboxDemo({handedOff,onHandoff}:{handedOff:boolean;onHandoff:()=>void}) {
@@ -25,6 +26,7 @@ export function HeroSystemDemo(){return <div className="hero-system-demo"><div c
 export function ProductEvidence() {
   const [active, setActive] = useState<(typeof views)[number]["id"]>("create");
   const [handedOff,setHandedOff]=useState(false);
+  useEffect(()=>{const timer=window.setTimeout(()=>setActive(value=>value==="create"?"publish":value==="publish"?"inbox":"create"),6500);return()=>window.clearTimeout(timer)},[active]);
   const current = views.find((view) => view.id === active) ?? views[0];
-  return <section className="product-evidence" id="product"><div className="product-evidence-nav" role="tablist" aria-label="产品功能演示">{views.map((view,index)=><button key={view.id} type="button" role="tab" aria-selected={active===view.id} onClick={()=>setActive(view.id)}><span>0{index+1}</span>{view.label}</button>)}</div><div className="product-evidence-stage"><div className="product-evidence-copy"><span>{current.eyebrow}</span><h3>{current.title}</h3><p>{current.text}</p><small>界面演示依据 lingshu-AI 正式产品功能制作；不包含客户名称、客户产品、联系人或经营数据。</small></div><div className={`product-evidence-media is-${active}`}>{active==="create"?<CreateDemo/>:active==="publish"?<PublishDemo/>:<InboxDemo handedOff={handedOff} onHandoff={()=>setHandedOff(true)}/>}<div className="product-live-mark"><i/> SYSTEM DEMO</div></div></div></section>;
+  return <section className="product-evidence" id="product"><div className="product-evidence-nav" role="tablist" aria-label="产品功能演示">{views.map((view,index)=><button key={view.id} type="button" role="tab" aria-selected={active===view.id} onClick={()=>setActive(view.id)}><span>0{index+1}</span>{view.label}<i className="tab-progress"/></button>)}</div><div className="product-evidence-stage"><div className="product-evidence-copy"><span>{current.eyebrow}</span><h3>{current.title}</h3><p>{current.text}</p><small>界面动画依据 lingshu-AI 正式产品逻辑制作；每 6.5 秒自动切换，也可以点击标签查看。不包含任何客户资料。</small></div><div className={`product-evidence-media is-${active}`} key={active}>{active==="create"?<CreateDemo/>:active==="publish"?<PublishDemo/>:<InboxDemo handedOff={handedOff} onHandoff={()=>setHandedOff(true)}/>}<div className="product-live-mark"><i/> LIVE PRODUCT FLOW</div></div></div></section>;
 }

@@ -29,8 +29,8 @@ export default function HomePage() {
         <div className="container editorial-hero-inner">
           <div className="editorial-hero-copy">
             <span className="editorial-kicker"><i /> FOR EXPORT MANUFACTURERS</span>
-            <h1>让产品被看见，<br /><em>让询盘被接住。</em></h1>
-            <p>灵枢 AI 把外贸厂家的产品资料变成海外社媒内容，持续发布到客户所在的平台；再把评论、私信和 WhatsApp 询盘交给 AI 首轮接待与销售跟进。</p>
+            <h1>从追逐流量，<br /><em>到自带引力。</em></h1>
+            <p>让产品知识持续变成海外内容，让每条内容自然连接询盘与销售。灵枢 AI 把内容生产、社媒发布、WhatsApp 接待和人工跟进接成一条增长链路。</p>
             <div className="editorial-actions">
               <Link href="/demo?intent=trial" className="editorial-button is-primary">获取 3 天试用 <span>↗</span></Link>
               <a href="#product" className="editorial-button">看真实产品 <span>↓</span></a>
@@ -110,20 +110,26 @@ export default function HomePage() {
         <div className="container control-story-grid">
           <div className="editorial-heading">
             <span>HUMAN IN CONTROL</span>
-            <h2>AI 有边界，<br />销售有把控。</h2>
+            <h2>企业敢用，<br />团队接得上。</h2>
+            <p>以合规与 AI 鉴权守住业务边界，同时兼容企业现有的审批、销售和客户管理流程。</p>
           </div>
           <div className="control-levels">
             <article><span>01</span><div><h3>只提醒</h3><p>判断优先级与风险，不写、不发。</p></div></article>
             <article><span>02</span><div><h3>草稿需确认</h3><p>AI 基于企业知识拟回复，销售确认后发送。</p></div></article>
             <article><span>03</span><div><h3>低风险自动回复</h3><p>仅处理已审批知识；价格、条款和大单立即转人工。</p></div></article>
             <div className="security-facts">
-              <span>PRODUCT &amp; SECURITY FACTS</span>
+              <span>合规 + AI 鉴权</span>
               <ul>
                 <li>回答优先引用已审批的企业知识</li>
                 <li>关键操作保留状态与人工确认节点</li>
                 <li>社媒账号按授权连接，不展示登录凭证</li>
                 <li>演示环境不使用客户名称、产品或联系人</li>
               </ul>
+            </div>
+            <div className="workflow-facts">
+              <span>兼容现有工作流</span>
+              <p>不要求企业推倒重来。灵枢可以接在现有素材、内容审批、WhatsApp 接待、销售接管与 CRM 记录之间。</p>
+              <div><b>企业资料</b><i>→</i><b>灵枢 AI</b><i>→</i><b>人工审批</b><i>→</i><b>销售 / CRM</b></div>
             </div>
           </div>
         </div>
@@ -133,7 +139,8 @@ export default function HomePage() {
         <div className="container">
           <div className="editorial-heading">
             <span>BUILT AROUND REAL EXPORT QUESTIONS</span>
-            <h2>行业不同，<br />询盘也不同。</h2>
+            <h2>先懂行业，<br />再做增长。</h2>
+            <p>美妆、医药和建材是当前重点展示的方案，不是服务边界。只要企业需要用内容解释产品、承接海外询盘，灵枢都可以按业务知识配置。</p>
           </div>
           <div className="industry-editorial-grid">
             {[
@@ -146,6 +153,7 @@ export default function HomePage() {
             })}
           </div>
           <p className="mock-disclaimer">行业示例中的企业、客户与经营数据均为 Mock，不代表真实客户结果。</p>
+          <div className="industry-more"><span>同样适用于</span><b>机械设备</b><b>家居用品</b><b>消费电子</b><b>汽车配件</b><b>纺织服装</b><b>食品原料</b><Link href="/demo?intent=industry">咨询你的行业 →</Link></div>
         </div>
       </section>
 

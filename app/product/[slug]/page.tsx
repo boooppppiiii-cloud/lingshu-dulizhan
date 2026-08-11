@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ProductEvidence } from "../../ui/product-evidence";
+import { CustomerTimelineDemo, ProductStudioDemo, PublishingCalendarDemo, WhatsappHandoffDemo } from "../../ui/product-demos";
 import { SeoLanding, type SeoLandingData } from "../../ui/seo-landing";
 
 const pages: Record<string,{meta:string;description:string;data:SeoLandingData}> = {
@@ -10,4 +10,4 @@ const pages: Record<string,{meta:string;description:string;data:SeoLandingData}>
 };
 export function generateStaticParams(){return Object.keys(pages).map(slug=>({slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const p=pages[slug];return p?{title:p.meta,description:p.description,alternates:{canonical:`/product/${slug}`}}:{};}
-export default async function Page({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=pages[slug]??pages["content-studio"];return <SeoLanding data={p.data} media={<ProductEvidence/>}/>;}
+export default async function Page({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=pages[slug]??pages["content-studio"];const demos={"content-studio":<ProductStudioDemo/>,"social-publishing":<PublishingCalendarDemo/>,"whatsapp-ai":<WhatsappHandoffDemo/>,"lead-management":<CustomerTimelineDemo/>};return <SeoLanding data={p.data} media={demos[slug as keyof typeof demos]??demos["content-studio"]}/>;}
