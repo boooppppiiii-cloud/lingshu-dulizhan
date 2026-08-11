@@ -82,6 +82,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="editorial-section capability-story" aria-labelledby="capability-title">
+        <div className="container">
+          <div className="editorial-heading">
+            <span>THREE CONNECTED WORKSPACES</span>
+            <h2 id="capability-title">三项能力，<br />接成一条链路。</h2>
+            <p>每项能力都能独立使用；连起来后，内容来源、询盘上下文和销售动作不会在工具之间丢失。</p>
+          </div>
+          <div className="capability-grid">
+            <Link href="/product/content-studio">
+              <span>01 · CONTENT</span><h3>内容与发布</h3>
+              <p>基于产品知识生成脚本与素材方案，审核后进入多平台排期。</p><i>进入内容工作台 ↗</i>
+            </Link>
+            <Link href="/product/whatsapp-ai">
+              <span>02 · INQUIRY</span><h3>WhatsApp AI</h3>
+              <p>识别语言、产品和采购信号；遇到报价、折扣与条款问题自动停下。</p><i>查看询盘接待 ↗</i>
+            </Link>
+            <Link href="/product/lead-management">
+              <span>03 · SALES</span><h3>客户与跟进</h3>
+              <p>保留来源、对话与判断依据，把高价值机会连同摘要交给销售。</p><i>查看销售跟进 ↗</i>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="editorial-section control-story">
         <div className="container control-story-grid">
           <div className="editorial-heading">
@@ -92,6 +116,15 @@ export default function HomePage() {
             <article><span>01</span><div><h3>只提醒</h3><p>判断优先级与风险，不写、不发。</p></div></article>
             <article><span>02</span><div><h3>草稿需确认</h3><p>AI 基于企业知识拟回复，销售确认后发送。</p></div></article>
             <article><span>03</span><div><h3>低风险自动回复</h3><p>仅处理已审批知识；价格、条款和大单立即转人工。</p></div></article>
+            <div className="security-facts">
+              <span>PRODUCT &amp; SECURITY FACTS</span>
+              <ul>
+                <li>回答优先引用已审批的企业知识</li>
+                <li>关键操作保留状态与人工确认节点</li>
+                <li>社媒账号按授权连接，不展示登录凭证</li>
+                <li>演示环境不使用客户名称、产品或联系人</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -107,7 +140,10 @@ export default function HomePage() {
               ["美妆个护", "成分、肤感、私标包装、MOQ、标签语言与打样"],
               ["医药健康", "产品教育、质量流程、认证、法规与功效边界"],
               ["建材", "规格、标准、工程场景、数量、目的港与交期"],
-            ].map(([title, text], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p><Link href="/service">查看行业方案 →</Link></article>)}
+            ].map(([title, text], index) => {
+              const href = ["/solutions/beauty", "/solutions/healthcare", "/solutions/building-materials"][index];
+              return <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p><Link href={href}>查看行业方案 →</Link></article>;
+            })}
           </div>
           <p className="mock-disclaimer">行业示例中的企业、客户与经营数据均为 Mock，不代表真实客户结果。</p>
         </div>
