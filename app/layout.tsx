@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageChrome } from "./ui/page-chrome";
 import "./globals.css";
+import "./final-overrides.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://official.lingshu.site"),

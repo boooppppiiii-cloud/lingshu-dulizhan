@@ -11,7 +11,7 @@ const modules = [
     summary: "从公开对标内容、企业产品资料和已有素材中寻找选题证据，不再靠团队每天临时想主题。",
     steps: ["查看公开内容趋势", "结合产品与目标市场", "筛选可用企业素材", "形成内容切入点"],
     proof: ["InspirationDashboard", "企业产品资料", "分行业素材标签"],
-    boundary: "公开内容只用于理解结构与趋势，不会把竞品数据、承诺或案例迁移成企业事实。", image: "/product-real/materials-library.png",
+    boundary: "公开内容只用于理解结构与趋势，不会把竞品数据、承诺或案例迁移成企业事实。", image: "/product-real/materials-library-crop.png",
     href: "/product/content-studio",
   },
   {
@@ -20,7 +20,7 @@ const modules = [
     summary: "把脚本、分镜、企业素材、配音、配乐和封面放进连续工作流，减少营销、设计与剪辑反复交接。",
     steps: ["选择产品与生成模式", "生成并审核分镜", "匹配企业素材", "确认封面与成片"],
     proof: ["AiCreateStudio", "六步视频创作", "脚本事实清洗与人工审核"],
-    boundary: "生成结果需要人工核对产品事实；参数、认证、功效和供应承诺必须有企业资料依据。", image: "/product-real/content-studio.png",
+    boundary: "生成结果需要人工核对产品事实；参数、认证、功效和供应承诺必须有企业资料依据。", image: "/product-real/content-studio-crop.png",
     href: "/product/content-studio",
   },
   {
@@ -29,7 +29,7 @@ const modules = [
     summary: "成片进入多平台排期；客户通过 WhatsApp 发起咨询后，由企业知识辅助首轮接待，并在关键节点交给销售。",
     steps: ["多平台账号排期", "保留内容来源", "补齐采购信息", "高风险转人工"],
     proof: ["CalendarPlanner", "平台发布接口", "AgentWorkspace 与人工交接"],
-    boundary: "发布依赖账号授权和平台审核；正式报价、折扣、合同条款和知识缺口默认转人工。", image: "/product-real/publishing-calendar.png",
+    boundary: "发布依赖账号授权和平台审核；正式报价、折扣、合同条款和知识缺口默认转人工。", image: "/product-real/publishing-calendar-crop.png",
     href: "/product/whatsapp-ai",
   },
 ] as const;

@@ -1,0 +1,36 @@
+/* Final geometry layer. Kept separate so legacy component styles cannot override it. */
+.nav-product-panel {
+  top: calc(100% + 8px);
+  left: 50%;
+  width: min(720px, calc(100vw - 32px));
+  padding: 18px;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 22px;
+  border: 1px solid #d7e8de;
+  border-radius: 18px;
+  background: #fff;
+  color: #173326;
+  box-shadow: 0 22px 60px rgba(25, 78, 49, .14);
+  transform: translate(-50%, 8px);
+}
+
+.nav-product-menu.is-open .nav-product-panel { transform: translate(-50%, 0); }
+.nav-product-panel > div:first-child { padding: 18px; border: 0; border-radius: 14px; background: #eaf9f1; }
+.nav-product-panel > div:first-child small { color: #168c4e; }
+.nav-product-panel > div:first-child strong { margin-top: 14px; color: #173326; font-size: 19px; line-height: 1.35; }
+.nav-product-panel > div:first-child > a { margin-top: 24px; color: #147d46; font-weight: 700; }
+.nav-product-panel a,
+.nav-mega-groups section a { color: #294c3b; border-color: #e6f0ea; }
+.nav-product-panel a:hover,
+.nav-mega-groups section a:hover { background: #f1faf5; color: #147d46; }
+.nav-product-panel a i { color: #159555; }
+.nav-mega-groups { grid-template-columns: 1.15fr .9fr .9fr; gap: 18px; }
+.nav-mega-groups section > strong { color: #71847a; }
+.nav-mega-groups section a { min-height: 35px; padding: 8px 4px; font-size: 11px; }
+
+.real-shot { height: auto; aspect-ratio: auto; overflow: hidden; background: #f5f8f6; }
+.real-shot img { display: block; width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; object-position: top left; }
+
+@media (max-width: 1000px) {
+  .nav-product-panel { display: none; }
+}

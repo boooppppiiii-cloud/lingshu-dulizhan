@@ -51,7 +51,7 @@ function Header({ pathname }: { pathname: string }) {
         <nav id="main-navigation" className={`nav-links ${open ? "is-open" : ""}`} aria-label="主要导航">
           <Link className="nav-home-link" href="/" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setOpen(false)}>首页</Link>
           <div className={`nav-product-menu ${productOpen ? "is-open" : ""}`} onMouseEnter={keepProductMenuOpen} onMouseLeave={scheduleProductMenuClose}>
-            <button type="button" aria-expanded={productOpen} onClick={() => setProductOpen((value) => !value)} onMouseEnter={keepProductMenuOpen}>
+            <button type="button" aria-expanded={productOpen} onClick={keepProductMenuOpen} onMouseEnter={keepProductMenuOpen}>
               产品 <span>⌄</span>
             </button>
             <div className="nav-product-panel">
