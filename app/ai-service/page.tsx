@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CapabilityList, CtaBand, MotionSlot, PageHero, SectionHeading } from "../ui/site-components";
-import { WhatsappHandoffDemo } from "../ui/product-demos";
+import { ProductEvidence } from "../ui/product-evidence";
 import { StructuredData, breadcrumbSchema, faqSchema } from "../ui/structured-data";
 
 export const metadata: Metadata = { title: "WhatsApp AI 询盘接待", description: "基于企业知识完成 WhatsApp 询盘首轮接待、BANT 分级和销售交接；报价、折扣、合同与交期承诺等高风险问题强制人工确认。", alternates: { canonical: "/ai-service" } };
@@ -26,7 +26,7 @@ export default function AiServicePage() { return <main>
     ["02","草稿需确认","结合企业知识生成草稿，由销售确认后发送。"],
     ["03","低风险自动回","只对已批准的标准问题自动回复，高风险动作强制降级。"],
   ].map(([i,t,p])=><article className="role-card" data-reveal key={t}><span>{i}</span><h3>{t}</h3><p>{p}</p></article>)}</div></div></section>
-  <section className="section product-demo-section"><div className="container"><SectionHeading eyebrow="LIVE PRODUCT LOGIC" title="亲自触发一次询价与人工接管" description="这套演示沿用正式产品的对话、风险识别和交接顺序；所有客户与数据均为 Mock。" align="center" /><div data-reveal><WhatsappHandoffDemo /></div></div></section>
+  <section className="section product-demo-section"><div className="container"><SectionHeading eyebrow="VERIFIED PRODUCT LOGIC" title="从正式项目核对接待与交接逻辑" description="不展示客户对话，不用虚构聊天冒充产品。这里列出已验证的模块、步骤和能力边界。" align="center" /><div data-reveal><ProductEvidence /></div></div></section>
   <section className="handoff-section"><div className="container split-section"><div><span className="eyebrow eyebrow-light">HUMAN HANDOFF</span><h2>销售接管时，不必让客户重新说一遍</h2><p>客户来源、当地时间、对话摘要、采购需求、BANT 证据、风险原因、已发送资料和建议动作会一起进入交接上下文。</p><ul className="dark-checklist"><li>大单、明确下单和 OEM 机会及时提醒</li><li>报价、付款、投诉和交期承诺暂停自动回复</li><li>连续知识缺口和客户要求通话时转人工</li></ul></div><MotionSlot title="销售交接摘要" note="模拟演示：高意向询盘触发负责人通知并保留完整上下文" tone="dark" /></div></section>
   <section className="section faq-section"><div className="container faq-grid"><SectionHeading eyebrow="FAQ" title="关于 WhatsApp AI 接待" /><div className="faq-list">{faq.map(([q,a])=><details data-reveal key={q}><summary>{q}<span>＋</span></summary><p>{a}</p></details>)}</div></div></section>
   <CtaBand title="先用 3 天，看看 AI 如何接住真实询盘" description="联系我们获取试用账号，由顾问协助配置演示企业知识和接待边界。" />

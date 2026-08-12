@@ -18,17 +18,17 @@ export function MotionSlot({
   return (
     <div
       className={`motion-slot motion-${tone} ratio-${ratio} ${compact ? "is-compact" : ""}`}
-      aria-label={`${title}，产品演示`}
+      aria-label={`${title}，流程结构示意`}
     >
-      <div className="slot-product-video slot-system-interface" aria-label={`${title}系统功能演示`}><div><span>灵枢 AI 工作台</span><small>FUNCTION DEMO</small></div><section><i/><i/><i/></section><article><strong>{title}</strong><p>{note}</p></article></div>
+      <div className="slot-product-video slot-system-interface" aria-label={`${title}流程结构示意`}><div><span>灵枢 AI</span><small>WORKFLOW</small></div><section><i/><i/><i/></section><article><strong>{title}</strong><p>{note}</p></article></div>
       <div className="slot-content">
         <span className="slot-kicker"><i /> PRODUCT FLOW</span>
         <strong>{title}</strong>
         <p>{note}</p>
       </div>
       <div className="slot-meta">
-        <span>真实产品素材</span>
-        <span>演示数据为 Mock</span>
+        <span>功能结构示意</span>
+        <span>实际界面见产品区</span>
       </div>
     </div>
   );

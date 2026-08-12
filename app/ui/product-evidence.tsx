@@ -1,32 +1,76 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { CSSProperties } from "react";
 
-const views = [
-  { id: "create", label: "内容工作台", eyebrow: "正式功能演示", title: "从产品知识到脚本、分镜与成片任务", text: "演示正式产品中的生成模式、素材、声音、配乐、封面与预览步骤，不包含任何客户资料。" },
-  { id: "publish", label: "发布排期", eyebrow: "正式功能演示", title: "统一查看平台、账号与发布状态", text: "演示多平台内容排期、审核和发布状态。平台与数据均为界面演示信息。" },
-  { id: "inbox", label: "询盘接待", eyebrow: "正式功能演示", title: "在同一上下文里判断意向与接管边界", text: "演示来源、AI 判断、草稿确认与人工接管逻辑。人物、公司和对话均不使用客户资料。" },
+const modules = [
+  {
+    id: "create", number: "01", label: "内容生产", title: "从企业资料开始创作",
+    summary: "选择产品和市场后，进入脚本、分镜、素材、配乐、封面与成片预览流程。",
+    steps: ["选择生成模式", "生成并审核分镜", "匹配企业素材", "完成封面与成片"],
+    proof: ["AiCreateStudio", "企业产品与素材库", "脚本事实清洗与人工审核"],
+    boundary: "生成结果需要人工核对产品事实；高风险表述不会被当作企业事实自动采用。", image: "/product-real/content-studio.png",
+    href: "/product/content-studio",
+  },
+  {
+    id: "publish", number: "02", label: "社媒发布", title: "让成片直接进入发布计划",
+    summary: "内容队列、日历排期和平台账号在同一流程中衔接，并保留发布状态。",
+    steps: ["成片进入内容队列", "选择平台与账号", "设置排期策略", "查看发布结果"],
+    proof: ["ScheduledPage", "CalendarPlanner", "TikTok / Meta / YouTube 发布接口"],
+    boundary: "真实发布依赖客户账号授权、平台应用审核和相应发布权限。未授权时只保存草稿。", image: "/product-real/publishing-calendar.png",
+    href: "/product/social-publishing",
+  },
+  {
+    id: "inquiry", number: "03", label: "询盘接待", title: "把对话交给正确的人",
+    summary: "WhatsApp 消息进入客户工作台后，AI 基于企业知识辅助回复、补齐采购信息并识别转人工条件。",
+    steps: ["识别语言与产品", "检索企业知识", "补齐采购信息", "触发人工交接"],
+    proof: ["AgentWorkspace", "客户优先级与意向信号", "报价与高风险动作保护"],
+    boundary: "正式报价、折扣、合同条款和知识缺口默认不由 AI 自主承诺。", image: null,
+    href: "/product/whatsapp-ai",
+  },
 ] as const;
 
-function CreateDemo() {
-  return <div className="system-demo system-create-demo animated-create"><div className="system-demo-sidebar"><b>AI 创作工作台</b>{["选模式","分镜与声音","选素材","配乐","封面","成片预览"].map((x,i)=><span className={i===1?"active":""} key={x}><i>0{i+1}</i>{x}</span>)}</div><div className="system-demo-content"><div className="system-demo-bar"><strong>分镜与声音</strong><small>生成任务进行中</small></div><div className="generation-line"><i/><span>产品知识 → 内容结构 → 分镜</span></div><div className="storyboard-grid">{["开场：产品使用场景","细节：结构与材质","证明：生产与质检","结尾：联系获取资料"].map((x,i)=><article style={{"--delay":`${i * .45}s`} as CSSProperties} key={x}><span>SHOT 0{i+1}</span><div className="shot-placeholder"/><strong>{x}</strong><small>{i%2?"英文旁白 · 4 秒":"环境音 · 3 秒"}</small></article>)}</div></div></div>;
+export function HeroSystemDemo() {
+  return <div className="growth-orbit" aria-label="灵枢内容到询盘增长链路动画">
+    <div className="orbit-core"><span>灵枢 AI</span><strong>企业知识</strong></div>
+    <div className="orbit-track"><i /><i /><i /></div>
+    <div className="orbit-node node-content"><small>01</small><strong>内容</strong><span>脚本 · 分镜 · 成片</span></div>
+    <div className="orbit-node node-social"><small>02</small><strong>社媒</strong><span>排期 · 发布 · 来源</span></div>
+    <div className="orbit-node node-inquiry"><small>03</small><strong>询盘</strong><span>接待 · 分级 · 交接</span></div>
+    <div className="orbit-signal signal-a"/><div className="orbit-signal signal-b"/><div className="orbit-signal signal-c"/>
+  </div>;
 }
-
-function PublishDemo() {
-  return <div className="system-demo animated-publish"><div className="system-demo-content full"><div className="system-demo-bar"><strong>内容发布日历</strong><small>自动排期演示 · 4 个平台</small></div><div className="publish-board"><div className="publish-days">{["MON","TUE","WED","THU","FRI"].map(x=><span key={x}>{x}</span>)}</div><div className="publish-cards"><article><span>TikTok · 10:30</span><strong>产品使用演示</strong><small>等待审核</small></article><article><span>Instagram · 16:00</span><strong>结构细节拆解</strong><small>排期成功</small></article><article><span>YouTube · 18:30</span><strong>工厂质量流程</strong><small>发布完成</small></article><div className="calendar-cursor">↗</div></div></div></div></div>;
-}
-
-function InboxDemo({handedOff,onHandoff}:{handedOff:boolean;onHandoff:()=>void}) {
-  return <div className="system-demo"><div className="system-demo-content full"><div className="system-demo-bar"><strong>客户工作台</strong><small>{handedOff?"销售已接管":"AI 辅助 · 草稿需确认"}</small></div><div className="inbox-demo"><aside><span className={handedOff?"":"active"}>新询盘 · 示例 A</span><span>待跟进 · 示例 B</span><span className={handedOff?"active":""}>人工接管 · 示例 C</span></aside><div className="inbox-conversation"><small>来源：Instagram · 产品演示内容</small><p className="incoming">Can you share MOQ and lead time?</p><p className="draft">{handedOff?"交接摘要已生成：客户询问 MOQ 与交期，市场、规格和数量待补齐。":"建议草稿：可以。为确认适用信息，请先告诉我目标市场、规格和预计数量。"}</p><div><span>意向：待补齐数量</span><span>风险：涉及交期，需确认</span></div></div><section><small>AI 判断依据</small><strong>{handedOff?"已通知销售负责人":"采购信息未完整"}</strong><p>已知：产品兴趣、询问 MOQ<br/>未知：市场、规格、数量</p><button type="button" onClick={onHandoff} disabled={handedOff}>{handedOff?"已转交销售":"转交销售"}</button></section></div></div></div>;
-}
-
-export function HeroSystemDemo(){return <div className="hero-system-demo"><div className="hero-system-top"><span><i/> LINGSHU WORKSPACE</span><strong>内容 → 发布 → 询盘</strong></div><PublishDemo/><div className="hero-system-status"><span>内容计划 12</span><span>本周已发布 7</span><span>待接管询盘 3</span></div></div>}
 
 export function ProductEvidence() {
-  const [active, setActive] = useState<(typeof views)[number]["id"]>("create");
-  const [handedOff,setHandedOff]=useState(false);
-  useEffect(()=>{const timer=window.setTimeout(()=>setActive(value=>value==="create"?"publish":value==="publish"?"inbox":"create"),6500);return()=>window.clearTimeout(timer)},[active]);
-  const current = views.find((view) => view.id === active) ?? views[0];
-  return <section className="product-evidence" id="product"><div className="product-evidence-nav" role="tablist" aria-label="产品功能演示">{views.map((view,index)=><button key={view.id} type="button" role="tab" aria-selected={active===view.id} onClick={()=>setActive(view.id)}><span>0{index+1}</span>{view.label}<i className="tab-progress"/></button>)}</div><div className="product-evidence-stage"><div className="product-evidence-copy"><span>{current.eyebrow}</span><h3>{current.title}</h3><p>{current.text}</p><small>界面动画依据 lingshu-AI 正式产品逻辑制作；每 6.5 秒自动切换，也可以点击标签查看。不包含任何客户资料。</small></div><div className={`product-evidence-media is-${active}`} key={active}>{active==="create"?<CreateDemo/>:active==="publish"?<PublishDemo/>:<InboxDemo handedOff={handedOff} onHandoff={()=>setHandedOff(true)}/>}<div className="product-live-mark"><i/> LIVE PRODUCT FLOW</div></div></div></section>;
+  const [active, setActive] = useState<(typeof modules)[number]["id"]>("create");
+  const current = modules.find(item => item.id === active) ?? modules[0];
+  useEffect(() => {
+    const timer = window.setTimeout(() => setActive(value => value === "create" ? "publish" : value === "publish" ? "inquiry" : "create"), 7000);
+    return () => window.clearTimeout(timer);
+  }, [active]);
+
+  return <section className="real-product" id="product">
+    <div className="real-product-tabs" role="tablist" aria-label="真实产品模块">
+      {modules.map(item => <button key={item.id} type="button" role="tab" aria-selected={item.id === active} onClick={() => setActive(item.id)}>
+        <span>{item.number}</span><strong>{item.label}</strong><i />
+      </button>)}
+    </div>
+    <div className="real-product-stage" key={current.id}>
+      <div className="real-product-copy">
+        <span className="verified-mark"><i /> 已从正式项目验证</span>
+        <h3>{current.title}</h3><p>{current.summary}</p>
+        <ol>{current.steps.map((step,index)=><li key={step}><span>{String(index+1).padStart(2,"0")}</span>{step}</li>)}</ol>
+        <Link href={current.href}>查看该模块的工作方式 <span>↗</span></Link>
+      </div>
+      <div className={`real-flow flow-${current.id}`}>
+        <div className="flow-top"><span>LINGSHU PRODUCT · REAL INTERFACE</span><small>模块 {current.number}</small></div>
+        {current.image ? <div className="real-shot"><Image unoptimized src={current.image} width={1526} height={851} alt={`${current.label}真实产品界面`} /></div> : <div className="flow-path is-inquiry">
+          {current.steps.map((step,index)=><div className="flow-step" style={{animationDelay:`${index*.55}s`}} key={step}><span>{index+1}</span><strong>{step}</strong>{index<current.steps.length-1?<i>→</i>:null}</div>)}
+        </div>}
+        <div className="flow-meta"><div className="flow-proof"><small>正式项目依据</small>{current.proof.map(item=><span key={item}>✓ {item}</span>)}</div><div className="flow-boundary"><strong>能力边界</strong><p>{current.boundary}</p></div></div>
+      </div>
+    </div>
+    <p className="evidence-note">这里不展示客户资料，也不使用虚构经营数据。功能说明来自正式 lingshu-AI 项目的页面、组件、接口与测试规则。</p>
+  </section>;
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CapabilityList, CtaBand, MotionSlot, PageHero, SectionHeading } from "../ui/site-components";
-import { ProductStudioDemo, PublishingCalendarDemo } from "../ui/product-demos";
+import { ProductEvidence } from "../ui/product-evidence";
 import { StructuredData, breadcrumbSchema, faqSchema } from "../ui/structured-data";
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default function SocialPage() {
           ["04", "多语版本", "围绕同一产品生成不同语言的口播、字幕与发布文案，并保留人工审核。"],
         ].map(([index,title,text]) => <article className="creation-card" data-reveal key={title}><span>{index}</span><h3>{title}</h3><p>{text}</p></article>)}
       </div>
-      <div className="demo-section-stack" data-reveal><ProductStudioDemo /><PublishingCalendarDemo /></div>
+      <div className="demo-section-stack" data-reveal><ProductEvidence /></div>
     </div></section>
     <section className="attribution-section"><div className="container attribution-grid">
       <div><span className="eyebrow eyebrow-light">CONTENT → INQUIRY</span><h2>发布不是终点，客户来源要跟着进入 WhatsApp</h2><p>发布时可为内容附加带追踪参数的 WhatsApp 入口。客户发起对话后，平台和具体内容来源进入客户上下文，帮助销售理解客户为什么而来。</p><div className="attribution-path"><span>已发布内容</span><span>追踪入口</span><span>WhatsApp 对话</span><span>客户工作台</span></div></div>

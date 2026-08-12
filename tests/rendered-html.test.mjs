@@ -70,21 +70,21 @@ for (const [path, expectedContent] of routeExpectations) {
   });
 }
 
-test("publishes product-derived interactive demos with explicit mock labels", async () => {
+test("publishes verified product evidence and explicit case-study labels", async () => {
   const [social, service, strategy] = await Promise.all([
     render("/social").then((response) => response.text()),
     render("/service").then((response) => response.text()),
     render("/strategy").then((response) => response.text()),
   ]);
   assert.match(social, /素材库智能生成/);
-  assert.match(social, /分镜与声音/);
-  assert.match(social, /模拟演示 · 不会真实发布/);
+  assert.match(social, /已从正式项目验证/);
+  assert.match(social, /真实产品界面/);
   assert.match(service, /美妆个护/);
   assert.match(service, /医药健康/);
   assert.match(service, /建材/);
   assert.match(service, /Mock 企业、客户与流程 · 非真实客户结果/);
-  assert.match(strategy, /AI 判断依据/);
-  assert.match(strategy, /Mock 客户、分值与时间线/);
+  assert.match(strategy, /客户判断必须有依据/);
+  assert.match(strategy, /意向信号、客户优先级和人工交接规则/);
 });
 
 test("requires explicit privacy consent on the trial form", async () => {

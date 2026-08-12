@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CapabilityList, CtaBand, MotionSlot, PageHero, SectionHeading } from "../ui/site-components";
-import { CustomerTimelineDemo } from "../ui/product-demos";
+import { ProductEvidence } from "../ui/product-evidence";
 import { StructuredData, breadcrumbSchema } from "../ui/structured-data";
 
 export const metadata: Metadata = { title: "外贸询盘分级与销售跟进", description: "记录询盘来源、客户对话、BANT 证据和销售动作，把高意向 WhatsApp 询盘及时交给业务员并持续跟进。", alternates: { canonical: "/strategy" } };
@@ -15,7 +15,7 @@ export default function StrategyPage() { return <main>
     {index:"04",title:"推进跟进与订单",text:"高意向客户触发交接与提醒；客户、订单状态、GMV、履约和退款数据进入经营视图。"},
   ]} /></div></section>
   <section className="attribution-section"><div className="container attribution-grid"><div><span className="eyebrow eyebrow-light">TRACEABLE JOURNEY</span><h2>知道客户为什么来，才能决定下一步怎么跟</h2><p>系统已有从发布内容到 WhatsApp 的追踪基础，并将平台内容 ID、项目、语言和账号等信息写入发布记录。订单归因仍需结合企业实际流程完成配置与验收。</p><div className="attribution-path"><span>平台内容</span><span>WhatsApp 入口</span><span>客户对话</span><span>BANT 分级</span><span>销售动作</span></div></div><MotionSlot title="客户增长时间线" note="模拟演示：内容来源、询盘摘要、跟进任务与订单状态" tone="dark" /></div></section>
-  <section className="section product-demo-section"><div className="container"><SectionHeading eyebrow="CUSTOMER CONTEXT" title="不是只看一个分数，而是查看客户证据和下一步" description="切换时间线、AI 判断依据和建议动作，查看正式产品如何避免凭空判断。" align="center" /><div data-reveal><CustomerTimelineDemo /></div></div></section>
+  <section className="section product-demo-section"><div className="container"><SectionHeading eyebrow="CUSTOMER CONTEXT" title="客户判断必须有依据" description="不展示客户资料，不虚构分数。这里只说明正式项目中已经实现的意向信号、客户优先级和人工交接规则。" align="center" /><div data-reveal><ProductEvidence /></div></div></section>
   <section className="section intelligence-section"><div className="container"><SectionHeading eyebrow="SALES OPERATING SYSTEM" title="把下一步动作交给系统提醒，把关键判断留给销售" align="center" /><div className="role-grid">{[
     ["01","高意向优先","大单、明确下单、OEM、独家与复购机会优先进入负责人视线。"],
     ["02","风险单独处理","报价、付款、投诉、赔偿和确定交期停止自动推进。"],

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CtaBand } from "./ui/site-components";
 import { HeroSystemDemo, ProductEvidence } from "./ui/product-evidence";
-import { ProductTour } from "./ui/product-tour";
 import { StructuredData, faqSchema, productSchema, websiteSchema } from "./ui/structured-data";
 
 const faq = [
@@ -59,10 +58,9 @@ export default function HomePage() {
           <div className="editorial-heading">
             <span>THE PRODUCT, NOT A PROMISE</span>
             <h2>先看产品，<br />再做决定。</h2>
-            <p>我们不再用抽象卡片代替产品。下面的界面、成片和流程均来自正式 lingshu-AI 项目。</p>
+            <p>下面使用正式灵枢工作台界面，并标明真实能力与使用边界。没有客户资料，也不再用虚构后台代替产品。</p>
           </div>
           <ProductEvidence />
-          <div className="home-guided-tour"><ProductTour /></div>
         </div>
       </section>
 
