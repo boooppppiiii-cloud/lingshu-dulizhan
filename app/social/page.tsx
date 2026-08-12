@@ -45,7 +45,7 @@ export default function SocialPage() {
     </div></section>
     <section className="attribution-section"><div className="container attribution-grid">
       <div><span className="eyebrow eyebrow-light">CONTENT → INQUIRY</span><h2>发布不是终点，客户来源要跟着进入 WhatsApp</h2><p>发布时可为内容附加带追踪参数的 WhatsApp 入口。客户发起对话后，平台和具体内容来源进入客户上下文，帮助销售理解客户为什么而来。</p><div className="attribution-path"><span>已发布内容</span><span>追踪入口</span><span>WhatsApp 对话</span><span>客户工作台</span></div></div>
-      <MotionSlot title="内容来源归因" note="模拟演示：Instagram 内容触发 WhatsApp 询盘并保存来源" tone="dark" />
+      <MotionSlot title="内容来源归因" note="工作流说明：Instagram 内容触发 WhatsApp 询盘并保存来源" tone="dark" />
     </div></section>
     <section className="section faq-section"><div className="container faq-grid"><SectionHeading eyebrow="FAQ" title="关于内容生成与发布" /><div className="faq-list">{faq.map(([q,a]) => <details data-reveal key={q}><summary>{q}<span>＋</span></summary><p>{a}</p></details>)}</div></div></section>
     <CtaBand title="用你的产品，体验一次完整内容生产流程" description="联系我们获取 3 天试用账号，体验产品资料、脚本、成片、排期与发布。" />

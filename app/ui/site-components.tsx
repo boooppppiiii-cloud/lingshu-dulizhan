@@ -16,20 +16,11 @@ export function MotionSlot({
   compact = false,
 }: MotionSlotProps) {
   return (
-    <div
-      className={`motion-slot motion-${tone} ratio-${ratio} ${compact ? "is-compact" : ""}`}
-      aria-label={`${title}，流程结构示意`}
-    >
-      <div className="slot-product-video slot-system-interface" aria-label={`${title}流程结构示意`}><div><span>灵枢 AI</span><small>WORKFLOW</small></div><section><i/><i/><i/></section><article><strong>{title}</strong><p>{note}</p></article></div>
-      <div className="slot-content">
-        <span className="slot-kicker"><i /> PRODUCT FLOW</span>
-        <strong>{title}</strong>
-        <p>{note}</p>
-      </div>
-      <div className="slot-meta">
-        <span>功能结构示意</span>
-        <span>实际界面见产品区</span>
-      </div>
+    <div className={`workflow-visual workflow-${tone} ratio-${ratio} ${compact ? "is-compact" : ""}`} aria-label={`${title}，工作流示意`}>
+      <div className="workflow-visual-top"><span><i /> LINGSHU WORKFLOW</span><small>产品逻辑</small></div>
+      <div className="workflow-visual-body"><span>01</span><span>02</span><span>03</span><i /><i /></div>
+      <strong>{title}</strong><p>{note}</p>
+      <small className="workflow-visual-note">实际产品界面与能力边界见下方产品区</small>
     </div>
   );
 }

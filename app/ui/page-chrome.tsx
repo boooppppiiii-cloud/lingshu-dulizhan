@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Logo() {
   return (
@@ -23,12 +23,24 @@ const megaGroups = [
 function Header({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
+  const productCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const keepProductMenuOpen = () => {
+    if (productCloseTimer.current) clearTimeout(productCloseTimer.current);
+    setProductOpen(true);
+  };
+  const scheduleProductMenuClose = () => {
+    if (productCloseTimer.current) clearTimeout(productCloseTimer.current);
+    productCloseTimer.current = setTimeout(() => setProductOpen(false), 320);
+  };
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [open]);
+  useEffect(() => () => {
+    if (productCloseTimer.current) clearTimeout(productCloseTimer.current);
+  }, []);
   return (
     <header className="site-header">
       <div className="nav-shell">
@@ -37,12 +49,13 @@ function Header({ pathname }: { pathname: string }) {
           <span>{open ? "关闭" : "菜单"}</span><i aria-hidden="true" />
         </button>
         <nav id="main-navigation" className={`nav-links ${open ? "is-open" : ""}`} aria-label="主要导航">
-          <div className={`nav-product-menu ${productOpen ? "is-open" : ""}`} onMouseLeave={() => setProductOpen(false)}>
-            <button type="button" aria-expanded={productOpen} onClick={() => setProductOpen((value) => !value)} onMouseEnter={() => setProductOpen(true)}>
+          <Link className="nav-home-link" href="/" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setOpen(false)}>首页</Link>
+          <div className={`nav-product-menu ${productOpen ? "is-open" : ""}`} onMouseEnter={keepProductMenuOpen} onMouseLeave={scheduleProductMenuClose}>
+            <button type="button" aria-expanded={productOpen} onClick={() => setProductOpen((value) => !value)} onMouseEnter={keepProductMenuOpen}>
               产品 <span>⌄</span>
             </button>
             <div className="nav-product-panel">
-              <div><small>一条连续链路</small><strong>从内容被看见，<br />到客户被接住。</strong><Link href="/product">进入产品 Tour →</Link></div>
+              <div><small>一条连续链路</small><strong>从内容被看见，<br />到客户被接住。</strong><Link href="/product" onClick={()=>{setOpen(false);setProductOpen(false)}}>查看产品全景 →</Link></div>
               <div className="nav-mega-groups">{megaGroups.map(group=><section key={group.title}><strong>{group.title}</strong>{group.items.map(([href,label])=><Link key={href} href={href} onClick={()=>{setOpen(false);setProductOpen(false)}}>{label}<i>↗</i></Link>)}</section>)}</div>
             </div>
           </div>
