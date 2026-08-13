@@ -6,6 +6,8 @@
 .devserver.log
 .devserver.err.log
 .devserver.pid
+.codex-preview.log
+.codex-preview-error.log
 .openai/*.tar.gz
 /.pnp
 .pnp.*
