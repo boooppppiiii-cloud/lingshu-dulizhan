@@ -48,8 +48,8 @@ const storyScenes = [
     accent: "机会",
     text: "从趋势、竞品和客户问题中识别值得跟进的主题，让每一次创作都有清晰理由。",
     brands: [platformBrands[0], platformBrands[1], platformBrands[2]],
-    metric: "+37%",
-    metricLabel: "高潜内容机会",
+    metric: "趋势",
+    metricLabel: "选题证据已汇总",
     signal: "趋势热度正在上升",
   },
   {
@@ -59,8 +59,8 @@ const storyScenes = [
     accent: "长出多平台内容",
     text: "AI 生成脚本、图文与多语言发布文案，并针对不同平台自动适配表达和节奏。",
     brands: [modelBrands[0], modelBrands[1], modelBrands[2]],
-    metric: "4×",
-    metricLabel: "内容生产效率",
+    metric: "4 平台",
+    metricLabel: "发布链路已连接",
     signal: "多模型正在协同创作",
   },
   {
@@ -70,8 +70,8 @@ const storyScenes = [
     accent: "都带着客户回来",
     text: "客户从社媒进入 WhatsApp 后，来源内容、平台和意图会自动进入同一份对话上下文。",
     brands: [platformBrands[3], platformBrands[4], platformBrands[5]],
-    metric: "92",
-    metricLabel: "客户意向评分",
+    metric: "来源",
+    metricLabel: "内容入口已记录",
     signal: "高意向询盘已优先接待",
   },
   {
@@ -81,8 +81,8 @@ const storyScenes = [
     accent: "也懂你的生意",
     text: "灵枢按任务调度合适模型，再结合企业知识、经营目标和客户历史给出更可靠的下一步。",
     brands: [modelBrands[3], modelBrands[4], modelBrands[5]],
-    metric: "24/7",
-    metricLabel: "经营上下文在线",
+    metric: "企业知识",
+    metricLabel: "已进入回答上下文",
     signal: "企业知识与模型已连接",
   },
 ] as const;

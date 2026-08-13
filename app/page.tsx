@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { CtaBand } from "./ui/site-components";
 import { HeroSystemDemo, ProductEvidence } from "./ui/product-evidence";
+import { ContentConversationFlow, HumanHandoffFlow } from "./ui/content-conversation-flow";
+import { GrowthScrollStory, IntegratedBrandRail } from "./ui/home-motion-experience";
+import { InteractiveHeroField } from "./ui/interactive-hero-field";
 import { StructuredData, faqSchema, productSchema, websiteSchema } from "./ui/structured-data";
 
 const faq = [
@@ -23,8 +26,9 @@ export default function HomePage() {
     <main className="editorial-home">
       <StructuredData data={[websiteSchema, productSchema(), faqSchema(faq)]} />
 
-      <section className="editorial-hero">
+      <section className="editorial-hero home-hero">
         <div className="editorial-hero-glow" />
+        <InteractiveHeroField />
         <div className="container editorial-hero-inner">
           <div className="editorial-hero-copy">
             <span className="editorial-kicker"><i /> FOR EXPORT MANUFACTURERS</span>
@@ -46,12 +50,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="truth-strip" aria-label="产品事实">
-        <div className="container">
-          <strong>一套工作台，贯通海外获客的前后两端</strong>
-          <span>TikTok</span><span>Facebook</span><span>Instagram</span><span>YouTube</span><span>WhatsApp</span>
-        </div>
-      </section>
+      <IntegratedBrandRail />
 
       <section className="editorial-section product-intro">
         <div className="container">
@@ -63,6 +62,8 @@ export default function HomePage() {
           <ProductEvidence />
         </div>
       </section>
+
+      <GrowthScrollStory />
 
       <section className="editorial-section loop-section" id="how-it-works">
         <div className="container">
@@ -76,6 +77,14 @@ export default function HomePage() {
                 <span>{index}</span><h3>{title}</h3><p>{text}</p><i>↗</i>
               </Link>
             ))}
+          </div>
+          <div className="editorial-motion-block">
+            <div className="editorial-motion-copy">
+              <span>CONTENT → CONVERSATION</span>
+              <h3>客户从哪条内容来，销售不再靠猜。</h3>
+              <p>内容入口、平台来源和采购意图进入同一份对话上下文，再把高价值机会交给销售。</p>
+            </div>
+            <ContentConversationFlow />
           </div>
         </div>
       </section>
@@ -105,6 +114,14 @@ export default function HomePage() {
               <p>不要求企业推倒重来。灵枢可以接在现有素材、内容审批、WhatsApp 接待、销售接管与 CRM 记录之间。</p>
               <div><b>企业资料</b><i>→</i><b>灵枢 AI</b><i>→</i><b>人工审批</b><i>→</i><b>销售 / CRM</b></div>
             </div>
+          </div>
+          <div className="control-story-motion">
+            <div className="editorial-motion-copy">
+              <span>SAFE HUMAN HANDOFF</span>
+              <h3>该 AI 回答的继续回答，该销售决定的及时停下。</h3>
+              <p>命中知识、识别风险、暂停越权回复，再把来源、摘要和建议动作完整交给人工。</p>
+            </div>
+            <HumanHandoffFlow />
           </div>
         </div>
       </section>
