@@ -9,9 +9,9 @@
   --line: rgba(7, 17, 12, 0.12);
   --muted: #627068;
   --text: #111827;
-  --green: #22c55e;
-  --green-dark: #087b35;
-  --green-soft: #dff8e8;
+  --green: #079b72;
+  --green-dark: #05634d;
+  --green-soft: #e4faf2;
   --social: #f59e0b;
   --social-soft: #fff1d6;
   --service: #06b6d4;
@@ -129,6 +129,10 @@ main {
   pointer-events: none;
   transform-origin: top;
   animation: page-gradient-sweep 820ms var(--ease) both;
+}
+
+.home-page-transition::before {
+  display: none;
 }
 
 @keyframes page-in {
@@ -291,13 +295,13 @@ p {
 
 .button-primary {
   background: var(--green);
-  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.24);
-  color: #062812;
+  box-shadow: 0 10px 26px rgba(23, 107, 82, 0.18);
+  color: #fff;
 }
 
 .button-primary:hover {
-  background: #2bd36a;
-  box-shadow: 0 16px 42px rgba(34, 197, 94, 0.34);
+  background: #0f5b45;
+  box-shadow: 0 14px 34px rgba(23, 107, 82, 0.24);
 }
 
 .button-ghost {
@@ -374,7 +378,7 @@ p {
   color: var(--ink);
   font-size: 18px;
   font-weight: 850;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 
 .brand-logo {

@@ -19,11 +19,11 @@ function Header() {
     <header className="site-header">
       <div className="nav-shell">
         <Logo />
-        <div className="nav-actions">
-          <Link className="button button-primary button-compact" href="/demo">
-            预约演示
-          </Link>
-        </div>
+        <nav className="desktop-nav" aria-label="主页导航">
+          <Link href="/#growth">爆款复刻</Link>
+          <Link href="/#service">询盘承接</Link>
+          <Link href="/#product">增长链路</Link>
+        </nav>
       </div>
     </header>
   );
@@ -35,14 +35,16 @@ function Footer() {
       <div className="footer-grid">
         <div>
           <Logo />
-          <p>面向出海企业的社媒获客与智能客服一体化工作台。</p>
+          <p>让海外内容持续变成高价值商机。</p>
           <span className="footer-status">
             <i /> 产品持续迭代中
           </span>
         </div>
         <div>
-          <strong>开始使用</strong>
-          <Link href="/demo">预约产品演示</Link>
+          <strong>产品</strong>
+          <Link href="/#growth">爆款复刻</Link>
+          <Link href="/#service">AI 客服</Link>
+          <Link href="/#contact">申请体验</Link>
         </div>
         <div>
           <strong>法律</strong>
@@ -52,7 +54,7 @@ function Footer() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 灵枢 AI</span>
-        <span>让内容带来客户，让对话走向成交。</span>
+        <span>内容机会 · 全球分发 · 询盘承接 · 商机识别</span>
       </div>
     </footer>
   );
@@ -81,7 +83,7 @@ export function PageChrome({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <div className="page-transition" key={pathname}>
+      <div className={`page-transition${pathname === "/" ? " home-page-transition" : ""}`} key={pathname}>
         {children}
       </div>
       <Footer />
