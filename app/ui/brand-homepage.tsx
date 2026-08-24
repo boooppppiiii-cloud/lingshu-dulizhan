@@ -39,8 +39,8 @@ function ViralReplication() {
   return (
     <section className={styles.replicationSection} id="growth">
       <div className={styles.sectionIntro} data-reveal>
-        <span>AI 爆款拆解</span>
-        <h2>把爆款表达，拆成可复用的增长方法</h2>
+        <span>AI 高表现创意分析</span>
+        <h2>把有效表达，拆成可复用的增长方法</h2>
         <p>从脚本出发，理解内容为什么有效、画面如何配合、每句话承担什么作用，并给出面向企业产品的改编方向。</p>
       </div>
       <div className={`${styles.analysisShowcase} ${styles.analysisTheater}`} data-reveal>
@@ -83,8 +83,8 @@ function VariantExplosion() {
   return (
     <section className={styles.variantSection}>
       <div className={styles.sectionIntro} data-reveal>
-        <span>爆款裂变</span>
-        <h2>同一种爆款表达，长出不同的内容</h2>
+        <span>合规创意变体</span>
+        <h2>同一种有效表达，长出不同的内容</h2>
         <p>保留已经验证有效的表达结构，灵活替换产品、场景、人物与语言，让同一个爆点适配更多市场和受众。</p>
       </div>
       <div className={styles.variationGallery} data-reveal>
@@ -171,7 +171,7 @@ function LearningWorkflow() {
 function FinalCallToAction() {
   return (
     <section className={styles.finalCta} id="contact">
-      <div data-reveal><span>开始体验</span><h2>让内容，带回商机</h2><p>从爆款复刻到询盘承接，体验灵枢 AI 如何连接整条海外获客链路。</p><div><a href="mailto:19653282176@163.com?subject=申请体验灵枢 AI">申请产品体验</a><a href="#growth">查看增长链路</a></div></div>
+      <div data-reveal><span>开始体验</span><h2>让内容，带回商机</h2><p>从高表现创意分析到询盘承接，体验灵枢 AI 如何连接整条海外获客链路。</p><div><a href="/demo">申请产品体验</a><a href="#growth">查看增长链路</a></div></div>
       <aside data-reveal><span>体验内容</span><ul><li>梳理当前内容与获客流程</li><li>确认适用能力与接入范围</li><li>使用演示数据体验完整链路</li></ul><small>提交后由灵枢 AI 团队统一联系</small></aside>
     </section>
   );

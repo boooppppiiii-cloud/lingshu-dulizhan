@@ -57,6 +57,7 @@ export function InteractiveHeroField() {
     const hero = field?.closest<HTMLElement>(".home-hero");
 
     if (!field || !hero) return;
+    const activeField = field;
 
     const items = Array.from(
       field.querySelectorAll<HTMLElement>(".ai-hover-item"),
@@ -124,7 +125,7 @@ export function InteractiveHeroField() {
     };
 
     function hideField() {
-      field.classList.remove("is-active");
+      activeField.classList.remove("is-active");
       items.forEach((element) => {
         element.style.opacity = "0";
       });

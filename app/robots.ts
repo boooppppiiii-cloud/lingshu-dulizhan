@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://lingshu-ai-official.early-tetra-7678.chatgpt.site/sitemap.xml",
+    sitemap: "https://official.lingshu.site/sitemap.xml",
   };
 }

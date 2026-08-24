@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://lingshu-ai-official.early-tetra-7678.chatgpt.site";
+const baseUrl = "https://official.lingshu.site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/demo", "/privacy", "/terms"].map(
+  return ["", "/demo", "/legal", "/privacy", "/terms", "/cookies", "/acceptable-use"].map(
     (path) => ({
       url: `${baseUrl}${path}`,
-      lastModified: new Date("2026-07-23"),
+      lastModified: new Date("2026-08-24"),
       changeFrequency: path === "" ? "weekly" : "monthly",
       priority: path === "" ? 1 : path === "/demo" ? 0.9 : 0.7,
     }),

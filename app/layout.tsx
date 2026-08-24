@@ -3,7 +3,7 @@ import { PageChrome } from "./ui/page-chrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lingshu-ai-official.early-tetra-7678.chatgpt.site"),
+  metadataBase: new URL("https://official.lingshu.site"),
   title: {
     default: "灵枢 AI｜让海外内容持续变成高价值商机",
     template: "%s｜灵枢 AI",

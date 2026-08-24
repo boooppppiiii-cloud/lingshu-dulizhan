@@ -116,7 +116,7 @@ export function CtaBand({
           <Link className="button button-light" href="/demo">
             预约产品演示 <span>↗</span>
           </Link>
-          <a className="button button-dark-ghost" href="mailto:hello@lingshu.ai">
+          <a className="button button-dark-ghost" href="mailto:19653282176@163.com">
             联系增长顾问
           </a>
         </div>
