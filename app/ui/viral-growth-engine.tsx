@@ -241,24 +241,6 @@ export function ViralGrowthEngine() {
         </div>
       </section>
 
-      <section className={styles.flowComparison} aria-labelledby="flow-comparison-title">
-        <div className={styles.comparisonIntro} data-reveal>
-          <span>流程对比</span>
-          <h2 id="flow-comparison-title">把漫长协作，变成可重复执行的增长链路</h2>
-        </div>
-        <div className={styles.comparisonLanes} data-reveal>
-          <div className={styles.traditionalLane}>
-            <header><span>传统内容流程</span><b>多人 · 多工具 · 多轮沟通</b></header>
-            <div>{["人工刷平台", "团队讨论", "手动分析", "重新写脚本", "多轮修改", "分别适配", "逐个发布"].map((item, index) => <span key={item}><i>0{index + 1}</i>{item}</span>)}</div>
-          </div>
-          <div className={styles.lingshuLane}>
-            <header><span>灵枢内容增长流程</span><b>一条连续链路</b></header>
-            <div>{["发现热点", "提取逻辑", "替换内容", "批量生成", "一键发布"].map((item, index) => <span key={item}><i>0{index + 1}</i>{item}</span>)}</div>
-          </div>
-        </div>
-        <p className={styles.comparisonClose} data-reveal>把原本需要多人、多工具、多轮沟通的内容生产流程，变成一条可重复执行的增长链路。</p>
-      </section>
-
       <section className={styles.growthCallout} aria-labelledby="growth-callout-title">
         <div data-reveal>
           <span>从更有把握的起点开始</span>

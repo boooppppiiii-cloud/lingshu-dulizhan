@@ -51,15 +51,6 @@ function LearningWorkflow() {
   );
 }
 
-function FinalCallToAction() {
-  return (
-    <section className={styles.finalCta} id="contact">
-      <div data-reveal><span>开始体验</span><h2>让内容，带回商机</h2><p>从爆款内容增长到询盘承接，体验灵枢 AI 如何连接整条海外获客链路。</p><div><a href="mailto:19653282176@163.com?subject=申请体验灵枢 AI">申请产品体验</a><a href="#growth">查看增长链路</a></div></div>
-      <aside data-reveal><span>体验内容</span><ul><li>梳理当前内容与获客流程</li><li>确认适用能力与接入范围</li><li>使用演示数据体验完整链路</li></ul><small>提交后由灵枢 AI 团队统一联系</small></aside>
-    </section>
-  );
-}
-
 export function BrandHomepage() {
   return (
     <main className={styles.page}>
@@ -106,8 +97,6 @@ export function BrandHomepage() {
 
       <ViralGrowthEngine />
       <AiSalesWorkspace />
-      <LearningWorkflow />
-      <FinalCallToAction />
     </main>
   );
 }
