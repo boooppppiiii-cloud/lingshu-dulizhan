@@ -49,12 +49,21 @@
   display: grid;
   min-height: 620px;
   align-items: center;
-  grid-template-columns: .9fr 1.1fr;
+  grid-template-areas: "left right";
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   gap: clamp(34px, 6vw, 92px);
 }
 
 .intro {
+  display: grid;
   max-width: 600px;
+  align-content: center;
+  grid-area: left;
+  grid-template-rows: auto auto auto;
+}
+
+.leadCopy {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -78,7 +87,7 @@
   max-width: 620px;
   margin: 22px 0 20px;
   color: #0b3329;
-  font-size: clamp(44px, 5.2vw, 70px);
+  font-size: clamp(38px, 4vw, 58px);
   font-weight: 540;
   line-height: 1.07;
   letter-spacing: 0;
@@ -101,23 +110,25 @@
   display: grid;
   margin-top: 30px;
   border-top: 1px solid rgba(9, 111, 83, .16);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(3, auto);
 }
 
 .leadBenefits > div {
   display: grid;
   min-width: 0;
   align-items: center;
-  padding: 14px 0;
+  padding: 18px 0;
   border-bottom: 1px solid rgba(9, 111, 83, .13);
-  grid-template-columns: 34px 1fr;
-  gap: 12px;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
 }
 
 .leadBenefits i {
-  color: #0b9d75;
-  font-size: 9px;
+  color: #078966;
+  font-size: 12px;
   font-style: normal;
-  font-weight: 750;
+  font-weight: 800;
 }
 
 .leadBenefits p,
@@ -128,16 +139,18 @@
 }
 
 .leadBenefits strong {
-  color: #173d32;
-  font-size: 12px;
+  color: #0f3f31;
+  font-size: 18px;
+  font-weight: 780;
+  letter-spacing: .01em;
 }
 
 .leadBenefits span {
-  margin-top: 4px;
+  margin-top: 6px;
   overflow-wrap: anywhere;
-  color: #75867f;
-  font-size: 10px;
-  line-height: 1.45;
+  color: #5e756c;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .leadCta {
@@ -162,10 +175,15 @@
   font-weight: 500;
 }
 
+.leadAction {
+  min-width: 0;
+}
+
 .characterVisual {
   position: relative;
   min-width: 0;
   height: 600px;
+  grid-area: right;
 }
 
 .visualShape {
@@ -1108,9 +1126,14 @@
 
 @media (max-width: 780px) {
   .section { padding: 84px 18px; background-size: 48px 48px; }
-  .serviceLead { min-height: auto; grid-template-columns: 1fr; gap: 32px; }
+  .serviceLead {
+    min-height: auto;
+    grid-template-areas: "left" "right";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
   .intro { max-width: 620px; }
-  .intro h2 { font-size: 44px; }
+  .intro h2 { font-size: 40px; }
   .characterVisual { width: min(100%, 600px); height: 510px; margin: 0 auto; }
   .visualShape { left: 4%; }
   .robot { right: 9%; width: min(80%, 430px); }
@@ -1139,9 +1162,11 @@
 }
 
 @media (max-width: 520px) {
-  .intro h2 { font-size: 36px; }
+  .intro h2 { font-size: 32px; }
   .intro p { font-size: 14px; }
-  .leadBenefits > div { grid-template-columns: 28px 1fr; }
+  .leadBenefits > div { padding: 15px 0; grid-template-columns: 34px 1fr; gap: 10px; }
+  .leadBenefits strong { font-size: 16px; }
+  .leadBenefits span { font-size: 13px; }
   .characterVisual { height: 420px; }
   .visualShape { top: 34px; right: 0; bottom: 18px; left: 0; }
   .visualGrid { inset: 55px 4% 38px; }

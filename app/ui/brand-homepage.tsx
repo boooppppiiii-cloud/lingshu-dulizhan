@@ -2,59 +2,10 @@ import styles from "../brand-homepage.module.css";
 import { AiSalesWorkspace } from "./ai-sales-workspace";
 import { ViralGrowthEngine } from "./viral-growth-engine";
 
-function LearningWorkflow() {
-  return (
-    <section className={styles.learningSection} id="product">
-      <div className={styles.sectionIntro} data-reveal>
-        <span>企业长期记忆</span>
-        <h2>不是每次重新认识客户，<br />AI 会接着上一次继续聊</h2>
-        <p>客户换了平台、隔了一个月，或开始二期项目，灵枢依然记得关键需求和暂停原因。下一次沟通不再重复盘问，而是直接从变化处继续推进。</p>
-      </div>
-
-      <div className={styles.memoryJourney} data-reveal>
-        <section className={styles.memorySource}>
-          <span>客户曾经说过</span>
-          <strong>散落在不同时间与渠道的关键信息</strong>
-          <ul>
-            <li><i />一期 SAT 已完成，最终参数已确认</li>
-            <li><i />偏好英文界面与本地集成服务</li>
-            <li><i />因仓库改造暂停，暂时不催决策</li>
-          </ul>
-        </section>
-
-        <div className={styles.memoryBridge} aria-label="灵枢长期记忆">
-          <span>持续记住</span>
-          <div><i /><i /><i /></div>
-          <strong>长期上下文</strong>
-          <small>不是一段聊天记录<br />而是可调用的客户认知</small>
-        </div>
-
-        <section className={styles.memoryUse}>
-          <span>下一次直接接着聊</span>
-          <div className={styles.memoryMessage}>
-            <small>AI 回复 · 已调用一期项目记忆</small>
-            <p>我们会沿用一期 SAT 基线，只确认新增箱型、输送线变化和二期启动日期。</p>
-          </div>
-          <div className={styles.memoryMessage}>
-            <small>沉默 33 天 · 自然唤醒</small>
-            <p>新版布局可多释放 600 毫米通道。我可以先发给你留档，现在无需做决定。</p>
-          </div>
-        </section>
-
-        <footer className={styles.memoryResults}>
-          <div><b>客户感受到</b><span>不用反复解释，沟通始终接得上</span></div>
-          <div><b>销售获得</b><span>不用翻聊天记录，接管就知道重点</span></div>
-          <div><b>业务留下</b><span>经验持续沉淀，不跟着人员流失</span></div>
-        </footer>
-      </div>
-    </section>
-  );
-}
-
 function FinalCallToAction() {
   return (
     <section className={styles.finalCta} id="contact">
-      <div data-reveal><span>开始体验</span><h2>让内容，带回商机</h2><p>从爆款内容增长到询盘承接，体验灵枢 AI 如何连接整条海外获客链路。</p><div><a href="mailto:19653282176@163.com?subject=申请体验灵枢 AI">申请产品体验</a><a href="#growth">查看增长链路</a></div></div>
+      <div data-reveal><span>开始体验</span><h2 className={styles.finalCtaTitle}>灵枢 AI，<br />助力四海生意</h2><p>从爆款内容增长到询盘承接，体验灵枢 AI 如何连接整条海外获客链路。</p><div><a href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">预约产品演示</a><a href="#growth">查看 Agent 工作流</a></div></div>
       <aside data-reveal><span>体验内容</span><ul><li>梳理当前内容与获客流程</li><li>确认适用能力与接入范围</li><li>使用演示数据体验完整链路</li></ul><small>提交后由灵枢 AI 团队统一联系</small></aside>
     </section>
   );
@@ -72,41 +23,18 @@ export function BrandHomepage() {
           <i data-arc="3" />
         </div>
         <div className={styles.productHeroIntro}>
-          <span className={styles.productHeroEyebrow}>灵枢 AI 社媒内容获客平台</span>
-          <h1 id="brand-hero-title">让内容持续触达，<span>让高价值商机不再掉线</span></h1>
-          <p>从内容机会到询盘承接，让海外获客成为一条持续运转的增长链路。</p>
-          <a href="#discovery">了解灵枢 AI <b aria-hidden="true">↓</b></a>
-        </div>
-
-        <div className={styles.heroVideoWrap}>
-          <div className={styles.heroVideoFrame}>
-            <div className={styles.heroVideoTopbar}>
-              <span><i /> 产品演示</span>
-              <small>LINGSHU AI / PRODUCT TOUR</small>
-              <b>01:26</b>
-            </div>
-            <div className={styles.heroVideoStage}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/product-ui/viral-discovery.png" alt="灵枢 AI 内容机会发现界面" />
-              <div className={styles.heroVideoShade} aria-hidden="true" />
-              <div className={styles.heroVideoControls} aria-hidden="true">
-                <i className={styles.heroVideoPlay} />
-                <span><b /></span>
-                <small>00:00 / 01:26</small>
-              </div>
-              <div className={styles.heroVideoScan} aria-hidden="true" />
-            </div>
-            <i className={styles.frameCorner} data-corner="tl" aria-hidden="true" />
-            <i className={styles.frameCorner} data-corner="tr" aria-hidden="true" />
-            <i className={styles.frameCorner} data-corner="bl" aria-hidden="true" />
-            <i className={styles.frameCorner} data-corner="br" aria-hidden="true" />
+          <span className={styles.productHeroEyebrow}>企业出海 · 社媒增长 Agent</span>
+          <h1 id="brand-hero-title">从追逐流量，<span>到自带引力</span></h1>
+          <p>基于企业专属知识库与 Agent 工作流，贯通市场洞察、内容策划、规模化创作、多平台分发与增长复盘，帮助品牌、工厂及各类出海企业建立可持续的海外社媒增长系统。</p>
+          <div className={styles.productHeroActions}>
+            <a className={styles.productHeroPrimary} href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">预约产品演示 <b aria-hidden="true">↗</b></a>
+            <a className={styles.productHeroSecondary} href="#growth">查看 Agent 工作流 <b aria-hidden="true">↓</b></a>
           </div>
         </div>
       </section>
 
       <ViralGrowthEngine />
       <AiSalesWorkspace />
-      <LearningWorkflow />
       <FinalCallToAction />
     </main>
   );
