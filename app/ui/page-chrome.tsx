@@ -22,7 +22,7 @@ function Header() {
         <nav className="desktop-nav" aria-label="主页导航">
           <Link href="/#growth">爆款增长</Link>
           <Link href="/#service">询盘承接</Link>
-          <Link href="/#product">增长链路</Link>
+          <Link href="/#contact">预约演示</Link>
         </nav>
       </div>
     </header>
@@ -35,7 +35,7 @@ function Footer() {
       <div className="footer-grid">
         <div>
           <Logo />
-          <p>让海外内容持续变成高价值商机。</p>
+          <p>从追逐流量，到自带引力。</p>
           <span className="footer-status"><i /> 产品持续迭代中</span>
         </div>
         <div>
@@ -55,7 +55,7 @@ function Footer() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 灵小枢（杭州）科技有限公司 · 19653282176@163.com</span>
-        <span>内容机会 · 全球分发 · 询盘承接 · 商机识别</span>
+        <span>市场洞察 · 规模创作 · 多平台分发 · 增长复盘</span>
       </div>
     </footer>
   );

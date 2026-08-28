@@ -31,8 +31,8 @@ export function AiSalesWorkspace() {
         <header className={styles.header}>
           <div className={styles.eyebrow}><span className={styles.eyebrowDot} />灵枢 AI 智能客服</div>
           <div className={styles.headerRow}>
-            <h2>不止秒回消息，<span>更懂如何推动成交</span></h2>
-            <p>从第一句破冰，到持续跟进与老客唤醒，让每一次客户沟通都沉淀为可复用、可推进的增长机会。</p>
+            <h2>打通社媒获客的<span>最后一公里</span></h2>
+            <p>不用守着多个平台等消息。灵枢 AI 能以客户的语言秒级回应，记住每一次沟通，并把询盘持续推进到真正需要销售出场的时刻。</p>
           </div>
         </header>
         <div className={styles.benefitGrid}>
@@ -49,7 +49,7 @@ export function AiSalesWorkspace() {
           ))}
         </div>
         <div className={styles.detailPanel}>
-          <div className={styles.detailHeading}><div><span className={styles.detailKicker}>细节功能点</span><h3>把好用，落实到每一次服务里</h3></div><p>响应、识别、沉淀与安全，四个关键环节缺一不可。</p></div>
+          <div className={styles.detailHeading}><div><span className={styles.detailKicker}>从回应到推进</span><h3>AI 不只回复消息，还知道下一步该做什么</h3></div><p>识别语种、个性化推进、自动建档，并在敏感数据出现时守住隐私边界。</p></div>
           <div className={styles.detailGrid}>
             {details.map((detail) => <article className={styles.detailCard} key={detail.title}><div className={styles.detailTopline}><span className={styles.iconWrap}><DetailIcon type={detail.icon} /></span><span className={styles.detailNumber}>{detail.number}</span></div><h4>{detail.title}</h4><p>{detail.description}</p></article>)}
           </div>

@@ -5,35 +5,35 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://official.lingshu.site"),
   title: {
-    default: "灵枢 AI｜让海外内容持续变成高价值商机",
+    default: "灵枢 AI｜企业出海社媒增长 Agent",
     template: "%s｜灵枢 AI",
   },
   description:
-    "面向有海外获客需求的企业，连接内容机会、智能创作、全球分发、询盘承接与高价值商机识别。",
+    "面向品牌、工厂及各类出海企业，以企业专属知识库与 Agent 工作流贯通市场洞察、内容策划、规模化创作、多平台分发与增长复盘。",
   icons: {
     icon: "/brand-logo-v2.png",
     shortcut: "/brand-logo-v2.png",
     apple: "/brand-logo-v2.png",
   },
   openGraph: {
-    title: "灵枢 AI｜让海外内容持续变成高价值商机",
+    title: "从追逐流量，到自带引力｜灵枢 AI",
     description:
-      "连接内容机会、智能创作、全球分发、询盘承接与高价值商机识别。",
+      "企业出海社媒增长 Agent，贯通市场洞察、内容创作、多平台分发与增长复盘。",
     type: "website",
     locale: "zh_CN",
     images: [
       {
         url: "/og.png",
-        width: 1734,
-        height: 907,
-        alt: "灵枢 AI：让海外内容持续变成高价值商机",
+        width: 1732,
+        height: 908,
+        alt: "灵枢 AI 企业出海社媒增长 Agent",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "灵枢 AI｜让海外内容持续变成高价值商机",
-    description: "连接内容机会、全球分发、询盘承接与高价值商机识别。",
+    title: "从追逐流量，到自带引力｜灵枢 AI",
+    description: "企业出海社媒增长 Agent，贯通市场洞察、内容创作、多平台分发与增长复盘。",
     images: ["/og.png"],
   },
 };

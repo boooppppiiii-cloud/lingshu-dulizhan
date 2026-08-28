@@ -5,86 +5,57 @@ import styles from "../ai-conversation-demo.module.css";
 
 const scenarios = [
   {
-    id: "first-inquiry",
+    id: "instant-reply",
     number: "01",
-    tab: "首次询盘",
-    label: "秒级首响",
-    customer: "Can your system inspect scratches on reflective aluminum parts? We need an English interface and local integration in Dubai.",
-    reply: "可以。除了划伤，您还需要同时检测凹坑、毛刺或色差吗？我已记录英文界面与迪拜本地集成要求，接下来可以按实际缺陷组合确认检测方案。",
-    insight: "先诊断，再推荐",
-    evidence: ["识别语言：English", "记住地区：Dubai", "补全缺陷类型"],
-    action: "建立首轮需求档案",
+    tab: "24h 秒回",
+    label: "智能识别语种",
+    score: "74",
+    customer: "مرحبًا، هل يمكنني الحصول على الكتالوج؟ وما هو الحد الأدنى للطلب والتوصيل إلى دبي؟",
+    reply: "مرحبًا بك! بالتأكيد. 已识别阿语并记录迪拜市场信息。请告诉我所需产品和预计数量，我会先确认库存、起订量与交付周期。",
+    insight: "阿语已识别 · 秒级接待",
+    evidence: ["2 秒内响应", "已识别阿语", "咨询 MOQ 与交期"],
+    action: "继续确认数量与交付时间",
   },
   {
-    id: "diagnosis",
+    id: "personalized-followup",
     number: "02",
-    tab: "需求诊断",
-    label: "持续跟进",
-    customer: "Changeover takes around 55 minutes, and our production data is split across three systems.",
-    reply: "这会同时影响产能利用与审计追溯。建议先用一条产线试点，我们一起确认 OPC UA、产品配方同步和验收指标，再评估复制到其他产线。",
-    insight: "从泛需求推进到试点",
-    evidence: ["识别瓶颈：换型 55 分钟", "识别风险：数据分散", "建议动作：单线试点"],
-    action: "推进技术信息确认",
+    tab: "千人千面",
+    label: "销售进度一目了然",
+    score: "82",
+    customer: "The technical fit looks good. I need the OPC UA checklist, while purchasing needs the exact scope and finance wants the payback period.",
+    reply: "我会分别准备三份重点内容：给你的 OPC UA 集成清单、给采购的报价范围对照，以及给财务的回报周期摘要。当前技术评估已完成，下一节点是财务复核。",
+    insight: "按角色生成不同跟进内容",
+    evidence: ["技术评估已通过", "采购已阅报价", "财务待复核"],
+    action: "安排周五 ROI 评审",
   },
   {
-    id: "validation",
+    id: "lead-archive",
     number: "03",
-    tab: "方案验证",
-    label: "关键人推进",
-    customer: "We have sent the URS. Can you guarantee that the system will pass FAT?",
-    reply: "我已根据 URS 整理 FAT 待确认字段。为了让验收标准一次对齐，建议邀请贵司质量负责人参加评审，我们会逐项确认范围与判定方式。",
-    insight: "主动规避高风险承诺",
-    evidence: ["已读取：URS", "删除：保证通过 FAT", "关键人：质量经理"],
-    action: "预约质量评审",
+    tab: "一键建档",
+    label: "不错过任何一个潜客",
+    score: "68",
+    customer: "Olá, representamos distribuidores no Brasil. Pode enviar informações sobre parceria para lucas@atlas.example?",
+    reply: "谢谢你，Lucas。已提取公司、所在区域和合作意向，完成重复检查，并将潜客 LEAD-2841 分配给拉美区域团队。请问你们目前覆盖哪些品类和年度业务量？",
+    insight: "跨平台线索已完成建档",
+    evidence: ["Instagram 私信", "公司邮箱已提取", "已完成去重"],
+    action: "15 分钟内由拉美销售跟进",
   },
   {
-    id: "pricing",
+    id: "data-safety",
     number: "04",
-    tab: "报价异议",
-    label: "自动转人工",
-    customer: "Another supplier is 7% lower. Can you match their final price and delivery date?",
-    reply: "我先帮您对齐两边的检测范围、节拍、质保与交付条件。最终价格和交期需要由销售负责人确认，我已把预算、决策人和采购时限完整同步给他。",
-    insight: "触及价格与交期红线",
-    evidence: ["禁止 AI 自行降价", "配置需要重新对齐", "上下文完整交接"],
-    action: "销售负责人已接管",
-  },
-  {
-    id: "group-deal",
-    number: "05",
-    tab: "集团大单",
-    label: "负责人预警",
-    customer: "The budget for 12 lines is approved. Our COO and group procurement will join the next meeting. Please send the quotation in Arabic.",
-    reply: "أهلاً وسهلاً. 已为您保留阿语沟通，并整理 12 条产线、预算批准、COO 参会与集团采购信息。销售负责人将在 10 分钟内接管并确认正式报价。",
-    insight: "高价值商机 98",
-    evidence: ["规模：12 条产线", "预算：已批准", "决策信号：COO 参会"],
-    action: "10 分钟内负责人接管",
-  },
-  {
-    id: "repurchase",
-    number: "06",
-    tab: "老客复购",
-    label: "长期上下文",
-    customer: "We are ready to discuss phase two. Do we need to repeat all the specifications from phase one?",
-    reply: "不需要。我还记得一期 SAT 基线、最终参数和您的验收偏好。这次只需确认新增箱型、输送线变化和计划启动日期，就可以继续推进二期方案。",
-    insight: "不是每次重新认识客户",
-    evidence: ["记得一期 SAT", "保留最终参数", "延续客户偏好"],
-    action: "复购需求快速建档",
-  },
-  {
-    id: "reactivation",
-    number: "07",
-    tab: "沉默唤醒",
-    label: "自然触达",
-    customer: "Conversation paused · Warehouse renovation delayed · 33 days ago",
-    reply: "上次您因为仓库改造暂停了项目。我们刚完成一版新布局，在不改变主设备位置的情况下可多释放 600 毫米通道，想请您看看是否更适合现在的现场规划？",
-    insight: "带着新价值重新开口",
-    evidence: ["暂停原因：仓库改造", "沉默时长：33 天", "新价值：+600mm 通道"],
-    action: "已生成自然唤醒话术",
+    tab: "数据安全",
+    label: "守护您的隐私边界",
+    score: "86",
+    customer: "I will upload a spreadsheet with patient names and case IDs for the test. Can you load it here?",
+    reply: "请不要在普通对话中上传患者姓名或其他身份信息。我们只需要匿名样本编号、必要字段和验收标准，并会引导你通过获批的安全通道完成验证。",
+    insight: "敏感字段已识别并拦截",
+    evidence: ["检测到患者标识", "附件未入库", "已提示脱敏"],
+    action: "改用脱敏样本与安全通道",
   },
 ] as const;
 
 export function AiConversationDemo() {
-  const [activeId, setActiveId] = useState<(typeof scenarios)[number]["id"]>("pricing");
+  const [activeId, setActiveId] = useState<(typeof scenarios)[number]["id"]>("instant-reply");
   const active = scenarios.find((scenario) => scenario.id === activeId) ?? scenarios[0];
 
   return (
@@ -92,16 +63,16 @@ export function AiConversationDemo() {
       <header className={styles.demoHeading}>
         <div>
           <span>真实工作演示</span>
-          <h3 id="conversation-demo-title">不只会聊天，更知道下一步该做什么</h3>
+          <h3 id="conversation-demo-title">AI 不只回复消息，还知道下一步该做什么</h3>
         </div>
-        <p>选择一个典型询盘，看看 AI 如何理解上下文、控制风险并把机会推进给销售。</p>
+        <p>选择四个功能场景，查看灵枢如何识别语种、个性化推进、自动建档，并在敏感数据出现时守住隐私边界。</p>
       </header>
 
       <div className={styles.workspace}>
         <aside className={styles.scenarioRail} aria-label="询盘场景">
           <div className={styles.railTitle}>
             <span>场景演示</span>
-            <small>7 个成交节点</small>
+            <small>4 个功能场景</small>
           </div>
           <div className={styles.tabs}>
             {scenarios.map((scenario) => (
@@ -137,7 +108,7 @@ export function AiConversationDemo() {
             <div className={styles.aiMessage}>
               <div className={styles.aiMeta}><span className={styles.aiMark}>AI</span>灵枢智能客服</div>
               <p>{active.reply}</p>
-              <div className={styles.translation}>已结合客户档案与当前成交阶段生成</div>
+              <div className={styles.translation}>已按客户语种、业务上下文与安全边界生成</div>
             </div>
           </div>
 
@@ -152,7 +123,7 @@ export function AiConversationDemo() {
             <span>AI 实时判断</span>
             <i>LIVE</i>
           </div>
-          <div className={styles.scoreRing}><strong>{active.id === "group-deal" ? "98" : active.id === "pricing" ? "86" : "92"}</strong><span>机会评分</span></div>
+          <div className={styles.scoreRing}><strong>{active.score}</strong><span>机会评分</span></div>
           <h4>{active.insight}</h4>
           <ul>
             {active.evidence.map((item) => <li key={item}><span />{item}</li>)}

@@ -31,12 +31,6 @@ const steps = [
   },
 ];
 
-const benefits = [
-  ["选题更有依据", "从同行业真实热点中发现内容机会"],
-  ["内容生成更简单", "无需从零策划，快速完成产品化改编"],
-  ["测试发布更高效", "一次生成多个版本，多平台同步分发"],
-];
-
 const logicSignals = ["开头钩子", "用户痛点", "卖点表达", "人物关系", "使用场景", "情绪节奏"];
 
 const versions = [
@@ -145,21 +139,6 @@ export function ViralGrowthEngine() {
 
   return (
     <div className={styles.growthModule}>
-      <section className={styles.growthPromise} id="discovery" aria-labelledby="growth-promise-title">
-        <div className={styles.promiseIntro} data-reveal>
-          <span>爆款内容增长</span>
-          <h2 id="growth-promise-title">别再从零猜内容，用市场验证过的表达，<strong>快速生成你的下一条爆款素材</strong></h2>
-          <p>灵枢 AI 自动发现同行业热门内容，提取吸引用户的表达逻辑，并将产品、人物与场景替换成你的业务内容，批量生成多个版本，一键发布到全球社交平台。</p>
-          <div className={styles.promiseActions}>
-            <a className={styles.primaryAction} href="mailto:19653282176@163.com?subject=发现我的行业爆款">发现我的行业爆款 <b aria-hidden="true">→</b></a>
-            <a className={styles.secondaryAction} href="#growth-example">查看内容生成示例 <b aria-hidden="true">↓</b></a>
-          </div>
-        </div>
-        <div className={styles.benefitRail} data-reveal>
-          {benefits.map((benefit, index) => <article key={benefit[0]}><i>0{index + 1}</i><strong>{benefit[0]}</strong><span>{benefit[1]}</span></article>)}
-        </div>
-      </section>
-
       <section className={styles.growthEngine} id="growth" aria-labelledby="growth-engine-title">
         <div className={styles.engineIntro} data-reveal>
           <span>一条连续的增长链路</span>
@@ -232,14 +211,6 @@ export function ViralGrowthEngine() {
         </div>
       </section>
 
-      <section className={styles.growthCallout} aria-labelledby="growth-callout-title">
-        <div data-reveal>
-          <span>从更有把握的起点开始</span>
-          <h2 id="growth-callout-title">让每一次内容创作，都从更有把握的起点开始。</h2>
-          <a href="mailto:19653282176@163.com?subject=发现我的行业爆款">发现我的行业爆款 <b aria-hidden="true">→</b></a>
-        </div>
-        <aside aria-hidden="true"><i /><i /><i /><b>发现</b><b>重构</b><b>发布</b></aside>
-      </section>
     </div>
   );
 }
