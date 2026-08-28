@@ -63,6 +63,7 @@ function Footer() {
 
 export function PageChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -83,11 +84,11 @@ export function PageChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header />
-      <div className={"page-transition" + (pathname === "/" ? " home-page-transition" : "")} key={pathname}>
+      {!isHome && <Header />}
+      <div className={"page-transition" + (isHome ? " home-page-transition" : "")} key={pathname}>
         {children}
       </div>
-      <Footer />
+      {!isHome && <Footer />}
     </>
   );
 }

@@ -9,3 +9,9 @@
 @media(max-width:1000px){.workspace{grid-template-columns:190px minmax(0,1fr)}.insightPanel{display:none}.scenarioRail{border-right:1px solid #dcebe6}}
 @media(max-width:720px){.demo{margin-top:62px;padding-top:32px}.demoHeading{display:block}.demoHeading>p{margin-top:14px}.workspace{display:block;min-height:0;border-radius:19px}.scenarioRail{padding:12px;border-right:0;border-bottom:1px solid #dcebe6}.railTitle{padding:0 3px 10px}.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab,.activeTab{flex:0 0 auto;display:flex;width:auto;padding:9px 11px;transform:none}.tab small,.activeTab small{display:none}.tabNumber{display:none}.conversation{min-height:500px}.messages{padding:22px 16px}.customerMessage,.aiMessage{max-width:91%}.conversationBar{padding:0 16px}.composer{margin:0 14px 14px}}
 @media(prefers-reduced-motion:reduce){.tab,.activeTab,.messages{transition:none;animation:none}}
+
+/* Homepage design-system alignment. */
+.demo{font-family:inherit;border-top-color:rgba(16,44,36,.11)}
+.demoHeading h3{color:#102c24;font-weight:540;letter-spacing:-.045em}.demoHeading>p{color:#65786f}
+.workspace{border-color:rgba(16,44,36,.11);border-radius:22px;box-shadow:0 26px 68px rgba(16,44,36,.07)}
+.tab,.activeTab{border-radius:12px;font-weight:520}.composer{border-radius:999px}.composer button{border-radius:999px;background:#075a44}

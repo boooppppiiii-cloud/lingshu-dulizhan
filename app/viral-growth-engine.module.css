@@ -19,6 +19,7 @@
   overflow: hidden;
   padding-top: 132px;
   background:
+    linear-gradient(180deg, #f7faf6 0, rgba(247,250,246,0) 180px),
     linear-gradient(90deg, rgba(65,190,209,.07), transparent 25%, transparent 75%, rgba(197,235,111,.09)),
     #fbfefc;
 }
@@ -1263,3 +1264,101 @@
 .growthCallout > aside i:nth-child(3) { background: #9bcf4d; }
 .growthCallout > aside b { color: #3e7269; }
 .growthCallout > aside b:nth-of-type(2) { color: #087b5e; }
+
+/* Homepage design-system alignment. */
+.growthModule {
+  --engine-ink: #102c24;
+  --engine-green: #087f60;
+  --engine-green-dark: #075a44;
+  font-family: inherit;
+  background: #fbfefc;
+  color: var(--engine-ink);
+}
+
+.growthPromise,
+.transformationExample {
+  background: #fbfefc;
+}
+
+.growthEngine {
+  background: #f0f5f1;
+}
+
+.promiseIntro h2,
+.engineIntro h2,
+.exampleIntro h2,
+.growthCallout h2 {
+  font-weight: 540;
+  letter-spacing: -0.05em;
+  line-height: 1.08;
+}
+
+.promiseIntro > p,
+.engineIntro p,
+.exampleIntro p {
+  color: #65786f;
+  font-size: 15px;
+}
+
+.primaryAction,
+.secondaryAction,
+.growthCallout a {
+  border-radius: 999px;
+  font-weight: 680;
+}
+
+.engineShell {
+  overflow: hidden;
+  border: 1px solid rgba(16, 44, 36, 0.11);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(16, 44, 36, 0.07);
+}
+
+.stepTrack,
+.engineBody {
+  border-color: rgba(16, 44, 36, 0.1);
+}
+
+.transformationStage {
+  overflow: hidden;
+  border: 1px solid rgba(16, 44, 36, 0.11);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 22px 58px rgba(16, 44, 36, 0.055);
+}
+
+.brandVersions > article,
+.logicExtraction {
+  border-color: rgba(16, 44, 36, 0.1);
+}
+
+.growthCallout {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(76, 129, 83, 0.18), transparent 28%),
+    #07130d;
+}
+
+.growthCallout::after {
+  background: linear-gradient(180deg, transparent, rgba(7, 19, 13, 0.96));
+}
+
+.growthCallout > div > span,
+.growthCallout > aside b {
+  color: #a7c0b2;
+}
+
+.growthCallout h2 {
+  color: #ffffff;
+}
+
+.growthCallout a {
+  background: #cdf565;
+  color: #102617;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+.growthCallout a:hover {
+  background: #dcff84;
+  color: #102617;
+}

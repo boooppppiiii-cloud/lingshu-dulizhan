@@ -196,15 +196,6 @@ export function ViralGrowthEngine() {
           </div>
         </div>
 
-        <div className={styles.engineToExample} data-reveal aria-label="从增长流程进入内容转换示例">
-          <span>把这条流程，放进一条真实内容里</span>
-          <div>
-            <b><i />行业热点已选中</b>
-            <b><i />有效逻辑已提取</b>
-            <b><i />进入品牌化改编</b>
-          </div>
-          <a href="#growth-example">查看下面的转换过程 <i aria-hidden="true">↓</i></a>
-        </div>
       </section>
 
       <section className={styles.transformationExample} id="growth-example" aria-labelledby="growth-example-title">
