@@ -144,7 +144,6 @@ export function BrandHomepage() {
       <AiSalesWorkspace />
 
       <section className={styles.closingCover} id="contact" aria-labelledby="closing-title">
-        <div className={styles.closingAura} aria-hidden="true" />
         <header className={styles.closingBrand}>
           <a href="/" aria-label="灵枢 AI 首页">
             {/* eslint-disable-next-line @next/next/no-img-element */}
