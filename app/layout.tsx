@@ -1,6 +1,33 @@
 import type { Metadata } from "next";
+import { Geist, Noto_Sans_SC, Noto_Serif_SC } from "next/font/google";
 import { PageChrome } from "./ui/page-chrome";
 import "./globals.css";
+import "./styles/tokens.css";
+import "./styles/typography.css";
+import "./styles/motion.css";
+
+const notoSansSC = Noto_Sans_SC({
+  variable: "--font-noto-sans-sc",
+  weight: "variable",
+  display: "swap",
+  preload: false,
+  fallback: ["PingFang SC", "Microsoft YaHei", "sans-serif"],
+});
+
+const notoSerifSC = Noto_Serif_SC({
+  variable: "--font-noto-serif-sc",
+  weight: "variable",
+  display: "swap",
+  preload: false,
+  fallback: ["Songti SC", "SimSun", "serif"],
+});
+
+const geist = Geist({
+  variable: "--font-geist",
+  weight: "variable",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://official.lingshu.site"),
@@ -42,8 +69,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN">
-      <body>
+    <html
+      lang="zh-CN"
+      className={`${notoSansSC.variable} ${notoSerifSC.variable} ${geist.variable}`}
+    >
+      <body className={notoSansSC.className}>
         <PageChrome>{children}</PageChrome>
       </body>
     </html>

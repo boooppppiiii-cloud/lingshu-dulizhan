@@ -36,8 +36,6 @@ body {
   overflow-x: hidden;
   background: var(--canvas);
   color: var(--text);
-  font-family:
-    Inter, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   font-size: 16px;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
@@ -7296,4 +7294,21 @@ main [data-reveal].is-visible {
 .legal-contact-card h2 {
   font-weight: 560;
   letter-spacing: -0.035em;
+}
+
+/* Typography tokens are restated at the end of the legacy global cascade so
+   page-specific rules cannot silently fall back to each operating system. */
+body,
+body button,
+body input,
+body select,
+body textarea {
+  font-family: var(--font-ui);
+}
+
+body time,
+body [data-type="data"],
+body [data-type="label"] {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
 }
