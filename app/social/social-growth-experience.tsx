@@ -163,7 +163,7 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
       <section className={styles.story} id={embedded ? "growth" : "details"} aria-label="社媒增长连续工作流">
         <div className={styles.storyIntro} data-reveal>
           <span>{embedded ? "SOCIAL GROWTH · 01—04" : "01—04 / CONTINUOUS WORKFLOW"}</span>
-          <h2>{embedded ? <><span>把一个产品，</span><span>变成持续增长的内容系统</span></> : "从机会发现，到客户回来"}</h2>
+          <h2>{embedded ? <>把一个产品，变成<em>持续增长</em>的内容系统</> : "从机会发现，到客户回来"}</h2>
           <p>{embedded ? "从趋势与竞品中找到机会，用 AI 生成能发布的内容，统一管理多个平台与账号，并知道每一条询盘从哪里来。" : "产品界面保持在同一个画布中，随着增长链路持续向前。"}</p>
         </div>
         <div className={styles.storyLayout}>

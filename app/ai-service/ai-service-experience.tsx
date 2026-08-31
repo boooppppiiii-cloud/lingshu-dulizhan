@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./ai-service.module.css";
+import { ServiceTransition } from "./service-transition";
 
 const knowledgeItems = [
   ["01", "理解客户", "识别语言、产品、采购意图与上下文，避免只按关键词机械回复。"],
@@ -39,12 +40,6 @@ const realMessages = [
 
 const memoryFacts = ["工件大约 120 毫米", "我今天可以发照片", "还需要我们现在的节拍吗？"] as const;
 
-const transitionPhrases = [
-  "不用守着多个平台等消息",
-  "以客户的语言秒级回应",
-  "记住每一次沟通",
-  "把询盘持续推进到真正需要销售出场的时刻",
-] as const;
 
 function ChannelMark({ channel }: { channel: string }) {
   const src = channel === "whatsapp" ? "/platform-whatsapp.svg" : `/platform-color-${channel}.svg`;
@@ -60,105 +55,6 @@ function CustomerAvatar({ seed, name, className }: { seed: string; name: string;
   return <img className={className} src={src} alt={`${name} 头像`} loading="lazy" />;
 }
 
-function ServiceTransition() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const frameRef = useRef<number | null>(null);
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const update = () => {
-      frameRef.current = null;
-      const section = sectionRef.current;
-      if (!section) return;
-      const bounds = section.getBoundingClientRect();
-      const distance = Math.max(section.offsetHeight - window.innerHeight, 1);
-      const progress = Math.min(1, Math.max(0, -bounds.top / distance));
-      section.style.setProperty("--service-progress", progress.toFixed(4));
-      setActive(Math.min(transitionPhrases.length - 1, Math.floor(progress * transitionPhrases.length)));
-    };
-
-    const onScroll = () => {
-      if (frameRef.current === null) frameRef.current = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
-    };
-  }, []);
-
-  return (
-    <section ref={sectionRef} className={styles.serviceTransition} id="service" aria-labelledby="service-transition-title">
-      <div className={styles.transitionSticky}>
-        <div className={styles.transitionLabel}><i />LINGSHU AI CUSTOMER SERVICE</div>
-        <div className={styles.transitionBridge} aria-hidden="true">
-          <div className={styles.bridgeTrack}>
-            {["内容归因", "实时对话", "客户上下文", "销售接手"].map((label, index) => (
-              <span className={index <= active ? styles.bridgeNodeActive : ""} key={label}><i />{label}</span>
-            ))}
-          </div>
-
-          <div className={`${styles.bridgeScene} ${active === 0 ? styles.bridgeSceneActive : active > 0 ? styles.bridgeSceneBefore : styles.bridgeSceneAfter}`}>
-            <div className={styles.bridgePlatforms}>
-              <span><ChannelMark channel="tiktok" />TikTok 视频</span><i>→</i><span><ChannelMark channel="whatsapp" />WhatsApp CTA</span><i>→</i><b>新询盘</b>
-            </div>
-            <article className={styles.bridgeLeadCard}>
-              <small>Omar Hassan · Gulf Precision <time>11:33</time></small>
-              <p>Hi, I saw your inspection machine on TikTok. Can it check scratches on shiny aluminium parts?</p>
-            </article>
-          </div>
-
-          <div className={`${styles.bridgeScene} ${active === 1 ? styles.bridgeSceneActive : active > 1 ? styles.bridgeSceneBefore : styles.bridgeSceneAfter}`}>
-            <article className={styles.bridgeCustomerBubble}>
-              <time>11:33</time><p>Hi, I saw your inspection machine on TikTok. Can it check scratches on shiny aluminium parts?</p>
-            </article>
-            <article className={styles.bridgeAiBubble}>
-              <small>AI 回复 <time>11:39</time></small>
-              <p>Yes, shiny parts can be evaluated. What else needs checking besides scratches?</p>
-              <b>中文翻译：可以先评估反光件。除了划伤，还需要检测什么？</b>
-            </article>
-          </div>
-
-          <div className={`${styles.bridgeScene} ${active === 2 ? styles.bridgeSceneActive : active > 2 ? styles.bridgeSceneBefore : styles.bridgeSceneAfter}`}>
-            <article className={styles.bridgeReplyMini}>
-              <small>AI 回复 · 11:39</small><p>Yes, shiny parts can be evaluated. What else needs checking besides scratches?</p>
-            </article>
-            <article className={styles.bridgeContextCard}>
-              <header><i>记</i><div><small>智能体记忆</small><strong>客户上下文</strong></div><b>1 类私有记忆</b></header>
-              <div><CustomerAvatar seed="harbor" name="Omar Hassan" className={styles.bridgeAvatar} /><span><strong>Omar Hassan · Gulf Precision</strong><small>新线索 · 阿联酋·迪拜 · 英语</small></span></div>
-              <footer><span>机器视觉检测工作站</span><span>询问本地集成</span><span>意向 63</span></footer>
-            </article>
-          </div>
-
-          <div className={`${styles.bridgeScene} ${styles.bridgeHandoffScene} ${active === 3 ? styles.bridgeSceneActive : styles.bridgeSceneAfter}`}>
-            <article className={styles.bridgeContextMini}><span>客户上下文</span><strong>Omar Hassan · Gulf Precision</strong><small>阿联酋·迪拜 · 英语</small></article>
-            <i className={styles.bridgePulse}>→</i>
-            <article className={styles.bridgeInsightMini}><span>AI 判断摘要</span><strong>潜客 · 意向 63</strong><p>收取三类不良样件照片、工件尺寸和当前节拍</p></article>
-          </div>
-        </div>
-        <div className={styles.transitionPhrases} id="service-transition-title">
-          {transitionPhrases.map((phrase, index) => (
-            <p
-              className={`${styles.transitionPhrase} ${index === active ? styles.phraseActive : index < active ? styles.phraseBefore : styles.phraseAfter}`}
-              aria-hidden={index !== active}
-              key={phrase}
-            >
-              {phrase}
-            </p>
-          ))}
-        </div>
-        <div className={styles.transitionFooter}>
-          <strong>打通社媒获客的最后一公里</strong>
-          <span>{String(active + 1).padStart(2, "0")} / {String(transitionPhrases.length).padStart(2, "0")}</span>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function MemoryLearningDemo() {
   const [state, setState] = useState<"idle" | "sending" | "extracting" | "learned">("idle");
@@ -188,7 +84,7 @@ function MemoryLearningDemo() {
   return (
     <section className={styles.learningSection} aria-labelledby="memory-learning-title">
       <div className={styles.sectionHeader}>
-        <div><span>FOLLOW UP &amp; LEARN</span><h2 id="memory-learning-title"><span>每次人工接手，</span><span>都让下一次 AI 接待更懂你的业务</span></h2></div>
+        <div><span>FOLLOW UP &amp; LEARN</span><h2 id="memory-learning-title">每次人工接手，都让<span className={styles.keepTogether}>下一次</span> <span className={styles.keepTogether}>AI 接待</span><em>更懂你的业务</em></h2></div>
         <p>从报价推进到沉默客户唤醒，再到未覆盖问题沉淀，客户服务不断形成新的企业知识。</p>
       </div>
       <div className={`${styles.learningStage} ${styles[`state${state}`]}`}>
@@ -241,15 +137,16 @@ function MemoryLearningDemo() {
 
 function RealWorkspaceDemo() {
   const [run, setRun] = useState(0);
+  const [showInsights, setShowInsights] = useState(false);
   return (
     <section className={styles.realDemo} aria-labelledby="real-demo-title">
       <div className={styles.sectionHeader}>
-        <div><span>真实工作演示</span><h2 id="real-demo-title">AI 不只回复消息，还知道下一步该做什么</h2></div>
+        <div><span>真实工作演示</span><h2 id="real-demo-title">AI 不只回复消息，<span className={styles.keepTogether}>还知道</span><em>下一步</em>该做什么</h2></div>
         <p>识别语种、个性化推进、自动建档，并在敏感数据出现时守住隐私边界。</p>
       </div>
-      <div className={styles.workspaceBackdrop} key={run}>
+      <div className={styles.workspaceBackdrop}>
         <div className={styles.ringsImage} aria-hidden="true" />
-        <div className={styles.workspaceShell}>
+        <div className={`${styles.workspaceShell} ${showInsights ? styles.contextOpen : ""}`}>
           <aside className={styles.inbox}>
             <header><strong><i />8 个待处理</strong><span>按最近动态排序</span></header>
             <nav><b>收件箱</b><span>潜客</span><span>成交客户</span></nav>
@@ -260,18 +157,30 @@ function RealWorkspaceDemo() {
             ))}
           </aside>
           <div className={styles.chatPanel}>
-            <header><div><strong>Omar Hassan · Gulf Precision</strong><span>节点 1 · 海外首次询盘与场景澄清</span></div><small>当地时间 10:33:52</small></header>
-            <div className={styles.messageStream}>
+            <header>
+              <div><strong>Omar Hassan · Gulf Precision</strong><span>节点 1 · 海外首次询盘与场景澄清</span></div>
+              <div className={styles.chatTools}>
+                <small>当地时间 10:33:52</small>
+                <button className={styles.contextToggle} type="button" aria-controls="real-demo-context" aria-expanded={showInsights} onClick={() => setShowInsights(true)}>客户判断</button>
+                <button className={styles.replay} type="button" aria-label="重新演示对话" title="重新演示对话" onClick={() => setRun((value) => value + 1)}>↻</button>
+              </div>
+            </header>
+            <ol className={styles.messageStream} key={run} aria-label="按时间顺序的完整对话">
               {realMessages.map(([type, time, text, translation], index) => (
-                <article className={styles[`${type}Message`]} key={time} style={{ "--index": index } as CSSProperties}>
-                  <header>{type !== "customer" && <span>{type === "ai" ? "AI 回复" : "我的回复"}</span>}<time>{time}</time></header><p>{text}</p><small><b>中文翻译：</b>{translation}</small>
-                  {type !== "customer" && <footer><span>{type === "ai" ? "AI 自动回复" : "AI 草稿 · 人工改过"}</span><span>已用学习记忆</span><span>已送达</span></footer>}
-                </article>
+                <li className={type === "customer" ? styles.incomingRow : styles.outgoingRow} key={time} style={{ "--index": index } as CSSProperties}>
+                  <article className={styles[`${type}Message`]}>
+                    <header>{type !== "customer" && <span>{type === "ai" ? "AI 回复" : "我的回复"}</span>}<time>{time}</time></header>
+                    <p>{text}</p>
+                    <small><b>中文翻译：</b>{translation}</small>
+                    {type !== "customer" && <footer><span>{type === "ai" ? "AI 自动回复" : "AI 草稿 · 人工改过"}</span><span>已用学习记忆</span><span>已送达</span></footer>}
+                  </article>
+                </li>
               ))}
-            </div>
+            </ol>
             <div className={styles.composer}>输入中文回复…<button>发送</button></div>
           </div>
-          <aside className={styles.insightCard}>
+          <aside className={styles.insightCard} id="real-demo-context" aria-label="客户判断摘要">
+            <button className={styles.contextBack} type="button" onClick={() => setShowInsights(false)}>← 返回会话</button>
             <header><i>AI</i><div><span>客户判断摘要</span><strong>潜客 · 意向 63</strong></div><b>LIVE</b></header>
             <div className={styles.score}><span>继续了解需求</span><strong>63</strong><i><b /></i></div>
             <div className={styles.summary}><span>当前沟通阶段</span><strong>潜客</strong><p>迪拜精密金属件加工商，希望检测反光铝件的划伤、漏孔和字符，关心英文界面及本地集成。</p></div>
@@ -280,7 +189,6 @@ function RealWorkspaceDemo() {
             <button type="button">查看 AI 判断依据 <span>↗</span></button>
           </aside>
         </div>
-        <button className={styles.replay} type="button" onClick={() => setRun((value) => value + 1)}>重新演示 ↻</button>
       </div>
     </section>
   );

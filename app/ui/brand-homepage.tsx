@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import styles from "../brand-homepage.module.css";
 import { AiServiceExperience } from "../ai-service/ai-service-experience";
 import { SocialGrowthExperience } from "../social/social-growth-experience";
 import { HeroOrbitGallery } from "./hero-orbit-gallery";
 import { HeroSeamlessVideo } from "./hero-seamless-video";
+import { HomepageEntrance } from "./homepage-entrance";
 
 const platformMarks = [
   ["TikTok", "/platform-color-tiktok.svg"],
@@ -16,6 +18,7 @@ const platformMarks = [
 
 export function BrandHomepage() {
   return (
+    <HomepageEntrance>
     <main className={styles.page}>
       <section className={styles.heroStage} id="home" aria-labelledby="brand-hero-title">
         <div className={styles.cinemaFrame}>
@@ -42,9 +45,12 @@ export function BrandHomepage() {
 
           <div className={styles.hero}>
             <p className={styles.eyebrow}>企业出海 · 社媒增长 Agent</p>
-            <h1 id="brand-hero-title">
-              <span>从追逐流量，</span>
-              <span>到自带引力</span>
+            <h1 id="brand-hero-title" aria-label="从追逐流量，到自带引力">
+              {["从追逐流量，", "到自带引力"].map((line, lineIndex) => (
+                <span key={line} aria-hidden="true">
+                  {Array.from(line).map((character, index) => <span className={styles.heroTitleCharacter} key={index} style={{ "--character-index": lineIndex * 6 + index } as CSSProperties}>{character}</span>)}
+                </span>
+              ))}
             </h1>
             <p className={styles.summary}>
               基于企业专属知识库与 Agent 工作流，贯通市场洞察、内容策划、规模化创作、多平台分发与增长复盘。
@@ -52,9 +58,6 @@ export function BrandHomepage() {
             <div className={styles.heroActions}>
               <a className={styles.heroAction} href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">
                 预约产品演示 <b aria-hidden="true">↗</b>
-              </a>
-              <a className={styles.heroSecondaryAction} href="#growth">
-                查看 Agent 工作流
               </a>
             </div>
           </div>
@@ -106,9 +109,6 @@ export function BrandHomepage() {
             <a className={styles.closingAction} href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">
               预约产品演示 <b aria-hidden="true">↗</b>
             </a>
-            <a className={styles.closingMail} href="#growth">
-              查看 Agent 工作流
-            </a>
           </div>
         </div>
 
@@ -122,5 +122,6 @@ export function BrandHomepage() {
         </footer>
       </section>
     </main>
+    </HomepageEntrance>
   );
 }

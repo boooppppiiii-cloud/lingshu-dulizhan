@@ -8,6 +8,52 @@
   color: var(--hero-ink);
 }
 
+/* Keep the film's normal dimensions in both states. Only its content layers
+   enter; the video is never resized, cropped, remounted, or restarted. */
+.awaitingHomepage .heroStage::before,
+.awaitingHomepage .heroStage::after,
+.awaitingHomepage .cinemaFrame::after,
+.awaitingHomepage .videoTreatment { opacity: 0; }
+.awaitingHomepage .brandBar,
+.awaitingHomepage .hero { visibility: hidden; }
+.awaitingHomepage .page > :not(.heroStage) { visibility: hidden; opacity: 0; }
+.entranceTrigger { position: fixed; z-index: 101; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.entranceTrigger:focus-visible { outline: 2px solid #cdf565; outline-offset: -8px; }
+.enteredHomepage .heroStage::before { animation: film-surround-enter 1000ms ease both; }
+.enteredHomepage .heroStage::after,
+.enteredHomepage .cinemaFrame::after,
+.enteredHomepage .videoTreatment { animation: homepage-fade-in 1000ms ease both; }
+.enteredHomepage .brand,
+.enteredHomepage .heroNav > a { animation: homepage-ui-enter 800ms var(--ease-editorial, cubic-bezier(0.22, 1, 0.36, 1)) 80ms both; }
+.enteredHomepage .heroNav > a:nth-child(2) { animation-delay: 120ms; }
+.enteredHomepage .heroNav > a:nth-child(3) { animation-delay: 160ms; }
+.enteredHomepage .heroNav > a:nth-child(4) { animation-delay: 200ms; }
+.enteredHomepage .heroNav > a:nth-child(5) { animation-delay: 240ms; }
+.enteredHomepage .eyebrow { animation: homepage-copy-enter 800ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both; }
+.heroTitleCharacter { display: inline-block; }
+.enteredHomepage .heroTitleCharacter { animation: homepage-character-enter 760ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(180ms + var(--character-index) * 38ms); }
+.enteredHomepage .hero .summary { animation: homepage-copy-enter 850ms cubic-bezier(0.22, 1, 0.36, 1) 440ms both; }
+.enteredHomepage .heroActions { animation: homepage-copy-enter 850ms cubic-bezier(0.22, 1, 0.36, 1) 560ms both; }
+.enteredHomepage .page > :not(.heroStage) { animation: homepage-fade-in 900ms ease 220ms both; }
+@keyframes homepage-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes film-surround-enter { from { opacity: 0; } to { opacity: 0.45; } }
+@keyframes homepage-ui-enter { from { opacity: 0; translate: 0 -6px; } to { opacity: 1; translate: 0 0; } }
+@keyframes homepage-copy-enter { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+@keyframes homepage-character-enter { from { opacity: 0; translate: 0 0.38em; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .enteredHomepage .heroStage::before,
+  .enteredHomepage .heroStage::after,
+  .enteredHomepage .cinemaFrame::after,
+  .enteredHomepage .videoTreatment,
+  .enteredHomepage .brand,
+  .enteredHomepage .heroNav > a,
+  .enteredHomepage .eyebrow,
+  .enteredHomepage .heroTitleCharacter,
+  .enteredHomepage .hero .summary,
+  .enteredHomepage .heroActions,
+  .enteredHomepage .page > :not(.heroStage) { animation: none; }
+}
+
 .heroStage {
   position: relative;
   display: block;
@@ -190,7 +236,7 @@
   text-wrap: balance;
 }
 
-.hero h1 span {
+.hero h1 > span {
   display: block;
   margin-left: 0;
 }
@@ -417,17 +463,18 @@
 .orbitSectionHeader h2 {
   margin: 17px 0 0;
   color: #102c24;
-  font-size: clamp(36px, 4.2vw, 58px);
+  font-size: clamp(32px, 3.8vw, 52px);
   font-weight: 540;
-  letter-spacing: -0.052em;
-  line-height: 1.08;
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
 .orbitSectionHeader p {
   max-width: 590px;
   margin: 17px auto 0;
   color: #65786f;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.75;
 }
 
@@ -779,7 +826,7 @@
     line-height: 1.06;
   }
 
-  .hero h1 span { margin-left: 0; }
+  .hero h1 > span { margin-left: 0; }
 
   .summary {
     display: none;
@@ -815,11 +862,11 @@
   }
 
   .orbitSectionHeader h2 {
-    font-size: 36px;
+    font-size: clamp(28px, 7.8vw, 36px);
   }
 
   .orbitSectionHeader p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .orbitViewport {
