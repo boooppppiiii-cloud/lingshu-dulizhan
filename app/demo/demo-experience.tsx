@@ -3,35 +3,30 @@
 import { FormEvent, useState } from "react";
 
 type DemoExperienceProps = {
-  submitted?: boolean;
   english?: boolean;
 };
 
-export function DemoExperience({ submitted = false, english = false }: DemoExperienceProps) {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">(submitted ? "success" : "idle");
+export function DemoExperience({ english = false }: DemoExperienceProps) {
+  const [draftOpened, setDraftOpened] = useState(false);
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
+  function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("sending");
     const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/demo-requests", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        name: form.get("name"),
-        company: form.get("company"),
-        email: form.get("email"),
-        phone: form.get("phone"),
-        platforms: form.getAll("platforms"),
-        primaryNeed: form.get("primaryNeed"),
-        privacyConsent: form.get("privacyConsent") === "yes",
-        marketingConsent: form.get("marketingConsent") === "yes",
-        website: form.get("website"),
-        locale: english ? "en" : "zh-CN",
-        sourceUrl: window.location.href,
-      }),
-    });
-    setStatus(response.ok ? "success" : "error");
+    if (form.get("website")) return;
+    const body = [
+      `姓名 / Name: ${form.get("name")}`,
+      `公司 / Company: ${form.get("company")}`,
+      `邮箱 / Email: ${form.get("email")}`,
+      `手机 / WhatsApp: ${form.get("phone")}`,
+      `平台 / Platforms: ${form.getAll("platforms").join(", ")}`,
+      `需求 / Need: ${form.get("primaryNeed")}`,
+      `隐私同意 / Privacy consent: ${form.get("privacyConsent") === "yes" ? "Yes" : "No"}`,
+      `产品动态 / Marketing consent: ${form.get("marketingConsent") === "yes" ? "Yes" : "No"}`,
+      `来源 / Source: ${window.location.origin}${window.location.pathname}`,
+    ].join("\n");
+    const subject = english ? "LingShu AI demo request" : "预约灵枢 AI 产品演示";
+    window.location.href = `mailto:19653282176@163.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setDraftOpened(true);
   }
 
   const privacyHref = english ? "/en/privacy" : "/privacy";
@@ -52,16 +47,6 @@ export function DemoExperience({ submitted = false, english = false }: DemoExper
             </div>
           </div>
 
-          {status === "success" ? (
-            <div className="success-panel" data-reveal role="status">
-              <span>✓</span>
-              <h3>{english ? "Request received" : "预约信息已提交"}</h3>
-              <p>{english ? "Our team will contact you within one business day." : "我们会在 1 个工作日内与你确认演示时间与业务背景。"}</p>
-              <button className="button button-ghost" type="button" onClick={() => setStatus("idle")}>
-                {english ? "Submit another request" : "再提交一条"}
-              </button>
-            </div>
-          ) : (
             <form className="booking-form" data-reveal onSubmit={submit}>
               <input className="form-honey" name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <label>{english ? "Name" : "姓名"}<input name="name" required placeholder={english ? "Your name" : "如何称呼你"} autoComplete="name" maxLength={80} /></label>
@@ -94,12 +79,12 @@ export function DemoExperience({ submitted = false, english = false }: DemoExper
                 <input type="checkbox" name="marketingConsent" value="yes" />
                 <span>{english ? "Optional: I agree to receive occasional product and service updates. I may unsubscribe at any time." : "可选：我愿意接收产品与服务动态，并可随时退订。"}</span>
               </label>
-              {status === "error" && <p className="form-error" role="alert">{english ? "Submission failed. Please try again or email 19653282176@163.com." : "提交失败，请重试或发送邮件至 19653282176@163.com。"}</p>}
-              <button className="button button-primary form-submit" type="submit" disabled={status === "sending"}>
-                {status === "sending" ? (english ? "Submitting…" : "提交中…") : (english ? "Submit request ↗" : "提交预约 ↗")}
+              <p className="form-note">{english ? "This form opens a draft in your email app. Please send it there to complete your request. You can also email " : "填写后将打开邮件草稿，请在邮件应用中点击发送完成预约。也可直接发邮件至 "}<a href="mailto:19653282176@163.com">19653282176@163.com</a>。</p>
+              {draftOpened && <p role="status">{english ? "Email draft requested. Your request has not been sent yet. If no email app opened, send your details to the address above." : "已尝试打开邮件草稿，预约尚未发送。请在邮件应用中确认并发送；如果没有打开，请使用上方邮箱直接联系。"}</p>}
+              <button className="button button-primary form-submit" type="submit">
+                {english ? "Open email draft ↗" : "生成预约邮件 ↗"}
               </button>
             </form>
-          )}
         </div>
       </section>
     </main>
