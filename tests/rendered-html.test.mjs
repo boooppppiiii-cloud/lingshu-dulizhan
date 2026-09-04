@@ -40,9 +40,10 @@ test("keeps the completed homepage modules responsive and motion-accessible", as
 });
 
 test("builds the merged legal and privacy pages", async () => {
-  const [legal, privacy, terms, cookies, acceptableUse] = await Promise.all([
+  const [legal, privacy, dataDeletion, terms, cookies, acceptableUse] = await Promise.all([
     readBuiltPage("legal"),
     readBuiltPage("privacy"),
+    readBuiltPage("data-deletion"),
     readBuiltPage("terms"),
     readBuiltPage("cookies"),
     readBuiltPage("acceptable-use"),
@@ -50,6 +51,9 @@ test("builds the merged legal and privacy pages", async () => {
 
   assert.match(legal, /法律与信任中心/);
   assert.match(privacy, /隐私政策/);
+  assert.match(privacy, /Meta 平台数据的使用/);
+  assert.match(dataDeletion, /用户数据删除说明/);
+  assert.match(dataDeletion, /撤销 Meta 授权/);
   assert.match(terms, /服务条款/);
   assert.match(cookies, /Cookie 与追踪技术/);
   assert.match(acceptableUse, /可接受使用政策/);

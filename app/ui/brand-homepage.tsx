@@ -117,6 +117,7 @@ export function BrandHomepage() {
           <nav aria-label="页尾导航">
             <a href="/legal">法律与信任</a>
             <a href="/privacy">隐私政策</a>
+            <a href="/data-deletion">数据删除</a>
             <a href="/terms">服务条款</a>
           </nav>
         </footer>

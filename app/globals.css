@@ -4470,7 +4470,8 @@ li {
   font-size: 14px;
 }
 
-.legal-copy ul {
+.legal-copy ul,
+.legal-copy ol {
   display: grid;
   gap: 8px;
   margin: 0;

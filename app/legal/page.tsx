@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "法律与信任中心", description: "查看灵枢 AI 的隐私、服务、Cookie 与商务透明信息。" };
+export const metadata: Metadata = { title: "法律与信任中心", description: "查看灵枢 AI 的隐私、数据删除、服务、Cookie 与商务透明信息。" };
 
 const cards = [
   ["隐私政策", "了解我们收集哪些信息、为何处理、保存多久，以及你如何行使数据权利。", "/privacy", "PRIVACY"],
+  ["用户数据删除说明", "撤销 Meta 授权，并请求删除灵枢 AI 保存的账号、平台授权和相关数据。", "/data-deletion", "DATA"],
   ["服务条款", "了解服务范围、平台授权、AI 内容责任、知识产权、取消与退款安排。", "/terms", "TERMS"],
   ["Cookie 与追踪技术", "查看当前网站使用的必要技术，以及 Meta/TikTok 广告衡量工具的启用原则。", "/cookies", "COOKIES"],
   ["可接受使用政策", "了解创意生成、肖像声音、知识产权、欺骗性内容及平台投放的使用边界。", "/acceptable-use", "SAFETY"],

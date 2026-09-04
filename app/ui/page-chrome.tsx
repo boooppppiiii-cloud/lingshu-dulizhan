@@ -48,6 +48,7 @@ function Footer() {
           <strong>法律</strong>
           <Link href="/legal">法律与信任中心</Link>
           <Link href="/privacy">隐私政策</Link>
+          <Link href="/data-deletion">数据删除说明</Link>
           <Link href="/terms">服务条款</Link>
           <Link href="/cookies">Cookie 说明</Link>
           <Link href="/acceptable-use">内容安全政策</Link>

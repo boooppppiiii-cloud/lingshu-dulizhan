@@ -48,7 +48,7 @@ export function LegalDocument({
 
           <div className="legal-notice">
             <strong>快速说明</strong>
-            <p>我们以清晰、必要和可核验为原则处理信息。本页适用于灵枢 AI 官方网站及预约演示流程。</p>
+            <p>我们以清晰、必要和可核验为原则处理信息。本页适用于灵枢 AI 官方网站、产品服务及经授权的第三方平台接入。</p>
           </div>
 
           {sections.map((section, index) => (
