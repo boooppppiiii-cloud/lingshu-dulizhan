@@ -8,6 +8,19 @@ export function HomepageEntrance({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (entered) return;
+
+    const requestedSectionId = window.location.hash
+      ? decodeURIComponent(window.location.hash.slice(1))
+      : "";
+
+    if (requestedSectionId) {
+      const revealFrame = window.requestAnimationFrame(() => {
+        setEntered(true);
+        document.getElementById(requestedSectionId)?.scrollIntoView({ block: "start", behavior: "instant" });
+      });
+      return () => window.cancelAnimationFrame(revealFrame);
+    }
+
     // A reload can restore the old scroll position after React has mounted.
     // Keep the opening at the top without changing the film's layout.
     const keepOpeningInView = () => {

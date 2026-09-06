@@ -18,6 +18,16 @@ const creationItems = [
   ["平台文案", "按渠道长度、语气与标签规则差异化生成"],
 ] as const;
 
+const creationDemoConfig = {
+  industry: "美妆行业 · 示例演示",
+  asset: {
+    src: "/viral-variation-real-scenes-v1.png",
+    alt: "单人展示粉底液的横向使用场景占位素材",
+  },
+  status: "内容制作中",
+  annotation: "使用场景",
+} as const;
+
 const publishItems = [
   "分平台标题、文案与画幅适配",
   "最佳发布时间建议与内容日历",
@@ -57,6 +67,29 @@ function DiscoverScene() {
   );
 }
 
+function CreationDemo({ standalone = false }: { standalone?: boolean }) {
+  return (
+    <div
+      className={`${styles.creationDemo} ${standalone ? styles.creationDemoStandalone : ""}`}
+      aria-label={creationDemoConfig.asset.alt}
+    >
+      <header className={styles.creationDemoHeader}>
+        <span>{creationDemoConfig.industry}</span>
+      </header>
+
+      <figure
+        className={styles.creationMainVisual}
+        style={{ backgroundImage: `url(${creationDemoConfig.asset.src})` }}
+        role="img"
+        aria-label={creationDemoConfig.asset.alt}
+      >
+        <span className={styles.visualStatus}><i />{creationDemoConfig.status}</span>
+        <span className={`${styles.visualAnnotation} ${styles.staticSceneAnnotation}`}>{creationDemoConfig.annotation}</span>
+      </figure>
+    </div>
+  );
+}
+
 function CreateScene() {
   return (
     <div className={`${styles.generatedScene} ${styles.createScene}`}>
@@ -69,6 +102,29 @@ function CreateScene() {
         {creationItems.map(([title], index) => <span key={title}><i>0{index + 1}</i>{title}</span>)}
       </div>
     </div>
+  );
+}
+
+function CreationFeatureCard() {
+  const step = steps[1];
+
+  return (
+    <article className={styles.creationFeatureCard}>
+      <div className={styles.creationFeatureCopy}>
+        <span><i>02</i>{step.eyebrow}</span>
+        <h2>生成能发布的内容，<br />而不只是文案</h2>
+        <p>围绕真实产品资料，<br className={styles.creationDescriptionBreak} />完成短视频、图文和平台文案的连续生产。</p>
+        <div className={styles.creationFeatureList}>
+          {creationItems.map(([title, text]) => (
+            <span key={title}>
+              <strong>{title}</strong>
+              <small>{text}</small>
+            </span>
+          ))}
+        </div>
+      </div>
+      <CreationDemo standalone />
+    </article>
   );
 }
 
@@ -162,11 +218,11 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
 
       <section className={styles.story} id={embedded ? "growth" : "details"} aria-label="社媒增长连续工作流">
         <div className={styles.storyIntro} data-reveal>
-          <span>{embedded ? "SOCIAL GROWTH · 01—04" : "01—04 / CONTINUOUS WORKFLOW"}</span>
+          <span>{embedded ? "SOCIAL GROWTH · 02 / 04" : "01—04 / CONTINUOUS WORKFLOW"}</span>
           <h2>{embedded ? <>把一个产品，变成<em>持续增长</em>的内容系统</> : "从机会发现，到客户回来"}</h2>
           <p>{embedded ? "从趋势与竞品中找到机会，用 AI 生成能发布的内容，统一管理多个平台与账号，并知道每一条询盘从哪里来。" : "产品界面保持在同一个画布中，随着增长链路持续向前。"}</p>
         </div>
-        <div className={styles.storyLayout}>
+        {embedded ? <CreationFeatureCard /> : <div className={styles.storyLayout}>
           <div className={styles.copyColumn}>
             {steps.map((step, index) => (
               <article className={`${styles.storyStep} ${activeStep === index ? styles.activeCopy : ""}`} data-step={index} key={step.eyebrow} ref={(node) => { stepRefs.current[index] = node; }}>
@@ -182,7 +238,7 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
             ))}
           </div>
           <div className={styles.stickyCanvas}><ProductCanvas activeStep={activeStep} /></div>
-        </div>
+        </div>}
       </section>
 
       {!embedded && <section className={styles.cta}>
