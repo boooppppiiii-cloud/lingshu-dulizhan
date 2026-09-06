@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["127.0.0.1", "localhost"],
-  devIndicators: false,
   output: process.env.EDGEONE_STATIC_EXPORT === "1" ? "export" : "standalone",
   trailingSlash: process.env.EDGEONE_STATIC_EXPORT === "1",
   images: { unoptimized: process.env.EDGEONE_STATIC_EXPORT === "1" },
