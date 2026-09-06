@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./social-growth.module.css";
+import { CreationShowcase } from "./creation-showcase";
 
 const insightItems = [
   ["趋势与竞品洞察", "关注市场正在发生什么，也解释内容为什么会火：受众、钩子、结构和卖点一目了然。"],
@@ -160,11 +161,11 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
         </div>
       </section>}
 
-      <section className={styles.story} id={embedded ? "growth" : "details"} aria-label="社媒增长连续工作流">
+      {embedded ? <CreationShowcase /> : <section className={styles.story} id="details" aria-label="社媒增长连续工作流">
         <div className={styles.storyIntro} data-reveal>
-          <span>{embedded ? "SOCIAL GROWTH · 01—04" : "01—04 / CONTINUOUS WORKFLOW"}</span>
-          <h2>{embedded ? <>把一个产品，变成<em>持续增长</em>的内容系统</> : "从机会发现，到客户回来"}</h2>
-          <p>{embedded ? "从趋势与竞品中找到机会，用 AI 生成能发布的内容，统一管理多个平台与账号，并知道每一条询盘从哪里来。" : "产品界面保持在同一个画布中，随着增长链路持续向前。"}</p>
+          <span>01—04 / CONTINUOUS WORKFLOW</span>
+          <h2>从机会发现，到客户回来</h2>
+          <p>产品界面保持在同一个画布中，随着增长链路持续向前。</p>
         </div>
         <div className={styles.storyLayout}>
           <div className={styles.copyColumn}>
@@ -183,7 +184,7 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
           </div>
           <div className={styles.stickyCanvas}><ProductCanvas activeStep={activeStep} /></div>
         </div>
-      </section>
+      </section>}
 
       {!embedded && <section className={styles.cta}>
         <div><span>READY WHEN YOU ARE</span><h2>让每一条内容，都有机会走向客户</h2><p>用你的产品资料，看看灵枢如何完成洞察、生成、发布与询盘归因。</p><Link href="/demo">预约产品演示 <b>↗</b></Link></div>

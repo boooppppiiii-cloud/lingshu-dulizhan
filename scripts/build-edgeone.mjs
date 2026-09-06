@@ -10,7 +10,7 @@ for (const name of ['app', 'public', 'next.config.ts', 'tsconfig.json', 'package
   await cp(path.join(root, name), path.join(stage, name), { recursive: true,
     filter: source => source !== path.join(root, 'app', 'api') });
 }
-await symlink(path.join(root, 'node_modules'), path.join(stage, 'node_modules'), 'dir');
+await symlink(path.join(root, 'node_modules'), path.join(stage, 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
 const result = spawnSync(process.execPath, [path.join(root, 'node_modules/next/dist/bin/next'), 'build', '--webpack'], {
   cwd: stage, stdio: 'inherit', env: { ...process.env, EDGEONE_STATIC_EXPORT: '1' },
 });
