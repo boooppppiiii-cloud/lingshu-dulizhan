@@ -66,7 +66,7 @@ export function BrandHomepage() {
       </section>
 
       <section className={styles.orbitSection} id="content-ecosystem" aria-labelledby="orbit-title">
-        <header className={styles.orbitSectionHeader} data-reveal>
+        <header className={styles.orbitSectionHeader}>
           <span>CONTENT ECOSYSTEM</span>
           <h2 id="orbit-title">一条内容，连接每一个增长触点</h2>
           <p>从机会发现、品牌内容生成到客户持续运营，让每一个环节自然接续。</p>
@@ -74,7 +74,7 @@ export function BrandHomepage() {
         <HeroOrbitGallery />
       </section>
 
-      <section className={styles.ecosystemBar} aria-label="支持的平台生态" data-reveal>
+      <section className={styles.ecosystemBar} aria-label="支持的平台生态">
         <div>
           {platformMarks.map(([name, image]) => (
             <span key={name}>
@@ -99,7 +99,7 @@ export function BrandHomepage() {
           <span>LINGSHU AI · 2026</span>
         </header>
 
-        <div className={styles.closingContent} data-reveal>
+        <div className={styles.closingContent}>
           <h2 id="closing-title">
             灵枢 AI，
             <strong>助力四海生意</strong>
