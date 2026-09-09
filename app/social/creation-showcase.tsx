@@ -32,41 +32,59 @@ function Arrow({ back = false }: { back?: boolean }) {
 }
 
 function DiscoveryDemo({ visible }: { visible: boolean }) {
-  const [detail, setDetail] = useState(0);
+  const video = useRef<HTMLVideoElement>(null);
+  const root = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(true);
   const [inView, setInView] = useState(false);
-  const [reduced, setReduced] = useState(false);
-  const root = useRef<HTMLDivElement>(null);
+  const [muted, setMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
-    const preference = matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(preference.matches);
-    update(); preference.addEventListener("change", update);
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: .25 });
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: .2 });
     if (root.current) observer.observe(root.current);
-    return () => { observer.disconnect(); preference.removeEventListener("change", update); };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) setPlaying(false);
+    return () => observer.disconnect();
   }, []);
-  const running = playing && visible && inView && !reduced;
+  const running = visible && inView && playing;
   useEffect(() => {
-    if (!running) return;
-    const timer = window.setTimeout(() => setDetail(value => (value + 1) % 3), 4500);
-    return () => clearTimeout(timer);
-  }, [running, detail]);
-  const shots = [
-    { label: "场景开场", title: "先让观众，进入场景", note: "开场钩子 · 生活场景引入" },
-    { label: "产品特写", title: "把注意力，交给产品", note: "卖点表达 · 用细节承接兴趣" },
-    { label: "人物讲解", title: "从看见产品，到听懂介绍", note: "内容结构 · 场景 → 产品 → 讲解" },
-  ];
-  return <div ref={root} className={styles.motionDiscovery} data-running={running}>
-    <div className={styles.discoveryFilm}>
-      <div className={styles.discoveryShot} key={detail}>
-        {detail === 1 ? <Image src="/creation-studio/product.png" alt="粉底液产品特写分镜" fill sizes="(max-width:900px) 90vw, 600px" /> : <div className={`${styles.scene} ${styles.lifestyle} ${styles.active}`} role="img" aria-label="女士手持产品的静态素材动态分镜" />}
+    const media = video.current;
+    if (!media) return;
+    if (running) void media.play().catch(() => setPlaying(false));
+    else media.pause();
+  }, [running]);
+  const jump = (index: number) => {
+    const media = video.current;
+    if (!media || !Number.isFinite(media.duration)) return;
+    media.currentTime = media.duration * index / 3;
+    setProgress(index / 3);
+    setPlaying(true);
+  };
+  const detail = Math.min(2, Math.floor(progress * 3));
+  return <div ref={root} className={styles.motionDiscovery}>
+    <div className={`${styles.discoveryFilm} ${styles.videoFilm}`} data-playing={running}>
+      <video ref={video} className={styles.trendVideo} src="/creation-studio/trend-demo.mp4" muted={muted} loop playsInline preload="metadata" aria-label="美妆产品社媒视频示例" onError={() => setFailed(true)} onTimeUpdate={event => {
+        const media = event.currentTarget;
+        if (media.duration > 0) setProgress(media.currentTime / media.duration);
+      }} />
+      <span className={styles.filmLabel}>示例视频 · 互动数据为模拟</span>
+      <div className={styles.floatingComments} aria-hidden="true">
+        {["这个是真好用！！", "有链接吗？", "这个妆感好自然", "求分享色号～"].map((comment,index) => <span key={comment} style={{ animationDelay: `${index * 2.6}s` }}><i />{comment}</span>)}
       </div>
-      <span className={styles.filmLabel}>动态分镜 · 非口播视频</span>
-      <div className={styles.filmCaption} key={`caption-${detail}`}><small>{shots[detail].note}</small><strong>{shots[detail].title}</strong></div>
-      <div className={styles.filmTransport}><div role="group" aria-label="选择洞察分镜">{shots.map((shot,index)=><button type="button" key={shot.label} aria-label={shot.label} aria-pressed={detail===index} onClick={()=>{setDetail(index);}}><span>{shot.label}</span><i className={detail===index ? styles.filmProgress : undefined} key={`${detail}-${index}-${running}`} /></button>)}</div><button type="button" className={styles.filmPlay} aria-label={playing ? "暂停分镜" : "播放分镜"} disabled={reduced} onClick={()=>setPlaying(value=>!value)}>{playing ? "Ⅱ" : "▷"}</button></div>
+      <div className={styles.socialMetrics} aria-label="模拟互动数据：点赞2.8万，评论8888，收藏1万">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 3.5 12.5C-3 5.5 7-1 12 6c5-7 15-.5 8.5 6.5Z" /></svg><b>2.8w</b></span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a9 9 0 0 1-9 9H4l1.5-4A9 9 0 1 1 21 11.5Z" /><path className={styles.commentLines} d="M7 10h10M7 14h6" /></svg><b>8888</b></span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 7 .9-5.1 5 1.2 7-6.2-3.3L5.8 21l1.2-6.8-5.1-5 7-.9Z" /></svg><b>1w</b></span>
+      </div>
+      {failed && <p className={styles.filmCaption}>视频加载失败，请刷新重试。</p>}
+      <div className={styles.filmTransport}>
+        <div role="group" aria-label="跳转视频片段">{["开场", "中段", "收尾"].map((label,index) => <button type="button" key={label} aria-pressed={detail===index} onClick={() => jump(index)}><span>{label}</span><i style={{width: `${Math.max(0, Math.min(1, progress * 3 - index)) * 100}%`}} /></button>)}</div>
+        <button type="button" className={styles.filmPlay} aria-label={muted ? "开启视频声音" : "静音视频"} onClick={() => setMuted(value => !value)}>{muted ? "静音" : "有声"}</button>
+        <button type="button" className={styles.filmPlay} aria-label={playing ? "暂停视频" : "播放视频"} onClick={() => setPlaying(value => !value)}>{playing ? "Ⅱ" : "▷"}</button>
+      </div>
     </div>
   </div>;
-}const platforms = [
+}
+const platforms = [
   { name: "TikTok", icon: "/platform-color-tiktok.svg", format: "9:16 · 短视频", title: "把使用场景放在开头", body: "从日常上妆切入，展示粉底液的使用过程。" },
   { name: "Instagram", icon: "/platform-color-instagram.svg", format: "4:5 · 图文", title: "一张图，讲清产品与场景", body: "产品特写与使用场景组合，搭配简洁图文。" },
   { name: "YouTube", icon: "/platform-color-youtube.svg", format: "9:16 · Shorts", title: "用短片呈现完整过程", body: "开场、产品展示、使用演示，组织成连续内容。" },
