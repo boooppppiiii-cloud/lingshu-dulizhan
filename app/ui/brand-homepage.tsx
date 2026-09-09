@@ -37,7 +37,7 @@ export function BrandHomepage() {
               <a href="#growth">Agent 工作流</a>
               <a href="#service">智能客服</a>
               <a href="#product">增长链路</a>
-              <a className={styles.navAction} href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">
+              <a className={styles.navAction} href="/demo">
                 预约演示
               </a>
             </nav>
@@ -56,7 +56,7 @@ export function BrandHomepage() {
               基于企业专属知识库与 Agent 工作流，贯通市场洞察、内容策划、规模化创作、多平台分发与增长复盘。
             </p>
             <div className={styles.heroActions}>
-              <a className={styles.heroAction} href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">
+              <a className={styles.heroAction} href="/demo">
                 预约产品演示 <b aria-hidden="true">↗</b>
               </a>
             </div>
@@ -106,7 +106,7 @@ export function BrandHomepage() {
           </h2>
           <p>从爆款内容增长到询盘承接，体验灵枢 AI 如何连接整条海外获客链路。</p>
           <div>
-            <a className={styles.closingAction} href="mailto:19653282176@163.com?subject=预约灵枢 AI 产品演示">
+            <a className={styles.closingAction} href="/demo">
               预约产品演示 <b aria-hidden="true">↗</b>
             </a>
           </div>

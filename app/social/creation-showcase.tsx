@@ -108,7 +108,7 @@ export function CreationShowcase() {
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
   const rail = useRef<HTMLDivElement>(null);
-  const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
+  const drag = useRef<{ x: number; left: number; start: number; delta: number; moved: boolean } | null>(null);
   const activeRef = useRef(0);
 
   const goTo = (index: number) => {
@@ -147,22 +147,36 @@ export function CreationShowcase() {
   }, []);
 
   const pointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "mouse" || event.button !== 0 || (event.target as HTMLElement).closest("button,a")) return;
-    drag.current = {x:event.clientX,left:event.currentTarget.scrollLeft,moved:false};
+    if (!event.isPrimary || event.button !== 0 || (event.target as HTMLElement).closest("button,a")) return;
+    drag.current = {x:event.clientX,left:event.currentTarget.scrollLeft,start:activeRef.current,delta:0,moved:false};
     event.currentTarget.setPointerCapture(event.pointerId);
   };
   const pointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!drag.current) return;
     const delta=event.clientX-drag.current.x;
-    if (Math.abs(delta)>6) {drag.current.moved=true; setDragging(true); event.currentTarget.scrollLeft=drag.current.left-delta;}
+    drag.current.delta = delta;
+    if (Math.abs(delta)>6) {
+      event.preventDefault();
+      drag.current.moved=true;
+      // Disable snapping before the first scroll write, not after React renders.
+      event.currentTarget.style.scrollSnapType = "none";
+      event.currentTarget.style.scrollBehavior = "auto";
+      setDragging(true);
+      event.currentTarget.scrollLeft=drag.current.left-delta;
+    }
   };
   const pointerEnd = (event: PointerEvent<HTMLDivElement>) => {
     if (!drag.current) return;
-    const wasMoved=drag.current.moved;
+    const { moved: wasMoved, start, delta } = drag.current;
+    const next = start + (Math.abs(delta) >= 60 ? (delta < 0 ? 1 : -1) : 0);
     drag.current=null;
     if(event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     setDragging(false);
-    if(wasMoved) requestAnimationFrame(()=>goTo(activeRef.current));
+    if(wasMoved) requestAnimationFrame(()=> {
+      rail.current?.style.removeProperty("scroll-snap-type");
+      rail.current?.style.removeProperty("scroll-behavior");
+      goTo(next);
+    });
   };
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.target !== event.currentTarget) return;
@@ -176,7 +190,7 @@ export function CreationShowcase() {
       <div className={styles.stepButtons} role="group" aria-label="选择增长步骤">{workflows.map((step,index)=><button key={step.name} type="button" aria-pressed={active===index} aria-controls={`growth-card-${index}`} onClick={()=>goTo(index)}><span>0{index+1}</span>{step.label}</button>)}</div>
       <div className={styles.arrows}><button type="button" aria-label="上一张卡片" disabled={active===0} onClick={()=>goTo(active-1)}><Arrow back /></button><button type="button" aria-label="下一张卡片" disabled={active===3} onClick={()=>goTo(active+1)}><Arrow /></button></div>
     </div>
-    <div ref={rail} className={`${styles.rail} ${dragging ? styles.dragging : ""}`} role="region" aria-roledescription="轮播" aria-label="四步社媒增长工作流" tabIndex={0} onKeyDown={onKeyDown} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerEnd} onPointerCancel={pointerEnd}>
+    <div ref={rail} className={`${styles.rail} ${dragging ? styles.dragging : ""}`} role="region" aria-roledescription="轮播" aria-label="四步社媒增长工作流" tabIndex={0} onKeyDown={onKeyDown} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerEnd} onPointerCancel={pointerEnd} onDragStart={(event) => event.preventDefault()}>
       {workflows.map((step,index)=><article id={`growth-card-${index}`} key={step.name} className={`${styles.card} ${active===index ? styles.currentCard : ""}`} aria-labelledby={`growth-heading-${index}`} aria-roledescription="幻灯片" aria-label={`${index+1} / 4`} inert={active!==index}>
         <div className={styles.copy}><span className={styles.step}><b>0{index+1}</b>{step.name}</span><h3 id={`growth-heading-${index}`}>{step.title[0]}<br />{step.title[1]}</h3><p>{step.description}</p><dl className={`${styles.features} ${index===0 ? styles.longFeatures : ""}`}>{step.features.map(([title,description],featureIndex)=><div key={title}><FeatureIcon index={featureIndex} /><dt>{title}</dt><dd>{description}</dd></div>)}</dl></div>
         {index===0 ? <DiscoveryDemo visible={active===0} /> : index===1 ? <CreationStudio visible={active===1} /> : index===2 ? <PublishDemo /> : <AttributionDemo />}

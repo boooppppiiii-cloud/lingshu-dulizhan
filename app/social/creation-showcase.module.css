@@ -209,3 +209,5 @@
 .discoveryShot:has(>img){background:radial-gradient(ellipse at 50% 35%,#fffaf1,#e8d8c5);animation:none;opacity:1;transform:none!important}
 .discoveryShot>img{object-fit:contain;object-position:center top;padding:20px 0 112px}
 @media(max-width:540px){.motionDiscovery{padding-bottom:50px}.discoveryFilm{border-radius:20px}.discoveryShot>img{padding:12px 0 100px}}
+
+.rail { touch-action: pan-y pinch-zoom; }

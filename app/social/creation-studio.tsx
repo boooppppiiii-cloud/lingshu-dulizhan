@@ -9,6 +9,7 @@ const steps = ["产品展示", "内容展开", "数字人口播"];
 export function CreationStudio({ visible }: { visible: boolean }) {
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
+  const [selection, setSelection] = useState(0);
   const [inView, setInView] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -21,12 +22,13 @@ export function CreationStudio({ visible }: { visible: boolean }) {
     if (root.current) observer.observe(root.current);
     return () => { observer.disconnect(); media.removeEventListener("change", change); };
   }, []);
+  useEffect(() => { if (visible) setPlaying(true); }, [visible]);
   const running = visible && inView && playing && !reduced;
   useEffect(() => {
     if (!running) return;
-    const timer = window.setTimeout(() => setStep(value => (value + 1) % 3), 5200);
+    const timer = window.setTimeout(() => setStep(value => (value + 1) % 3), 2800);
     return () => clearTimeout(timer);
-  }, [running, step]);
+  }, [running, step, selection]);
   return <div ref={root} className={styles.studio}>
     <div className={styles.stage} data-step={step} data-running={running} onPointerMove={event => {
       if (event.pointerType !== "mouse" || reduced) return;
@@ -44,6 +46,6 @@ export function CreationStudio({ visible }: { visible: boolean }) {
       </div>
       <div className={styles.stageFooter}><span>美妆行业 · 创作流程示意</span><span>0{step + 1} / 03</span></div>
     </div>
-    <div className={styles.controls}><div role="group" aria-label="选择创作展示画面">{steps.map((label,index)=><button key={label} type="button" aria-pressed={step===index} onClick={()=>{setStep(index);}}>{label}</button>)}</div><button className={styles.play} type="button" aria-label={playing ? "暂停创作演示" : "播放创作演示"} onClick={()=>setPlaying(value=>!value)} disabled={reduced}>{playing ? "Ⅱ" : "▷"}</button></div>
+    <div className={styles.controls}><div role="group" aria-label="选择创作展示画面">{steps.map((label,index)=><button key={label} type="button" aria-pressed={step===index} onClick={()=>{setStep(index);setPlaying(true);setSelection(value=>value+1);}}>{label}</button>)}</div><button className={styles.play} type="button" aria-label={playing ? "暂停创作演示" : "播放创作演示"} onClick={()=>setPlaying(value=>!value)} disabled={reduced}>{playing ? "Ⅱ" : "▷"}</button></div>
   </div>;
 }

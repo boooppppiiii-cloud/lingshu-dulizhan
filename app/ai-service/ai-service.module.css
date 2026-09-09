@@ -968,3 +968,9 @@
   .messageStream article:hover { scale: 1; translate: none; }
   .newMemory b { transition: none; }
 }
+
+/* Homepage section headings follow the social growth typography. */
+.learningSection .sectionHeader h2,
+.realDemo .sectionHeader h2 { font-family: var(--font-ui); font-weight: 500; font-size: clamp(34px, 3.35vw, 48px); }
+.learningSection .sectionHeader h2 em,
+.realDemo .sectionHeader h2 em { font-family: inherit; font-weight: inherit; }

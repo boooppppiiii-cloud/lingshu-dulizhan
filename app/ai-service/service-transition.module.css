@@ -31,7 +31,8 @@
   margin: 20px auto 0;
   color: #173d30;
   font-size: clamp(25px, 3.7vw, 50px);
-  font-weight: 480;
+  font-family: var(--font-ui);
+  font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.045em;
   text-wrap: balance;
@@ -50,8 +51,8 @@
   position: relative;
   display: inline-block;
   color: #087f60;
-  font-family: var(--font-display);
-  font-weight: 600;
+  font-family: inherit;
+  font-weight: inherit;
   font-style: normal;
 }
 .bridge h2 em i {
