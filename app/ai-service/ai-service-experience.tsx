@@ -36,6 +36,7 @@ const realMessages = [
   ["ai", "11:39", "Yes, shiny parts can be evaluated. What else needs checking besides scratches?", "可以先评估反光件。除了划伤，还需要检测什么？"],
   ["customer", "12:09", "Missing holes and laser codes too. The line is in Dubai and our integrator needs an English interface.", "还要检测漏孔和激光字符。产线在迪拜，本地集成商需要英文界面。"],
   ["human", "12:21", "Got it — scratches, missing holes and laser codes, with an English HMI for your Dubai integrator. Send me the part size and a few good/bad photos first, then we can judge the lighting setup.", "明白：划伤、漏孔和激光字符，并为迪拜集成商提供英文界面。先发工件尺寸和几张良品/不良品照片，我们再判断打光方案。"],
+  ["customer", "14:29", "The part is about 120 mm. I can send photos today. Do you also need our current cycle time?", "工件大约 120 毫米。我今天可以发照片。还需要我们现在的节拍吗？"],
 ] as const;
 
 const memoryFacts = ["工件大约 120 毫米", "我今天可以发照片", "还需要我们现在的节拍吗？"] as const;
@@ -49,10 +50,8 @@ function ChannelMark({ channel }: { channel: string }) {
 }
 
 function CustomerAvatar({ seed, name, className }: { seed: string; name: string; className?: string }) {
-  const src = `https://api.dicebear.com/9.x/notionists/png?seed=${seed}&size=96&backgroundColor=e8f3ec`;
-  // Avatar artwork is loaded as a small decorative profile image and intentionally bypasses image optimization.
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img className={className} src={src} alt={`${name} 头像`} loading="lazy" />;
+  const initial = name.trim().charAt(0).toUpperCase();
+  return <span className={className} data-seed={seed} aria-hidden="true">{initial}</span>;
 }
 
 
@@ -80,6 +79,7 @@ function MemoryLearningDemo() {
 
   const reset = () => { clearTimers(); setState("idle"); };
   const status = { idle: "等待发送", sending: "消息进入会话", extracting: "正在更新客户上下文", learned: "客户上下文已更新" }[state];
+  const memoryStatus = state === "learned" ? "已更新" : state === "sending" || state === "extracting" ? "更新中" : "1 类私有记忆";
 
   return (
     <section className={styles.learningSection} aria-labelledby="memory-learning-title">
@@ -90,7 +90,7 @@ function MemoryLearningDemo() {
       <div className={`${styles.learningStage} ${styles[`state${state}`]}`}>
         <div className={styles.memoryOrbit} aria-hidden="true" />
         <div className={styles.memoryCard}>
-          <header><i>记</i><div><span>智能体记忆</span><strong>客户上下文</strong></div><b>{state === "learned" ? "已更新" : "1 类私有记忆"}</b></header>
+          <header><i>记</i><div><span>智能体记忆</span><strong>客户上下文</strong></div><b>{memoryStatus}</b></header>
           <div className={styles.memoryPerson}><CustomerAvatar seed="harbor" name="Omar Hassan" className={styles.customerAvatar} /><div><strong>Omar Hassan · Gulf Precision</strong><span>新线索 · 阿联酋·迪拜 · 英语</span></div></div>
           <div className={styles.memoryFields}>
             <span><small>关注产品</small><strong>机器视觉检测工作站</strong></span><span><small>市场</small><strong>阿联酋·迪拜</strong></span>
@@ -126,7 +126,7 @@ function MemoryLearningDemo() {
             />
             <div className={styles.autoTranslation}><span>自动附带英文翻译</span><p>The part is about 120 mm. I can send photos today. Do you also need our current cycle time?</p></div>
           </div>}
-          <div className={styles.inputActions}>{state === "learned" ? <button type="button" onClick={reset}>重新演示</button> : <button type="button" onClick={run} disabled={state !== "idle"}>发送 <span>↗</span></button>}<span><i />{status}</span></div>
+          <div className={styles.inputActions}>{state === "learned" ? <button type="button" onClick={reset}>重新演示</button> : <button type="button" onClick={run} disabled={state !== "idle"}>模拟发送 <span>↗</span></button>}<span><i />{status}</span></div>
         </div>
         <div className={styles.memoryPacket} aria-hidden="true">上下文</div>
         <p className={styles.srOnly} aria-live="polite">{status}</p>
@@ -170,14 +170,14 @@ function RealWorkspaceDemo() {
                 <li className={type === "customer" ? styles.incomingRow : styles.outgoingRow} key={time} style={{ "--index": index } as CSSProperties}>
                   <article className={styles[`${type}Message`]}>
                     <header>{type !== "customer" && <span>{type === "ai" ? "AI 回复" : "我的回复"}</span>}<time>{time}</time></header>
-                    <p>{text}</p>
+                    <p lang="en">{text}</p>
                     <small><b>中文翻译：</b>{translation}</small>
                     {type !== "customer" && <footer><span>{type === "ai" ? "AI 自动回复" : "AI 草稿 · 人工改过"}</span><span>已用学习记忆</span><span>已送达</span></footer>}
                   </article>
                 </li>
               ))}
             </ol>
-            <div className={styles.composer}>输入中文回复…<button>发送</button></div>
+            <div className={styles.composer}>输入中文回复…<span aria-hidden="true">发送</span></div>
           </div>
           <aside className={styles.insightCard} id="real-demo-context" aria-label="客户判断摘要">
             <button className={styles.contextBack} type="button" onClick={() => setShowInsights(false)}>← 返回会话</button>
@@ -186,7 +186,7 @@ function RealWorkspaceDemo() {
             <div className={styles.summary}><span>当前沟通阶段</span><strong>潜客</strong><p>迪拜精密金属件加工商，希望检测反光铝件的划伤、漏孔和字符，关心英文界面及本地集成。</p></div>
             <div className={styles.nextStep}><span>下一步推进建议</span><p>收取三类不良样件照片、工件尺寸和当前节拍，判断打光与相机方案</p></div>
             <div className={styles.signalTags}><span>来自迪拜</span><span>明确检测对象</span><span>询问本地集成</span></div>
-            <button type="button">查看 AI 判断依据 <span>↗</span></button>
+            <div className={styles.insightLink}>查看 AI 判断依据 <span>↗</span></div>
           </aside>
         </div>
       </div>

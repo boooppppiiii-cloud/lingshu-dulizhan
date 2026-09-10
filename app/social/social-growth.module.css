@@ -230,11 +230,11 @@
   align-items: center;
   gap: 25px;
   grid-template-columns: 32px minmax(0, 1fr);
-  opacity: 0.42;
-  transition: opacity 360ms ease;
+  opacity: 1;
 }
 
-.activeCopy { opacity: 1; }
+.storyStep > div { transition: transform 360ms ease; }
+.activeCopy > div { transform: translateX(5px); }
 
 .storyStep > button {
   display: flex;
@@ -246,6 +246,11 @@
   background: transparent;
   cursor: pointer;
   flex-direction: column;
+}
+
+.storyStep > button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 5px;
 }
 
 .storyStep > button span {
@@ -463,6 +468,74 @@
 .attributionRecord strong { margin-top: 6px; color: #fff; font-size: 9px; }
 .attributionRecord small { margin-top: 4px; color: rgba(255, 255, 255, 0.4); font-size: 6px; }
 
+.learnScene {
+  background:
+    radial-gradient(circle at 72% 30%, rgba(205, 245, 101, 0.2), transparent 26%),
+    linear-gradient(145deg, #e7f2eb, #f9fcfa);
+}
+
+.learningSignal {
+  position: absolute;
+  top: 92px;
+  right: 9%;
+  left: 9%;
+  height: 150px;
+  border-bottom: 1px solid rgba(8, 127, 96, 0.14);
+}
+
+.learningSignal i {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(8, 127, 96, 0.08);
+}
+
+.learningSignal i:nth-child(1) { left: 4%; bottom: 18%; }
+.learningSignal i:nth-child(2) { left: 32%; bottom: 39%; }
+.learningSignal i:nth-child(3) { left: 61%; bottom: 57%; }
+.learningSignal i:nth-child(4) { right: 3%; bottom: 82%; background: var(--lime); }
+.learningSignal b {
+  position: absolute;
+  right: 3%;
+  bottom: 23%;
+  left: 4%;
+  height: 64%;
+  border-top: 2px solid rgba(8, 127, 96, 0.55);
+  border-radius: 50% 50% 0 0;
+  transform: skewY(-8deg);
+}
+
+.learningGrid {
+  position: absolute;
+  right: 5%;
+  bottom: 88px;
+  left: 5%;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.learningGrid article {
+  min-height: 112px;
+  padding: 14px;
+  border: 1px solid rgba(16, 44, 36, 0.1);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 15px 34px rgba(16, 67, 51, 0.07);
+  animation: calloutIn 500ms calc(var(--item) * 90ms) both;
+}
+
+.learningGrid span { color: var(--green); font-size: 7px; font-weight: 760; }
+.learningGrid strong { display: block; margin-top: 16px; color: #20483c; font-size: 10px; }
+.learningGrid p { margin: 6px 0 0; color: #526d62; font-size: 8px; line-height: 1.5; }
+.learningAction { position: absolute; right: 17%; bottom: 28px; left: 17%; display: grid; min-height: 48px; align-items: center; gap: 9px; padding: 0 15px; border: 1px solid rgba(8, 127, 96, 0.14); border-radius: 13px; background: #102c24; color: #fff; grid-template-columns: auto 1fr auto; }
+.learningAction span { color: #9db4aa; font-size: 7px; }
+.learningAction strong { font-size: 8px; font-weight: 650; text-align: center; }
+.learningAction i { color: var(--lime); font-style: normal; }
+
 .cta {
   position: relative;
   display: grid;
@@ -477,6 +550,9 @@
 .cta h2 { max-width: 760px; margin: 23px 0 0; font-size: clamp(48px, 5.8vw, 78px); font-weight: 510; letter-spacing: -0.055em; line-height: 1.04; }
 .cta p { max-width: 590px; margin: 22px 0 0; color: rgba(255, 255, 255, 0.58); font-size: 15px; line-height: 1.8; }
 .cta a { width: fit-content; margin-top: 32px; }
+.ctaActions { display: flex; flex-wrap: wrap; gap: 10px; }
+.ctaActions a:last-child { border-color: rgba(255, 255, 255, 0.24); background: transparent; color: #fff; }
+.ctaActions a:last-child:hover { border-color: rgba(255, 255, 255, 0.52); background: rgba(255, 255, 255, 0.08); }
 .ctaOrbit { position: relative; height: 420px; }
 .ctaOrbit::before,
 .ctaOrbit::after { position: absolute; top: 50%; left: 50%; border: 1px solid rgba(205, 245, 101, 0.15); border-radius: 50%; content: ""; transform: translate(-50%, -50%); }
@@ -492,6 +568,18 @@
 @keyframes verticalScan { 0%, 10% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 80%, 100% { transform: translateY(500px); opacity: 0; } }
 @keyframes orbitNode { from { transform: rotate(0deg) translateX(140px); } to { transform: rotate(360deg) translateX(140px); } }
 @keyframes chartRise { from { opacity: 0; transform: scaleY(0); } to { opacity: 1; transform: scaleY(1); } }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 @media (max-width: 1080px) {
   .hero { min-height: auto; padding-top: 132px; }
@@ -521,6 +609,8 @@
   .heroCopy p { font-size: 14px; }
   .heroActions { display: grid; grid-template-columns: 1fr; }
   .heroActions a { justify-content: space-between; }
+  .ctaActions { display: grid; grid-template-columns: 1fr; }
+  .ctaActions a { width: 100%; justify-content: space-between; }
   .heroProduct { padding: 34px 7px 7px; border-radius: 16px; }
   .heroProduct img { border-radius: 10px; }
   .story { padding: 80px 16px 100px; }
@@ -562,18 +652,28 @@
   .attributionFlow { right: 2%; left: 2%; }
   .attributionFlow img, .attributionFlow article > i { width: 38px; height: 38px; padding: 9px; }
   .attributionRecord { right: 10%; left: 10%; }
+  .learningSignal { top: 64px; height: 104px; }
+  .learningGrid { bottom: 72px; grid-template-columns: repeat(2, 1fr); }
+  .learningGrid article { min-height: 72px; padding: 9px; }
+  .learningGrid strong { margin-top: 7px; }
+  .learningAction { right: 8%; bottom: 17px; left: 8%; }
   .cta { min-height: 590px; padding: 94px 18px; }
   .cta h2 { font-size: 48px; }
+}
+
+@media (max-height: 620px) and (min-width: 641px) {
+  .stickyCanvas { position: relative; top: auto; height: 520px; min-height: 0; }
+  .storyStep { min-height: auto; padding: 72px 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .heroScan,
   .scanLine,
   .ctaOrbit i,
-  .discoverCallouts span { animation: none; }
+  .discoverCallouts span,
+  .learningGrid article { animation: none; }
   .canvasScene,
-  .storyStep,
   .heroActions a,
   .cta a { transition: none; }
-  .storyStep > button { scroll-behavior: auto; }
+  .storyStep > div { transition: none; }
 }

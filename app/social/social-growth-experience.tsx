@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./social-growth.module.css";
-import { CreationShowcase } from "./creation-showcase";
 
 const insightItems = [
   ["趋势与竞品洞察", "关注市场正在发生什么，也解释内容为什么会火：受众、钩子、结构和卖点一目了然。"],
@@ -28,11 +27,19 @@ const publishItems = [
 
 const attributionPath = ["TikTok 视频", "WhatsApp CTA", "新询盘", "客户详情"] as const;
 
+const learningItems = [
+  ["内容机会", "哪些主题正在增长"],
+  ["询盘来源", "哪些内容真正带来对话"],
+  ["客户质量", "哪些平台产生高意向客户"],
+  ["下一步建议", "继续做什么、停止做什么"],
+] as const;
+
 const steps = [
   { eyebrow: "DISCOVER", title: "看趋势，也看为什么会火", description: "不做泛化的数据大屏，只聚焦能转成下一条内容的机会。" },
   { eyebrow: "CREATE", title: "生成能发布的内容，而不只是文案", description: "围绕真实产品资料，完成短视频、图文和平台文案的连续生产。" },
   { eyebrow: "PUBLISH", title: "一次配置，多平台、多账号差异化发布", description: "统一排期，但不强行复用同一份标题和文案。每个平台都保留自己的发布逻辑。" },
   { eyebrow: "CONTENT ATTRIBUTION", title: "不只看播放量，更知道客户从哪条内容来", description: "每条发布自动附加独立 WhatsApp 追踪入口。客户发来消息后，平台、账号、视频标题与发布时间一起进入客户档案。" },
+  { eyebrow: "LEARN", title: "让客户问题，反哺下一轮内容", description: "把播放、互动、询盘来源和客户质量放到一起复盘，下一轮内容不再只追求流量。" },
 ] as const;
 
 const platformIcons = [
@@ -111,11 +118,28 @@ function AttributionScene() {
   );
 }
 
-function ProductCanvas({ activeStep }: { activeStep: number }) {
-  const scenes = [<DiscoverScene key="discover" />, <CreateScene key="create" />, <PublishScene key="publish" />, <AttributionScene key="attribution" />];
+function LearnScene() {
   return (
-    <div className={styles.productCanvas} aria-live="polite">
-      <header className={styles.canvasHeader}><div><i /><i /><i /></div><span>产品 → 内容 → 多平台 → 询盘</span><b>0{activeStep + 1} / 0{steps.length}</b></header>
+    <div className={`${styles.generatedScene} ${styles.learnScene}`}>
+      <header className={styles.sceneToolbar}><span><i />增长复盘</span><b>下一轮内容建议已生成</b></header>
+      <div className={styles.learningSignal} aria-hidden="true"><i /><i /><i /><i /><b /></div>
+      <div className={styles.learningGrid}>
+        {learningItems.map(([title, text], index) => (
+          <article key={title} style={{ "--item": index } as CSSProperties}>
+            <span>0{index + 1}</span><strong>{title}</strong><p>{text}</p>
+          </article>
+        ))}
+      </div>
+      <div className={styles.learningAction}><span>复盘结论</span><strong>客户问题已进入下一轮创作建议</strong><i>→</i></div>
+    </div>
+  );
+}
+
+function ProductCanvas({ activeStep }: { activeStep: number }) {
+  const scenes = [<DiscoverScene key="discover" />, <CreateScene key="create" />, <PublishScene key="publish" />, <AttributionScene key="attribution" />, <LearnScene key="learn" />];
+  return (
+    <div className={styles.productCanvas} aria-hidden="true">
+      <header className={styles.canvasHeader}><div><i /><i /><i /></div><span>产品 → 内容 → 多平台 → 询盘 → 复盘</span><b>0{activeStep + 1} / 0{steps.length}</b></header>
       <div className={styles.canvasBody}>
         {scenes.map((scene, index) => <div className={`${styles.canvasScene} ${activeStep === index ? styles.activeScene : ""}`} aria-hidden={activeStep !== index} key={index}>{scene}</div>)}
       </div>
@@ -139,8 +163,8 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
   }, []);
 
   const goToStep = (index: number) => {
-    setActiveStep(index);
-    stepRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    stepRefs.current[index]?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
   };
 
   const content = (
@@ -154,16 +178,16 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
             <div className={styles.heroActions}><a href="#details">查看完整能力 <b>↓</b></a><Link href="/demo">预约产品演示 <b>↗</b></Link></div>
           </div>
           <div className={styles.heroProduct} data-reveal>
-            <div className={styles.heroProductLabel}>产品 → 内容 → 多平台 → 询盘</div>
+            <div className={styles.heroProductLabel}>产品 → 内容 → 多平台 → 询盘 → 复盘</div>
             <Image src="/lingshu-product-flow-v1.png" alt="灵枢 AI 社媒增长产品链路" width={1672} height={941} priority sizes="(max-width: 900px) 92vw, 54vw" />
             <div className={styles.heroScan} aria-hidden="true" />
           </div>
         </div>
       </section>}
 
-      {embedded ? <CreationShowcase /> : <section className={styles.story} id="details" aria-label="社媒增长连续工作流">
+      <section className={styles.story} id={embedded ? "growth" : "details"} aria-label="社媒增长连续工作流">
         <div className={styles.storyIntro} data-reveal>
-          <span>01—04 / CONTINUOUS WORKFLOW</span>
+          <span>01—05 / CONTINUOUS WORKFLOW</span>
           <h2>从机会发现，到客户回来</h2>
           <p>产品界面保持在同一个画布中，随着增长链路持续向前。</p>
         </div>
@@ -171,23 +195,25 @@ export function SocialGrowthExperience({ embedded = false }: { embedded?: boolea
           <div className={styles.copyColumn}>
             {steps.map((step, index) => (
               <article className={`${styles.storyStep} ${activeStep === index ? styles.activeCopy : ""}`} data-step={index} key={step.eyebrow} ref={(node) => { stepRefs.current[index] = node; }}>
-                <button type="button" onClick={() => goToStep(index)} aria-label={`查看 ${step.title}`}><span>0{index + 1}</span><i /></button>
+                <button type="button" onClick={() => goToStep(index)} aria-current={activeStep === index ? "step" : undefined} aria-label={`查看 ${step.title}`}><span>0{index + 1}</span><i /></button>
                 <div>
                   <small>{step.eyebrow}</small><h2>{step.title}</h2><p>{step.description}</p>
                   {index === 0 && <div className={styles.detailList}>{insightItems.map(([title, text]) => <span key={title}><strong>{title}</strong>{text}</span>)}</div>}
                   {index === 1 && <div className={styles.detailList}>{creationItems.map(([title, text]) => <span key={title}><strong>{title}</strong>{text}</span>)}</div>}
                   {index === 2 && <div className={styles.plainList}>{publishItems.map((item) => <span key={item}>{item}</span>)}</div>}
                   {index === 3 && <div className={styles.pathList}>{attributionPath.map((item, pathIndex) => <span key={item}><i>{pathIndex + 1}</i>{item}</span>)}</div>}
+                  {index === 4 && <div className={styles.detailList}>{learningItems.map(([title, text]) => <span key={title}><strong>{title}</strong>{text}</span>)}</div>}
                 </div>
               </article>
             ))}
           </div>
           <div className={styles.stickyCanvas}><ProductCanvas activeStep={activeStep} /></div>
         </div>
-      </section>}
+        <p className={styles.srOnly} aria-live="polite">第 {activeStep + 1} 步，共 {steps.length} 步：{steps[activeStep].title}</p>
+      </section>
 
       {!embedded && <section className={styles.cta}>
-        <div><span>READY WHEN YOU ARE</span><h2>让每一条内容，都有机会走向客户</h2><p>用你的产品资料，看看灵枢如何完成洞察、生成、发布与询盘归因。</p><Link href="/demo">预约产品演示 <b>↗</b></Link></div>
+        <div><span>READY WHEN YOU ARE</span><h2>让每一条内容，都有机会走向客户</h2><p>用你的产品资料，看看灵枢如何完成洞察、生成、发布与询盘归因。</p><div className={styles.ctaActions}><Link href="/demo">预约产品演示 <b>↗</b></Link><a href="mailto:19653282176@163.com">联系增长顾问</a></div></div>
         <div className={styles.ctaOrbit} aria-hidden="true"><i /><i /><i /><i /></div>
       </section>}
     </>

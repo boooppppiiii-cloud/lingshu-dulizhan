@@ -534,7 +534,7 @@
 .memoryPerson { padding: 22px 0 19px; }
 .memoryPerson > i,
 .inputPerson > i { display: grid; width: 40px; height: 40px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #e8f0eb; color: #3d6155; font-size: 12px; font-style: normal; font-weight: 750; }
-.customerAvatar { width: 40px; height: 40px; flex: 0 0 auto; border: 1px solid rgba(16, 67, 51, 0.1); border-radius: 50%; background: #e8f3ec; object-fit: cover; }
+.customerAvatar { display: grid; width: 40px; height: 40px; flex: 0 0 auto; place-items: center; border: 1px solid rgba(16, 67, 51, 0.1); border-radius: 50%; background: #e8f3ec; color: #315d4f; font-size: 12px; font-weight: 760; }
 .memoryPerson div strong,
 .memoryPerson div span,
 .inputPerson div strong,
@@ -584,7 +584,7 @@
 .learningConversation article header { display: flex; align-items: center; justify-content: space-between; color: #688076; font-size: 9px; }
 .learningCustomerBubble header { justify-content: flex-end !important; }
 .learningConversation article p { margin: 7px 0 8px; color: #24493d; font-size: 12px; line-height: 1.55; }
-.learningConversation article small { display: block; padding-top: 8px; border-top: 1px solid rgba(16, 67, 51, 0.08); color: #6c8279; font-size: 9px; line-height: 1.5; }
+.learningConversation article small { display: block; padding-top: 8px; border-top: 1px solid rgba(16, 67, 51, 0.08); color: #4f6b61; font-size: 10px; line-height: 1.5; }
 .learningAiBubble { align-self: flex-start; background: #e6f5ec; }
 .learningCustomerBubble { align-self: flex-end; background: #f1f4e6; animation: customerMessageIn 520ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .learningComposer { padding: 13px; border: 1px solid rgba(8, 127, 96, 0.16); border-radius: 15px; background: #f8fbf9; box-shadow: inset 0 1px rgba(255, 255, 255, 0.9); }
@@ -596,6 +596,9 @@
 .inputActions { margin-top: 16px; }
 .inputActions button { min-height: 42px; padding: 0 17px; border: 0; border-radius: 999px; background: var(--green); color: #fff; cursor: pointer; font-size: 10px; font-weight: 750; transition: opacity 180ms ease, transform 180ms ease; }
 .inputActions button:hover { transform: translateY(-2px); }
+.inputActions button:focus-visible,
+.chatTools > button:focus-visible,
+.contextBack:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 .inputActions button:disabled { cursor: wait; opacity: 0.52; }
 .inputActions > span { display: flex; align-items: center; gap: 7px; color: #73877e; font-size: 9px; }
 .inputActions > span i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 5px rgba(8, 127, 96, 0.08); }
@@ -696,18 +699,18 @@
 }
 
 .inbox > header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 5px; padding: 0 15px 15px; }
-.inbox > header strong { display: flex; align-items: center; gap: 7px; font-size: 9px; }
+.inbox > header strong { display: flex; align-items: center; gap: 7px; font-size: 10px; }
 .inbox > header strong i { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
-.inbox > header span { color: #84928a; font-size: 7px; }
+.inbox > header span { color: #657a70; font-size: 8px; }
 .inbox > nav { display: flex; gap: 5px; padding: 0 12px 12px; }
-.inbox > nav > * { padding: 5px 8px; border-radius: 999px; color: #819088; font-size: 7px; white-space: nowrap; }
+.inbox > nav > * { padding: 5px 8px; border-radius: 999px; color: #60766b; font-size: 8px; white-space: nowrap; }
 .inbox > nav b { background: #102c24; color: #fff; }
 .inbox article { position: relative; display: grid; min-height: 85px; align-items: start; gap: 7px; padding: 14px 10px; border-top: 1px solid rgba(16, 44, 36, 0.06); grid-template-columns: 30px minmax(0, 1fr); }
 .inbox article > i { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid rgba(16, 44, 36, 0.08); border-radius: 50%; background: #fff; color: #53685e; font-size: 9px; font-style: normal; font-weight: 700; }
-.inboxAvatar { width: 30px; height: 30px; border: 1px solid rgba(16, 67, 51, 0.1); border-radius: 50%; background: #e8f3ec; object-fit: cover; }
+.inboxAvatar { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid rgba(16, 67, 51, 0.1); border-radius: 50%; background: #e8f3ec; color: #315d4f; font-size: 9px; font-weight: 760; }
 .inbox article > div { min-width: 0; }
-.inbox article > div > strong { display: block; overflow: hidden; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-.inbox article small { display: block; margin-top: 8px; overflow: hidden; color: #819088; font-size: 7px; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
+.inbox article > div > strong { display: block; overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.inbox article small { display: block; margin-top: 8px; overflow: hidden; color: #60766b; font-size: 8px; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
 .inbox article small img { display: inline-block; width: 10px; height: 10px; margin-right: 3px; vertical-align: -2px; }
 .inbox article small b { margin-right: 5px; padding: 3px 5px; border-radius: 999px; background: #e45757; color: #fff; font-size: 6px; }
 .inbox article time { grid-column: 2; color: #70847a; font-size: 9px; }
@@ -763,32 +766,32 @@
 .aiMessage > small,
 .humanMessage > small { color: #537267 !important; border-color: rgba(16, 67, 51, 0.1) !important; }
 .composer { display: flex; min-height: 52px; flex-shrink: 0; align-items: center; justify-content: space-between; margin: 0 14px 13px; padding: 0 9px 0 16px; border: 1px solid rgba(16, 44, 36, 0.08); border-radius: 12px; background: rgba(244, 248, 245, 0.96); color: #71887b; font-size: 11px; box-shadow: 0 8px 24px rgba(16, 44, 36, 0.05); }
-.composer button { height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--green); color: #fff; font-size: 9px; }
+.composer > span { display: grid; height: 36px; padding: 0 14px; place-items: center; border-radius: 999px; background: var(--green); color: #fff; font-size: 9px; }
 
 .insightCard { min-height: 0; padding: 17px 14px; border-left: 1px solid rgba(16, 44, 36, 0.08); border-radius: 0 22px 22px 0; background: rgba(246, 250, 247, 0.78); }
 .insightCard > header { display: grid; align-items: center; gap: 9px; padding-bottom: 16px; border-bottom: 1px solid rgba(16, 44, 36, 0.07); grid-template-columns: 32px 1fr auto; }
 .insightCard > header > i { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 10px; background: #dcefe4; color: var(--green); font-size: 7px; font-style: normal; font-weight: 750; }
 .insightCard > header > div span,
 .insightCard > header > div strong { display: block; }
-.insightCard > header > div span { color: #7f8e86; font-size: 7px; }
-.insightCard > header > div strong { margin-top: 2px; font-size: 8px; }
-.insightCard > header > b { color: var(--green); font-size: 6px; letter-spacing: 0.08em; }
+.insightCard > header > div span { color: #61766c; font-size: 9px; }
+.insightCard > header > div strong { margin-top: 2px; font-size: 10px; }
+.insightCard > header > b { color: var(--green); font-size: 8px; letter-spacing: 0.08em; }
 .score,
 .summary,
 .nextStep { padding: 15px 2px; border-bottom: 1px solid rgba(16, 44, 36, 0.07); }
 .score { display: grid; align-items: center; gap: 8px; grid-template-columns: 1fr auto; }
 .score > span,
 .summary > span,
-.nextStep > span { color: #7d8c84; font-size: 7px; }
+.nextStep > span { color: #5f746a; font-size: 9px; }
 .score > strong { color: var(--green); font-size: 17px; }
 .score > i { height: 4px; overflow: hidden; border-radius: 999px; background: #dfe9e2; grid-column: 1 / -1; }
 .score > i b { display: block; width: 63%; height: 100%; border-radius: inherit; background: var(--green); animation: scoreFill 900ms 900ms ease both; transform-origin: left; }
 .summary strong { display: block; margin-top: 6px; font-size: 9px; }
 .summary p,
-.nextStep p { margin: 7px 0 0; color: #5d7066; font-size: 10px; line-height: 1.75; }
+.nextStep p { margin: 7px 0 0; color: #50675c; font-size: 11px; line-height: 1.75; }
 .signalTags { display: flex; flex-wrap: wrap; gap: 4px; padding: 13px 0; }
-.signalTags span { padding: 4px 6px; border-radius: 999px; background: #e6efe9; color: #5b7165; font-size: 6px; }
-.insightCard > button { display: flex; width: 100%; min-height: 36px; align-items: center; justify-content: space-between; padding: 0 10px; border: 0; border-radius: 10px; background: #102c24; color: #fff; font-size: 7px; }
+.signalTags span { padding: 4px 6px; border-radius: 999px; background: #e6efe9; color: #4d675a; font-size: 8px; }
+.insightLink { display: flex; width: 100%; min-height: 38px; align-items: center; justify-content: space-between; padding: 0 10px; border-radius: 10px; background: #102c24; color: #fff; font-size: 9px; }
 .insightCard > .contextBack { display: none; }
 
 .cta {
